@@ -33,7 +33,38 @@
                 <h4>TERMS OF SERVICE/PRIVACY POLICY</h4>
                 <p style="font-size:14px;"><a href="">Click here to view</a></p><br><br>
                 <h4>SOCIAL MEDIA</h4>
-                <p style="font-size:14px;"><b>social media icons</b></p>
+                <div class="top-social-wrapper">
+                    <div class="social-icon">
+                        <a href="http://instagram.com/cashtocrypto#" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/digg.png" alt="Digg">
+                        </a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="mailto:support@cashtocrypto.com" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/email.png" alt="Email">
+                        </a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://www.facebook.com/cashtocrypto" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/facebook.png" alt="Facebook">
+                        </a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://www.linkedin.com/company/cashtocrypto-llc?trk=company_name" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/linkedin.png" alt="Linkedin">
+                        </a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://twitter.com/CashToCrypto" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/twitter.png" alt="Twitter">
+                        </a>
+                    </div>
+                    <div class="social-icon">
+                        <a href="https://www.youtube.com/channel/UCALloGpRbO1cJ-qR3wAa5Pg" target="_blank">
+                            <img width="32" height="32" src="http://www.cashtocrypto.com/wp-content/themes/flawless-v1-01/images/light/social-icon/youtube.png" alt="Youtube">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

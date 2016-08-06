@@ -7,8 +7,9 @@
         <title>Bitcoin Depot - @yield('title')</title>
 
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
+        {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,18 +27,18 @@
         @yield('content')
 
         @include('partials.footer')
-
+        {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         <!-- Register form validation -->
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="js/validator.min.js"></script>
-        <script scr="js/bootstrap-formhelpers-phone.js"></script>
-        <script src="js/bootstrap-formhelpers.min.js"></script>
+        <script src="/js/validator.min.js"></script>
+        <script scr="/js/bootstrap-formhelpers-phone.js"></script>
+        <script src="/js/bootstrap-formhelpers.min.js"></script>
         <!-- custom JS -->
-        <script src="js/custom.js"></script>
+        <script src="/js/custom.js"></script>
 
     </body>
 </html>

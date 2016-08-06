@@ -28,14 +28,7 @@ h4 {
     padding: 15px 20px;
     font-size:14px;
 }
-/* bootstrp button */
-.btn-link {
-    color:white;
-}
-.btn-link:hover {
-    color:white;
-    text-decoration:none;
-}
+
 /* menu item dropdown font-size */
 .dropdown-font-size {
     font-size:14px;
@@ -177,4 +170,14 @@ div .panel-body {
 .font-main {
     font-size: 16px;
     font-weight: 300px;
+}
+
+
+.social-icon {
+    margin-right: 5px;
+    float: left;
+}
+.social-icon img {
+    width: 24px;
+    height: 24px;
 }

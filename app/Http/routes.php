@@ -18,3 +18,20 @@ Route::get('/', function () {
 Route::get('/buy-bitcoins', function () {
     return view('buy.index', ["ourbitcoinprice" => 1000]);
 });
+
+Route::get('/how-to', function () {
+    return view('help.index');
+});
+
+Route::get('/contact-us', function () {
+    return view('contact.index');
+});
+
+Route::get('/blog', function () {
+    return view('blog.index');
+});
+
+Route::get('/faq', function () {
+    return view('faq.index');
+});
+Route::auth();
