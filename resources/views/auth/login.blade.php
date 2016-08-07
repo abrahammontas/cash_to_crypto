@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', 'Login')
 @section('content')
 
 <div class="wrapper" style="background-color:#f2f2f2">
@@ -9,12 +9,12 @@
                 <div class="form-border">
                     <h4 class="form-title-font" style="font-size:24px; margin-bottom:15px; line-height:30px;">Login or <a href="{{ url('/register') }}">Register</a> to Buy Bitcoins</h4>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="sr-only col-md-4 control-label">E-Mail Address</label>
-                            <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
+                            <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -25,7 +25,7 @@
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="sr-only col-md-4 control-label">Password</label>
-                            <input id="password" type="password" class="form-control" placeholder="Password" name="password">
+                            <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
 
                             @if ($errors->has('password'))
                                 <span class="help-block">
@@ -41,6 +41,8 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="help-block with-errors"></div>
+
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-success form-control">
