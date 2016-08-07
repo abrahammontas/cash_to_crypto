@@ -86,38 +86,4 @@
         </div>
     </div>
 </div>
-
-<div class="wrapper" style="background-color:#f2f2f2">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="form-border">
-                    <h4 class="text-center" style="margin-bottom:10px; margin-top:10px; font-weight:400;">Login or <a href="register.php">Register</a> to Buy Bitcoins</h4>
-                    <hr>
-                    <form action="includes/login.php" method="post">
-                        <div class="form-group form-inline">
-                            <label for="order_key"><b>Email</b></label>
-                            <input type="number" name="user_email" class="form-control pull-right" style="width:75%;" required>
-                        </div>
-                        <hr>
-                        <div class="form-group form-inline">
-                            <label for="email"><b>Password</b></label>
-                            <input type="text" name="user_password" class="form-control pull-right" style="width:75%;" required>
-                        </div>
-                        <hr>
-                        <div class="form-group text-center" style="margin-bottom:0px;">
-                            <input class="btn btn-success text-center" style="padding: 10px 20px;" type="submit" name="order-status" value="Login">
-                        </div>
-                    </form>
-                </div>
-                <?php if(!empty($message)) { ?>
-                <div class="form-border" style="background-color:#e6e6e6; padding:5px 18px 10px 18px; margin-top:-50px;">
-                    <p class="text-center" style="font-size:14px"><?php echo $message; ?></p>
-                </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection

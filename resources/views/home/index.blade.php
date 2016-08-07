@@ -16,7 +16,7 @@
                         <h3 class="text-left" style="color:white; text-shadow: 1px 1px 1px black; padding-top:10px;">Safe, Fast, Reliable. What more could you ask for?</h3>
                     </div>
                     <div class="col-xs-4 text-center">
-                        <h3><button type="button" class="btn btn-success" style="margin-right:35%; border:1px solid black;"><h4><a href="buy-bitcoins.php" class="btn-link">BUY NOW</a></h4></button></h3>
+                        <h3><button type="button" class="btn btn-success" style="margin-right:35%; border:1px solid black;"><h4><a href="{{route('buy')}}" class="btn-link">BUY NOW</a></h4></button></h3>
                     </div>
                 </div>
             </div>

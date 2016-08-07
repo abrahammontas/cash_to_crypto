@@ -15,23 +15,24 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('/buy-bitcoins', function () {
-    return view('buy.index', ["ourbitcoinprice" => 1000]);
-});
-
-Route::get('/how-to', function () {
+Route::get('/how-to', ['as' => 'howto', function () {
     return view('help.index');
-});
+}]);
 
-Route::get('/contact-us', function () {
+Route::get('/contact-us', ['as' => 'contacts', function () {
     return view('contact.index');
-});
+}]);
 
-Route::get('/blog', function () {
+Route::get('/blog', ['as' => 'blog', function () {
     return view('blog.index');
-});
+}]);
 
-Route::get('/faq', function () {
+Route::get('/faq', ['as' => 'faq', function () {
     return view('faq.index');
-});
+}]);
+
 Route::auth();
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/buy-bitcoins', ['as' => 'buy', 'uses' => 'BuyController@index']);
+});
