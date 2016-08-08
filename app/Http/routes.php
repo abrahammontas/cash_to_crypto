@@ -35,4 +35,5 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/buy-bitcoins', ['as' => 'buy', 'uses' => 'BuyController@index']);
+	Route::post('/buy-bitcoins', ['as' => 'buy', 'uses' => 'BuyController@order']);
 });
