@@ -9,6 +9,7 @@
         <!-- Bootstrap -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

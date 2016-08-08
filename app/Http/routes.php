@@ -34,6 +34,10 @@ Route::get('/faq', ['as' => 'faq', function () {
 Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/buy-bitcoins', ['as' => 'buy', 'uses' => 'BuyController@index']);
-	Route::post('/buy-bitcoins', ['as' => 'buy', 'uses' => 'BuyController@order']);
+	Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
+	Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
+	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
+	Route::get('wallet', ['as' => 'wallet', 'uses' => 'UserController@wallet']);
+	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
+	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
 });

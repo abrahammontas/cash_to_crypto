@@ -89,19 +89,16 @@
 @section('scripts')
 <script>
     (function($){
-        $(document).ready(function()
-        {
-            $(document).on("change keyup mouseup blur", "#amount", function(){
-                var total = parseFloat($("#amount").val() ? $("#amount").val() : 0);
-                
-                var fees = total * .02;
-                var amount = total - fees;
+        $(document).on("change keyup mouseup blur", "#amount", function(){
+            var total = parseFloat($("#amount").val() ? $("#amount").val() : 0);
+            
+            var fees = total * .02;
+            var amount = total - fees;
 
-                $("#bitcoin_subtotal").val('$'+amount.toFixed(2));
-                $("#bitcoin_fees").val('$'+fees.toFixed(2));
-                $("#bitcoin_total").val('$'+total.toFixed(2));
-                $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
-            });
+            $("#bitcoin_subtotal").val('$'+amount.toFixed(2));
+            $("#bitcoin_fees").val('$'+fees.toFixed(2));
+            $("#bitcoin_total").val('$'+total.toFixed(2));
+            $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
         });
     })(jQuery);
 </script>
