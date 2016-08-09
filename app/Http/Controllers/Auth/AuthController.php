@@ -7,6 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use Mail;
+use DB;
 
 class AuthController extends Controller
 {
@@ -72,5 +75,88 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+     /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt(array('email' => $request->input('email'), 'password' => $request->input('password'))))
+        {
+            if(auth()->user()->is_activated == '0'){
+                $this->logout();
+                return back()->with('warning',"Verify your email first.")->withInput();
+            }
+            return redirect()->to('home');
+        }else{
+            return back()->with('error','Wrong email/password combination.')->withInput();
+        }
+    }
+
+    /**
+     * Register new user
+     *
+     * @param  array  $data
+     * @return User
+     */
+    public function register(Request $request)
+    {
+        $input = $request->all();
+        $validator = $this->validator($input);
+
+        if ($validator->passes()) {
+            $user = $this->create($input)->toArray();
+            $user['link'] = str_random(30);
+
+            DB::table('user_activations')->insert(['id_user'=>$user['id'],'token'=>$user['link']]);
+
+            Mail::send('auth.emails.activation', $user, function($message) use ($user) {
+                $message->to($user['email']);
+                $message->subject('Activation Code');
+            });
+
+            return redirect()->to('login')->withInput()
+                ->with('success',"We sent activation code. Please check your mail.");
+        }
+
+        return back()->with('errors', $validator->errors())->withInput();
+    }
+
+    /**
+     * Check for user Activation Code
+     *
+     * @param  array  $data
+     * @return User
+     */
+    public function userActivation($token)
+    {
+        $check = DB::table('user_activations')->where('token', $token)->first();
+
+        if(!is_null($check)){
+            $user = User::find($check->id_user);
+
+            if($user->is_activated == 1){
+                return redirect()->to('login')
+                    ->with('success',"Email are already verified.");                
+            }
+
+            $user->update(['is_activated' => 1]);
+            DB::table('user_activations')->where('token',$token)->delete();
+
+            return redirect()->to('login')
+                ->with('success',"Email verified successfully.");
+        }
+
+        return redirect()->to('login')
+                ->with('warning',"Verification link is invalid.");
     }
 }

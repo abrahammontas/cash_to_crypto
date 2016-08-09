@@ -4,7 +4,7 @@
 
 @section('content')
     @include('partials.disclaimer')
-
+<div class='frontpage'>
     <section id="buy-now">
         <div class="wrapper">
             <img src="images/CashToCryptoGreenBanner_1920.jpg" class="img-responsive" alt="C@C-Green-Banner">
@@ -95,4 +95,5 @@
            </div>
         </div>
     </section>
+</div>
 @endsection

@@ -45,6 +45,17 @@
 
 
                         <div class="form-group">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        @if ($message = Session::get('warning'))
+                            <div class="alert alert-warning">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                             <button type="submit" class="btn btn-success form-control">
                                 <i class="fa fa-btn fa-sign-in"></i> Login
                             </button>

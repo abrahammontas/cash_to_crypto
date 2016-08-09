@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Bank;
+use App\Order;
+use Auth;
+use App\Settings;
 
 class OrderController extends Controller
 {
 	private $price;
 
 	public function __construct() {
-		$this->price = \App\Settings::getParam('ourprice');
+		$this->price = Settings::getParam('ourprice');
 	}
 
     public function index(Request $request) {
-    	$banks = \App\Bank::whereActive(true)->lists('name', 'id');
+    	$banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.index', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
     }
 
@@ -31,8 +35,8 @@ class OrderController extends Controller
         $amount = $total - $fees;
         $bitcoins = round($amount/$this->price, 5);
 
-    	$order = new \App\Order();
-    	$order->user_id  = \Auth::id();
+    	$order = new Order();
+    	$order->user_id  = Auth::id();
         $order->bank_id  = $request->input('bank');
         $order->wallet   = $request->input('wallet');
         $order->amount   = $amount;
