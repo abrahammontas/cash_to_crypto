@@ -45,7 +45,7 @@ class OrderController extends Controller
         $order->total    = $total;
         $order->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'Order created successfully.');
     }
 
     public function uploadReceipt(Request $request) {
@@ -59,7 +59,7 @@ class OrderController extends Controller
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
             $order->receipt = $hash;
             $order->save();
-            return back()->with('message', 'Receipt uploaded successfully');
+            return back()->with('success', 'Receipt uploaded successfully.');
         }
         return back()->with('warning', 'Can\'t upload receipt. Try again later.');
     }
