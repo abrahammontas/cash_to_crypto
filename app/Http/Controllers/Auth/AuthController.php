@@ -96,7 +96,7 @@ class AuthController extends Controller
                 $this->logout();
                 return back()->with('warning',"Verify your email first.")->withInput();
             }
-            return redirect()->to('home');
+            return redirect()->to($this->redirectTo);
         }else{
             return back()->with('error','Wrong email/password combination.')->withInput();
         }
