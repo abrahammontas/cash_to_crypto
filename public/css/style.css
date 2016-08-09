@@ -1,4 +1,4 @@
-.frontpage p {
+.frontpage p, .navbar p {
     font-size:18px;
     margin-top:20px;
     font-weight:300;
