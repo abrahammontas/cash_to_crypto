@@ -9,6 +9,7 @@ use App\Bank;
 use App\Order;
 use Auth;
 use App\Settings;
+use Storage;
 
 class OrderController extends Controller
 {
@@ -45,5 +46,21 @@ class OrderController extends Controller
         $order->save();
 
         return redirect()->route('dashboard');
+    }
+
+    public function uploadReceipt(Request $request) {
+        $this->validate($request, [
+            'receipt' => 'required|image',
+            'order'   => 'required|integer|exists:orders,id,user_id,'.Auth::id()
+        ]);
+        $order = Order::find($request->input('order'));
+        $hash = md5(microtime().$order->id);
+
+        if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+            $order->receipt = $hash;
+            $order->save();
+            return back()->with('message', 'Receipt uploaded successfully');
+        }
+        return back()->with('warning', 'Can\'t upload receipt. Try again later.');
     }
 }

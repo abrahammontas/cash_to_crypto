@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('wallet', ['as' => 'wallet', 'uses' => 'UserController@wallet']);
 	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
+	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);
