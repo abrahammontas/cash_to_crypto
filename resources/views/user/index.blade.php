@@ -41,7 +41,7 @@
 							<td>{{$order->bitcoins}}</td>
 							<td>
 								@if ($order->receipt)
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#receipt-{{$order->id}}">Receipt</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#receipt-{{$order->id}}">View</button>
 									<div id="receipt-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog">
 									    <div class="modal-content">
