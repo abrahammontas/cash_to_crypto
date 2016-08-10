@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row" style="padding-top:10px;">
             <div class="col-xs-8">
-                <h4>Exchange Rate: $<?php /* echo $ourbitcoinprice; */ ?></h4>
+                <h4>Exchange Rate: 1BTC = ${{number_format(\App\Settings::getParam('ourprice'),2)}}</h4>
             </div>
             <div class="col-xs-4 text-right">
             @if (Auth::guest())
@@ -15,7 +15,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Orders</a></li>
+                            <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Orders</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </li>

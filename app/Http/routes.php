@@ -43,4 +43,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);
 });
 
+Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
+	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
+	Route::get('banks', ['as' => 'banks', 'uses' => 'AdminController@banks']);
+	Route::get('orders/{type?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue');
+});
+
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);

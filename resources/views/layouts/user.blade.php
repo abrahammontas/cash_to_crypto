@@ -34,7 +34,7 @@
                 <a href="index.php" class="navbar-brand" style="color:white"><img src="/images/bd_logo_transparent.png" width="200" alt="Bitcoin-Depot-Logo"></a>
             </div>
             <div class="navbar-header" style="margin-top:-8px; margin-left:10px;">
-                <p style="color:#48aa3b">Exchange Rate: $</p>
+                <p style="color:#48aa3b">Exchange Rate: 1BTC = ${{number_format(\App\Settings::getParam('ourprice'),2)}}</p>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
