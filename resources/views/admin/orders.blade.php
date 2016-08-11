@@ -23,7 +23,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-					<table class='table table-bordered table-hover'>
+					<table class='table table-stripped table-hover'>
 						<thead>
 					        <tr>
 					            <th><input id="selectAllBoxes" type="checkbox"></th>
@@ -39,8 +39,8 @@
 					            <th>Order Status</th>
 					        </tr>
 					    </thead>
-						@forelse ($orders as $order)
-						<tr>
+						@forelse ($orders as $i => $order)
+						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
 							<td><input type='checkbox' name='orders[]' value='{{$order->id}}'/></td>
 					    	<td>{{$order->id}}</td>
 					    	<td>{{$order->user->id}}</td>
@@ -52,8 +52,8 @@
 							<td>{{$order->total}}</td>
 							<td>
 								@if ($order->receipt)
-									<button type="button" title='View' class="btn btn-primary" data-toggle="modal" data-target="#receipt-{{$order->id}}"><span class='fa fa-eye'></span></button>
-									<a title='Download' target='_blank' class="btn btn-primary" href='{{asset('/storage/receipts/'.$order->receipt)}}'><span class='fa fa-download'></span></a>
+									<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->id}}"><span class='fa fa-eye'></span></button>
+									<a title='Download' target='_blank' class="btn btn-primary btn-xs" href='{{asset('/storage/receipts/'.$order->receipt)}}'><span class='fa fa-download'></span></a>
 									<div id="receipt-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog">
 									    <div class="modal-content">
