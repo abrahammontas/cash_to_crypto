@@ -117,7 +117,7 @@ class AuthController extends Controller
             $user = $this->create($input)->toArray();
             $user['link'] = str_random(30);
 
-            DB::table('user_activations')->insert(['id_user'=>$user['id'],'token'=>$user['link']]);
+            DB::table('user_activations')->insert(['user_id'=>$user['id'],'token'=>$user['link']]);
 
             Mail::send('auth.emails.activation', $user, function($message) use ($user) {
                 $message->to($user['email']);
@@ -142,7 +142,7 @@ class AuthController extends Controller
         $check = DB::table('user_activations')->where('token', $token)->first();
 
         if(!is_null($check)){
-            $user = User::find($check->id_user);
+            $user = User::find($check->user_id);
 
             if($user->is_activated == 1){
                 return redirect()->to('login')
