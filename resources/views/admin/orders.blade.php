@@ -80,8 +80,8 @@
 
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
 							<td><input type='checkbox' class='checkbox' name='orders[]' value='{{$order->id}}'/></td>
-					    	<td>{{$order->id}}</td>
-					    	<td>{{$order->user->id}}</td>
+					    	<td>{{$order->hash}}</td>
+					    	<td>{{$order->user->hash}}</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{$order->bank->name}}</td>
 							<td><a target='_blank' class='btn btn-default btn-xs can-select' href='https://blockchain.info/address/{{$order->wallet}}'>{{$order->wallet}}</a></td>

@@ -38,6 +38,7 @@ class OrderController extends Controller
 
     	$order = new Order();
     	$order->user_id  = Auth::id();
+        $order->hash     = uniqid();
         $order->bank_id  = $request->input('bank');
         $order->wallet   = $request->input('wallet');
         $order->amount   = $amount;
@@ -51,9 +52,9 @@ class OrderController extends Controller
     public function uploadReceipt(Request $request) {
         $this->validate($request, [
             'receipt' => 'required|image',
-            'order'   => 'required|integer|exists:orders,id,user_id,'.Auth::id()
+            'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
         ]);
-        $order = Order::find($request->input('order'));
+        $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
 
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {

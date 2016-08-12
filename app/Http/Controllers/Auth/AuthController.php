@@ -74,6 +74,7 @@ class AuthController extends Controller
             'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'hash'     => uniqid()
         ]);
     }
 

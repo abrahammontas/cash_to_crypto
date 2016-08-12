@@ -36,15 +36,16 @@
 						</thead>
 						@forelse ($orders as $order)
 						<tr>
-					    	<td>{{$order->id}}</td>
+					    	<td>{{$order->hash}}</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{ucwords($order->status)}}</td>
 							<td>{{$order->amount}}</td>
 							<td>{{$order->bitcoins}}</td>
 							<td>
 								@if ($order->receipt)
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#receipt-{{$order->id}}">View</button>
-									<div id="receipt-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span></button>
+
+									<div id="receipt-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog">
 									    <div class="modal-content">
 									        <div class="modal-body">
@@ -56,7 +57,7 @@
 								@else
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
 										{{Form::file('receipt', ['class' => 'pull-left'])}}
-										{{Form::hidden('order', $order->id)}}
+										{{Form::hidden('order', $order->hash)}}
 										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}
 								@endif
