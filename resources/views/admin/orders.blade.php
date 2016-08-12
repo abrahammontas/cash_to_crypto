@@ -23,10 +23,46 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-					<table class='table table-stripped table-hover'>
+	        		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						@forelse ($orders as $i => $order)
+						@if ($i == 0 || ($i > 0 && $orders[$i]->company != $orders[$i-1]->company))
+							
+							@if ($i != 0)
+								</table>
+								{{Form::close()}}
+							</div>
+						</div>
+					</div>
+				</div>
+							@endif
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="heading{{snake_case($order->bank->company)}}">
+				      <h4 class="panel-title">
+				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{snake_case($order->bank->company)}}" aria-expanded="true" aria-controls="collapse{{snake_case($order->bank->company)}}">
+				          {{$order->bank->company}}
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse{{snake_case($order->bank->company)}}" class="panel-collapse collapse {{$order->bank->company == session('company')  ? 'in' : ''}}" role="tabpanel" aria-labelledby="heading{{snake_case($order->bank->company)}}">
+				      <div class="panel-body">
+				        <div class="table-responsive">
+				        {{Form::open(['method' => 'post', 'route' => 'admin.orders.status'])}}
+				        	<div class="col-xs-2" style="padding: 0px 0px 10px 0px;">
+					            <select class="form-control" name="status">
+					              <option value="">Change status</option>
+					              <option value="pending">Pending</option>
+					              <option value="completed">Completed</option>
+					              <option value="issue">Issue</option>
+					            </select>
+				            </div>
+				            <div class="col-xs-4">
+				            	<input type='hidden' name='company' value='{{$order->bank->company}}'/>
+				              	<input type="submit" name="submit" class="btn btn-success"  style="padding-left:15px; padding-right:15px;"  value="Submit">
+				            </div>
+						<table class='table table-stripped table-hover'>
 						<thead>
 					        <tr>
-					            <th><input id="selectAllBoxes" type="checkbox"></th>
+					            <th><input class="selectAllBoxes" type="checkbox"></th>
 					            <th>Order ID</th>
 					            <th>Order User ID</th>
 					            <th>Time</th>
@@ -39,9 +75,11 @@
 					            <th>Order Status</th>
 					        </tr>
 					    </thead>
-						@forelse ($orders as $i => $order)
+						@endif
+
+
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
-							<td><input type='checkbox' name='orders[]' value='{{$order->id}}'/></td>
+							<td><input type='checkbox' class='checkbox' name='orders[]' value='{{$order->id}}'/></td>
 					    	<td>{{$order->id}}</td>
 					    	<td>{{$order->user->id}}</td>
 							<td>{{$order->created_at}}</td>
@@ -67,7 +105,7 @@
 								
 								@endif
 							</td>
-							<td>{{$order->status}}</td>
+							<td>{{ucwords($order->status)}}</td>
 						</tr>
 						@empty
 						<tr>
@@ -75,9 +113,29 @@
 						</tr>
 						@endforelse
 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 					{{ $orders->links() }}
 		       	</div>
 	        </div>
 	    </div>
 	</div>
+@endsection
+
+@section('scripts')
+<script>
+	$(document).ready(function () {
+	    $('.selectAllBoxes').click(function (event) {
+	    	var instance = this;
+	        $('.checkbox', $(this).closest("form")).each(function () {
+	            this.checked = instance.checked;
+	        });
+	    });
+	    if (!$('.panel-collapse.collapse.in').length) {
+	    	$('.panel-collapse.collapse:first').addClass('in');
+	    }
+	});
+</script>
 @endsection

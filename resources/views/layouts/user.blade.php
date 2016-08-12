@@ -42,9 +42,6 @@
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="{{route('wallet')}}"><i class="fa fa-fw fa-bitcoin"></i> Wallet</a>
-                </li>
-                <li>
                     <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
                 </li>
                 <li class="no-border">

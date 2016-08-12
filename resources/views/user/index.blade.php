@@ -38,7 +38,7 @@
 						<tr>
 					    	<td>{{$order->id}}</td>
 							<td>{{$order->created_at}}</td>
-							<td>{{$order->status}}</td>
+							<td>{{ucwords($order->status)}}</td>
 							<td>{{$order->amount}}</td>
 							<td>{{$order->bitcoins}}</td>
 							<td>

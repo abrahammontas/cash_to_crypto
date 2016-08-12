@@ -37,7 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
 	Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
-	Route::get('wallet', ['as' => 'wallet', 'uses' => 'UserController@wallet']);
 	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
 	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);
@@ -50,6 +49,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
+	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);

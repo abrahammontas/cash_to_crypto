@@ -1,0 +1,19 @@
+[ ] Make order_id in orders table random CHAR(8) for extra security
+[ ] Make user_id in users table random CHAR(8) for extra security
+[ ] Change bitcoin column type in orders table to double(8,5)
+
+Admin:
+[*] Add Completed Orders to admin/dashboard
+[*] Allow admin to change status of order
+[ ] When admin changes status to issue, allow admin to create note explaining the issue and have note saved in issues table.
+[ ] After the note is created, the user is emailed with the contents of the note, explaining the issue with the order
+[ ] There will be a ‘resolved’ button next to the note in the issues table that will send the order back to the pending table
+[ ] Allow admin to update bitcoin amount
+[ ] In orders lists, allow admin to click on Order User ID and have that users photo_id popup (need to add this feature to users)
+[ ] When admin moves order to completed, user is emailed that order has been completed
+[ ] Add users table, and allow admin to deactivate/reactivate user
+
+Users:
+[*] Remove ‘Wallet’ navigation item.
+[ ] In profile, allow user to upload photo id image and add/remove bitcoin wallets
+[ ] user must upload PHOTO ID before being able to purchase bitcoins

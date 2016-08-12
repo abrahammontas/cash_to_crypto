@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use DB;
 use App\Order;
 use App\Bank;
 use Validator;
@@ -16,18 +17,19 @@ class AdminController extends Controller
         	'admin.dashboard',
         	[
         		'banks' => Bank::count(),
-        		'pendingOrders' => Order::whereStatus('pending')->count(),
-        		'issueOrders' => Order::whereStatus('issue')->count(),
+        		'pendingOrders'   => Order::whereStatus('pending')->count(),
+        		'issueOrders' 	  => Order::whereStatus('issue')->count(),
+        		'completedOrders' => Order::whereStatus('completed')->count(),
         	]
         );
     }
 
     public function orders($type) {
-    	$orders = Order::with(['bank', 'user']);
+    	$orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')->select(['orders.*','name','company'])->with('user');
     	if ($type !== 'all') {
     		$orders->whereStatus($type);
     	}
-    	$orders = $orders->paginate(10);
+    	$orders = $orders->orderBy('company', 'ASC')->orderBy('created_at', 'ASC')->paginate(10);
         return view('admin.orders', ['orders' => $orders, 'type' => ucwords($type)]);
     }
 
@@ -70,5 +72,22 @@ class AdminController extends Controller
     	$bank->save();
     	
     	return back()->with('success', "Bank {$bank->name} successfully created." );
+    }
+
+    public function ordersStatus(Request $request) {
+    	$ids = $request->input('orders');
+    	$status = $request->input('status');
+    	$company = $request->input('company');
+
+    	if (!$status) {
+    		return back()->with(['warning' => "Select new status first.", 'company' => $company]);
+    	}
+
+    	if (!$ids) {
+    		return back()->with(['warning' => "Nothing selected.", 'company' => $company]);
+    	}
+    	
+    	DB::table('orders')->whereIn('id', $ids)->update(['status' => $status]);
+		return back()->with(['success' => "Order(s) status successfully changed.", 'company' => $company]);
     }
 }
