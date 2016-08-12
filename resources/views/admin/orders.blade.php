@@ -84,7 +84,7 @@
 					    	<td>{{$order->user->id}}</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{$order->bank->name}}</td>
-							<td><a target='_blank' href='https://blockchain.info/address/{{$order->wallet}}'>{{$order->wallet}}</a></td>
+							<td><a target='_blank' class='btn btn-default btn-xs can-select' href='https://blockchain.info/address/{{$order->wallet}}'>{{$order->wallet}}</a></td>
 							<td>{{$order->bitcoins}}</td>
 							<td>{{$order->amount}}</td>
 							<td>{{$order->total}}</td>

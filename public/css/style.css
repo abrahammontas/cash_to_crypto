@@ -190,3 +190,9 @@ div .panel-body {
     line-height: 1.33;
     text-decoration: none;
 }
+.can-select {
+    -webkit-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+}
