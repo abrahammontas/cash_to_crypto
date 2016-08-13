@@ -23,7 +23,7 @@
                         <p>{{ $message }}</p>
                     </div>
                 	@endif
-                    <div class="form-border" style="margin-top:30px;">
+                    <div class="form-border" style="margin-top:30px; background-color: #f2f2f2">
                     	<div class="row font-main">
                     		<div class="col-xs-2">
                     			<strong>First Name:</strong>

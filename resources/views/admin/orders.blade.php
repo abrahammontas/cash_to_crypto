@@ -82,9 +82,9 @@
 					    	<td>{{$order->hash}}</td>
 					    	<td>
 					    		@if($order->user->photoid)
-				            		<button type='button' data-toggle="modal" data-target="#photoid-{{$order->user->id}}" class='btn btn-default btn-xs'>{{$order->user->hash}}</button>
+				            		<button type='button' data-toggle="modal" data-target="#photoid-{{snake_case($order->bank->company)}}-{{$order->user->id}}" class='btn btn-default btn-xs'>{{$order->user->hash}}</button>
 
-									<div id="photoid-{{$order->user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									<div id="photoid-{{snake_case($order->bank->company)}}-{{$order->user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 									  <div class="modal-dialog modal-lg">
 									    <div class="modal-content">
 									        <div class="modal-body">
