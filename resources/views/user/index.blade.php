@@ -3,7 +3,6 @@
 @section('title', 'User Panel')
 
 @section('content')
-	<div class="wrapper" style="background-color:white;">
 	    <div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-12">
@@ -23,6 +22,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
+	        		<div class='table-responsive'>
 					<table class='table table-bordered table-hover'>
 						<thead>
 							<tr>
@@ -69,9 +69,9 @@
 						</tr>
 						@endforelse
 					</table>
+					</div>
 					{{ $orders->links() }}
 		       	</div>
 	        </div>
 	    </div>
-	</div>
 @endsection

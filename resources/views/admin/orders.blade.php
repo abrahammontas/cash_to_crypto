@@ -3,7 +3,6 @@
 @section('title', $type.' Orders')
 
 @section('content')
-	<div class="wrapper" style="background-color:white;">
 	    <div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-12">
@@ -64,7 +63,7 @@
 					        <tr>
 					            <th><input class="selectAllBoxes" type="checkbox"></th>
 					            <th>Order ID</th>
-					            <th>Order User ID</th>
+					            <th>User ID</th>
 					            <th>Time</th>
 					            <th>Bank</th>
 					            <th>Wallet Address</th>
@@ -81,7 +80,23 @@
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
 							<td><input type='checkbox' class='checkbox' name='orders[]' value='{{$order->id}}'/></td>
 					    	<td>{{$order->hash}}</td>
-					    	<td>{{$order->user->hash}}</td>
+					    	<td>
+					    		@if($order->user->photoid)
+				            		<button type='button' data-toggle="modal" data-target="#photoid-{{$order->user->id}}" class='btn btn-default btn-xs'>{{$order->user->hash}}</button>
+
+									<div id="photoid-{{$order->user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									        <div class="modal-body">
+									            <img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive">
+									        </div>
+									    </div>
+									  </div>
+									</div>
+								@else
+								{{$order->user->hash}}
+				            	@endif
+					    	</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{$order->bank->name}}</td>
 							<td><a target='_blank' class='btn btn-default btn-xs can-select' href='https://blockchain.info/address/{{$order->wallet}}'>{{$order->wallet}}</a></td>
@@ -121,7 +136,6 @@
 		       	</div>
 	        </div>
 	    </div>
-	</div>
 @endsection
 
 @section('scripts')

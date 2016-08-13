@@ -3,8 +3,6 @@
 @section('title', 'Profile')
 
 @section('content')
-
-    <div class="wrapper" style="background-color:#f2f2f2">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
@@ -189,5 +187,4 @@
                 </div>
         	</div>
         </div>
-    </div>
 @endsection

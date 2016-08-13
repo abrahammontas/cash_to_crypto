@@ -26,7 +26,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -34,8 +34,38 @@
                 </button>
                 <a class="navbar-brand" href="{{route('admin.dashboard')}}">Admin Panel</a>
             </div>
+
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
+            <div class='hidden-sm hidden-md hidden-lg'>
+                <ul class='nav navbar-collapse collapse'>
+                    <li>
+                        <a href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.orders', 'all')}}">All Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.orders', 'pending')}}">Pending Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.orders', 'completed')}}">Completed Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.orders', 'issue')}}">Issue Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                    </li>
+                    <li>
+                        <a href="{{route('profile')}}"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{url('logout')}}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
             <!-- Single button -->
                     <li>
                         <a href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
@@ -77,7 +107,9 @@
             </ul>
         </nav>
 
+        <div class="wrapper admin">
         @yield('content')
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery.js"></script>

@@ -3,7 +3,6 @@
 @section('title', 'Banks')
 
 @section('content')
-	<div class="wrapper" style="background-color:white;">
 	    <div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-12">
@@ -48,5 +47,4 @@
 		       	</div>
 	        </div>
 	    </div>
-	</div>
 @endsection

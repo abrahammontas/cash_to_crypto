@@ -25,7 +25,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -36,9 +36,31 @@
             <div class="navbar-header" style="margin-top:-8px; margin-left:10px;">
                 <p style="color:#48aa3b">Exchange Rate: 1BTC = ${{number_format(\App\Settings::getParam('ourprice'),2)}}</p>
             </div>
+
+            <div class='hidden-sm hidden-md hidden-lg'>
+                <ul class='nav navbar-collapse collapse'>
+                    <li>
+                        <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
+                    </li>
+                    <li>
+                        <a href="{{route('buy')}}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
+                    </li>
+                    <li>
+                        <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{url('logout')}}" class="dropdown-font-size"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                    </li>
+                </ul>
+            </div>
+
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li style="color:white;">
+            <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
+                <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
@@ -61,7 +83,9 @@
             </ul>
         </nav>
 
+        <div class="wrapper user">
         @yield('content')
+        </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery.js"></script>

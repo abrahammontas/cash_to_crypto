@@ -3,8 +3,6 @@
 @section('title', 'User Panel')
 
 @section('content')
-    <div class="wrapper">
-
             <div class="container-fluid container-padding">
 
                 <!-- Page Heading -->
@@ -137,6 +135,4 @@
                 </div>
             </div>
             <!-- /.container-fluid -->
-        </div>
-        <!-- wrapper -->
 @endsection
