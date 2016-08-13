@@ -87,9 +87,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Survery Data</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>

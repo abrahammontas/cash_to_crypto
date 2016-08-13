@@ -121,4 +121,14 @@ class AdminController extends Controller
         return back()->with('success', "User {$user->firstName} {$user->lastName} successfully unbanned." );
     }
 
+    public function orderDelete(Request $request, $id) {
+        $order = Order::find($id);
+        $company = $request->input('company');
+        
+        if (!$order) {
+            return back()->with(['warning' => 'Order not found.', 'company' => $company]);
+        }
+        $order->delete();
+        return back()->with(['success' => "Order successfully deleted.", 'company' => $company]);
+    }
 }
