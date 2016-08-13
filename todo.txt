@@ -11,7 +11,7 @@ Admin:
 [ ] Allow admin to update bitcoin amount
 [ ] In orders lists, allow admin to click on Order User ID and have that users photo_id popup (need to add this feature to users)
 [ ] When admin moves order to completed, user is emailed that order has been completed
-[ ] Add users table, and allow admin to deactivate/reactivate user
+[*] Add users table, and allow admin to deactivate/reactivate user
 
 Users:
 [*] Remove ‘Wallet’ navigation item.
