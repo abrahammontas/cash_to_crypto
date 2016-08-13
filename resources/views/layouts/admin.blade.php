@@ -61,7 +61,7 @@
                         <a href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Survery Data</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-group"></i> Users</a>
+                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>

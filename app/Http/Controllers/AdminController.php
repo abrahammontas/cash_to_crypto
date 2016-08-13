@@ -6,6 +6,7 @@ use Auth;
 use DB;
 use App\Order;
 use App\Bank;
+use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class AdminController extends Controller
         		'pendingOrders'   => Order::whereStatus('pending')->count(),
         		'issueOrders' 	  => Order::whereStatus('issue')->count(),
         		'completedOrders' => Order::whereStatus('completed')->count(),
+                'users'           => User::count()
         	]
         );
     }
@@ -90,4 +92,33 @@ class AdminController extends Controller
     	DB::table('orders')->whereIn('id', $ids)->update(['status' => $status]);
 		return back()->with(['success' => "Order(s) status successfully changed.", 'company' => $company]);
     }
+
+    public function users() {
+        $users = User::orderBy('firstName')->orderBy('lastName')
+                    ->paginate(20);
+        return view('admin.user.list', ['users' => $users]);
+    }
+
+    public function ban(Request $request, $id) {
+        $user = User::find($id);
+        if (!$user) {
+            return back()->with('warning', 'User not found.');
+        }
+        $user->banned = true;
+        $user->save();
+
+        return back()->with('success', "User {$user->firstName} {$user->lastName} successfully banned." );
+    }
+
+    public function unban(Request $request, $id) {
+        $user = User::find($id);
+        if (!$user) {
+            return back()->with('warning', 'User not found.');
+        }
+        $user->banned = false;
+        $user->save();
+
+        return back()->with('success', "User {$user->firstName} {$user->lastName} successfully unbanned." );
+    }
+
 }

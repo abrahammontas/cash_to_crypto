@@ -33,7 +33,7 @@ Route::get('/faq', ['as' => 'faq', function () {
 
 Route::auth();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'banned']], function () {
 	Route::group(['middleware' => 'photo'], function () {
 		Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
 		Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
+	Route::get('users', ['as' => 'users', 'uses' => 'AdminController@users']);
+	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
+	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);

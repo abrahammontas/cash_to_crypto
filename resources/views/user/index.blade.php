@@ -46,7 +46,7 @@
 								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span></button>
 
 									<div id="receipt-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									  <div class="modal-dialog">
+									  <div class="modal-dialog modal-lg">
 									    <div class="modal-content">
 									        <div class="modal-body">
 									            <img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive">
