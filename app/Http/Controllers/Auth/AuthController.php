@@ -97,9 +97,9 @@ class AuthController extends Controller
                 $this->logout();
                 return back()->with('warning',"Verify your email first.")->withInput();
             }
-            return redirect()->to($this->redirectTo);
+            return redirect()->intended($this->redirectTo);
         }else{
-            return back()->with('error','Wrong email/password combination.')->withInput();
+            return back()->with('warning','Wrong email/password combination.')->withInput();
         }
     }
 

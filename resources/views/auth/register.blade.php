@@ -47,7 +47,7 @@
                             <label for="phone" class="sr-only">Phone</label>
                             <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-country="US" value="{{ old('phone') }}"  required>
 
-                            @if ($errors->has('[phone]'))
+                            @if ($errors->has('phone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('phone') }}</strong>
                                 </span>

@@ -49,7 +49,7 @@
 									  <div class="modal-dialog">
 									    <div class="modal-content">
 									        <div class="modal-body">
-									            <img src="{{asset('/storage/receipts/'.$order->receipt)}}" class="img-responsive">
+									            <img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive">
 									        </div>
 									    </div>
 									  </div>

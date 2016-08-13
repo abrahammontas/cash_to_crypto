@@ -21,7 +21,7 @@ class OrderController extends Controller
 
     public function index(Request $request) {
     	$banks = Bank::whereActive(true)->lists('name', 'id');
-        return view('buy.index', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
+        return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
     }
 
     public function order(Request $request) {
@@ -40,7 +40,7 @@ class OrderController extends Controller
     	$order->user_id  = Auth::id();
         $order->hash     = uniqid();
         $order->bank_id  = $request->input('bank');
-        $order->wallet   = $request->input('wallet');
+        $order->wallet   = trim($request->input('wallet'));
         $order->amount   = $amount;
         $order->bitcoins = $bitcoins;
         $order->total    = $total;

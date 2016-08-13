@@ -1,6 +1,6 @@
-[ ] Make order_id in orders table random CHAR(8) for extra security
-[ ] Make user_id in users table random CHAR(8) for extra security
-[ ] Change bitcoin column type in orders table to double(8,5)
+[*] Make order_id in orders table random CHAR(8) for extra security
+[*] Make user_id in users table random CHAR(8) for extra security
+[*] Change bitcoin column type in orders table to double(8,5)
 
 Admin:
 [*] Add Completed Orders to admin/dashboard
@@ -15,5 +15,5 @@ Admin:
 
 Users:
 [*] Remove ‘Wallet’ navigation item.
-[ ] In profile, allow user to upload photo id image and add/remove bitcoin wallets
-[ ] user must upload PHOTO ID before being able to purchase bitcoins
+[*] In profile, allow user to upload photo id image and add/remove bitcoin wallets
+[*] user must upload PHOTO ID before being able to purchase bitcoins

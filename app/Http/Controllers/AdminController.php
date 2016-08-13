@@ -29,7 +29,7 @@ class AdminController extends Controller
     	if ($type !== 'all') {
     		$orders->whereStatus($type);
     	}
-    	$orders = $orders->orderBy('company', 'ASC')->orderBy('created_at', 'ASC')->paginate(10);
+    	$orders = $orders->orderBy('company', 'ASC')->orderBy('created_at', $type == 'completed' ? 'DESC' : 'ASC')->paginate(10);
         return view('admin.orders', ['orders' => $orders, 'type' => ucwords($type)]);
     }
 

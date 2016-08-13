@@ -6,7 +6,7 @@
 ul {
     padding-left:15px;
 }
-li {
+#why-us li {
     font-size:18px;
     font-weight:300;
 }
@@ -195,4 +195,21 @@ div .panel-body {
     -moz-user-select: initial;
     -ms-user-select: initial;
     user-select: initial;
+}
+
+.order-form input[type='text'], .order-form input[type='number'], .order-form select {
+    min-width: 220px;
+}
+
+.order-form input[name='wallet'] {
+    min-width: 165px;
+}
+
+.order-form input[readonly] {
+    min-width: 235px;
+}
+
+#buy-now .btn-link {
+    color: white;
+    text-decoration: none;
 }

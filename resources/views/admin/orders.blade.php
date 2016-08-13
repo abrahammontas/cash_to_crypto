@@ -91,12 +91,12 @@
 							<td>
 								@if ($order->receipt)
 									<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->id}}"><span class='fa fa-eye'></span></button>
-									<a title='Download' target='_blank' class="btn btn-primary btn-xs" href='{{asset('/storage/receipts/'.$order->receipt)}}'><span class='fa fa-download'></span></a>
+									<a title='Download' target='_blank' class="btn btn-primary btn-xs" href='{{Storage::url('receipts/'.$order->receipt)}}'><span class='fa fa-download'></span></a>
 									<div id="receipt-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog">
 									    <div class="modal-content">
 									        <div class="modal-body">
-									            <img src="{{asset('/storage/receipts/'.$order->receipt)}}" class="img-responsive">
+									            <img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive">
 									        </div>
 									    </div>
 									  </div>

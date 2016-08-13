@@ -34,12 +34,17 @@ Route::get('/faq', ['as' => 'faq', function () {
 Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
-	Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
+	Route::group(['middleware' => 'photo'], function () {
+		Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
+		Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
+	});
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
 	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
 	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);
+	Route::post('profile', ['as' => 'profile', 'uses' => 'UserController@profileUpdate']);
+	Route::delete('wallet', ['as' => 'wallet.delete', 'uses' => 'UserController@walletDelete']);
+	Route::post('wallet', ['as' => 'wallet.create', 'uses' => 'UserController@walletCreate']);
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {

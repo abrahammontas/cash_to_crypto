@@ -8,7 +8,7 @@
         <div class="row">
         <form action="{{route('buy')}}" data-toggle="validator"  role="form"  method="post">
             {{ csrf_field() }}
-            <div class="col-lg-5 col-lg-offset-1 form-border">
+            <div class="col-lg-5 col-lg-offset-1 form-border order-form">
                <h2 class="text-center form-title-font">Buy Bitcoins</h2>
                <hr>
                     <div class="form-group form-inline{{ $errors->has('bank') ? ' has-error' : '' }}">
@@ -33,7 +33,19 @@
                     <hr>
                     <div class="form-group form-inline{{ $errors->has('wallet') ? ' has-error' : '' }}">
                         <label for="bitcoin-address">Wallet Address:</label>
-                        <input type="text" name="wallet" class="form-control pull-right" required>
+                        <div class="input-group pull-right">
+                            <input type="text" name="wallet" id='wallet' class="form-control" required aria-label="Wallet">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class='fa fa-btc'></span> <span class="caret"></span></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                  @forelse (Auth::user()->wallets as $wallet)
+                                  <li><a href="" class='saved-wallet' data-target='#wallet'>{{$wallet->address}}</a></li>
+                                  @empty
+                                  <li><a href="#" onclick='return false'>You have no saved wallets</a></li>
+                                  @endforelse
+                                </ul>
+                            </div>
+                        </div>
                         @if ($errors->has('wallet'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('wallet') }}</strong>
@@ -43,17 +55,17 @@
                     <hr>
                     <div class="form-group form-inline">
                         <label for="subtotal"><strong>Subtotal:</strong></label>
-                        <input readonly="readonly" name="subtotal" class="form-control pull-right input-no-box" id="bitcoin_subtotal" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
+                        <input type='text' readonly="readonly" name="subtotal" class="form-control pull-right input-no-box" id="bitcoin_subtotal" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
                     </div>
                     <hr>
                     <div class="form-group form-inline">
                         <label for="fees"><strong>Fees:</strong></label>
-                        <input readonly="readonly" name="fees" class="form-control pull-right input-no-box" id="bitcoin_fees" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
+                        <input type='text' readonly="readonly" name="fees" class="form-control pull-right input-no-box" id="bitcoin_fees" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
                     </div>
                     <hr>
                    <div class="form-group form-inline">
                         <label for="total"><strong>Total:</strong></label>
-                        <input readonly="readonly" name="total" class="form-control pull-right input-no-box" id="bitcoin_total" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
+                        <input type='text' readonly="readonly" name="total" class="form-control pull-right input-no-box" id="bitcoin_total" style="border:none; background-color:transparent; box-shadow:none;" value="$0.00">
                     </div>
                    <hr>
                    <div class="help-block with-errors"></div>
@@ -100,6 +112,12 @@
             $("#bitcoin_total").val('$'+total.toFixed(2));
             $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
         });
+
+        $(document).on("click", ".saved-wallet", function(e){
+            e.preventDefault();
+            $($(this).attr('data-target')).val($(this).text());
+        });
+
     })(jQuery);
 </script>
 @endsection
