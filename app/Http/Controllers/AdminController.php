@@ -10,6 +10,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -130,5 +131,53 @@ class AdminController extends Controller
         }
         $order->delete();
         return back()->with(['success' => "Order successfully deleted.", 'company' => $company]);
+    }
+
+    public function orderUpdate(Request $request, $id) {
+        $order = Order::find($id);
+        $company = $request->input('company');
+        
+        if (!$order) {
+            return back()->with(['warning' => 'Order not found.', 'company' => $company]);
+        }
+
+        $newStatus = $request->input('status');
+        $oldStatus = $order->status;
+        $bitcoins  = $request->input('bitcoins');
+        $note      = $request->input('note');
+
+        $order->status   = $newStatus;
+        $order->bitcoins = $bitcoins;
+        $order->note     = $note;
+        $order->save();
+
+        if ($newStatus == 'issue') {
+            if ($oldStatus != 'issue' || $order->note != $note) {
+                Mail::send('admin.emails.issue', ['order' => $order], function($message) use ($order) {
+                    $message->to($order->user->email);
+                    $message->subject('Issue order #'.$order->hash);
+                });
+            }
+        }
+
+        if ($newStatus == 'completed') {
+            if ($oldStatus != 'completed') {
+                Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
+                    $message->to($order->user->email);
+                    $message->subject('Completed order #'.$order->hash);
+                });
+            }
+        }
+
+        if ($newStatus == 'pending') {
+            if ($oldStatus == 'issue') {
+                Mail::send('admin.emails.resolved', ['order' => $order], function($message) use ($order) {
+                    $message->to($order->user->email);
+                    $message->subject('Resolved order #'.$order->hash);
+                });
+            }
+        }
+
+        return back()->with(['success' => "Order successfully updated.", 'company' => $company]);
     }
 }

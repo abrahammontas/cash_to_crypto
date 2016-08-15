@@ -130,7 +130,7 @@
 								</button>
 
 								<div id="order-edit-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-								  <div class="modal-dialog">
+								  <div class="modal-dialog order-edit">
 									{{Form::open(['method' => 'put', 'route' =>['admin.order.update', $order->id]])}}
 								        <div class="panel panel-primary">
 								            <div class="panel-heading">
@@ -144,7 +144,7 @@
 								                	{{Form::select('status', ['pending' => 'Pending', 'issue' => 'Issue', 'completed' => 'Completed'], $order->status, ['class' => 'form-control'])}}
 								                </div>
 								                <div class='form-group'>
-								                	{{Form::textarea('note', '', ['class' => 'form-control', 'placeholder' => 'Note'])}}
+								                	{{Form::textarea('note', $order->note, ['class' => 'form-control', 'placeholder' => 'Note'])}}
 								                </div>
 								            </div>
 								            <div class="panel-footer">
@@ -210,6 +210,12 @@
 	    if (!$('.panel-collapse.collapse.in').length) {
 	    	$('.panel-collapse.collapse:first').addClass('in');
 	    }
+	    $(".order-edit select[name='status']").each(function () {
+	    		var instance = $(this);
+	            $(this).change(function(){
+					$('textarea', instance.closest("form")).attr('required', instance.val() == 'issue');
+	            }).change();
+	        });
 	});
 </script>
 @endsection

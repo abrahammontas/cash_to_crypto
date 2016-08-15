@@ -57,6 +57,9 @@
                         <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li>
+                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
+                    </li>
+                    <li>
                         <a href="{{route('profile')}}"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
                     </li>
                     <li>
@@ -71,7 +74,7 @@
                         <a href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="dropdown">
-                        <a href="{{route('admin.dashboard')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-list"></i> Orders <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="{{route('admin.dashboard')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-list"></i> Orders <i class="fa fa-fw fa-caret-down"></i> </a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{route('admin.orders', 'all')}}" class="dropdown-font-size">All Orders</a>
@@ -92,6 +95,9 @@
                     </li>-->
                     <li>
                         <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
