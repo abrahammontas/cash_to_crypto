@@ -115,7 +115,7 @@
 
         $(document).on("click", ".saved-wallet", function(e){
             e.preventDefault();
-            $($(this).attr('data-target')).val($(this).text());
+            $($(this).attr('data-target')).val($(this).text()).change();
         });
 
     })(jQuery);

@@ -85,21 +85,7 @@
 							<!--<td><input type='checkbox' class='checkbox' name='orders[]' value='{{$order->id}}'/></td>-->
 					    	<td>{{$order->hash}}</td>
 					    	<td>
-					    		@if($order->user->photoid)
-				            		<button type='button' data-toggle="modal" data-target="#photoid-{{snake_case($order->bank->company)}}-{{$order->user->id}}" class='btn btn-default btn-xs'>{{$order->user->hash}}</button>
-
-									<div id="photoid-{{snake_case($order->bank->company)}}-{{$order->user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-									  <div class="modal-dialog modal-lg">
-									    <div class="modal-content">
-									        <div class="modal-body">
-									            <img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive">
-									        </div>
-									    </div>
-									  </div>
-									</div>
-								@else
 								{{$order->user->hash}}
-				            	@endif
 					    	</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{$order->bank->name}}</td>

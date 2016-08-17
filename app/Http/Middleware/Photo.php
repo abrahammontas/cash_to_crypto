@@ -17,7 +17,8 @@ class Photo
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::user()->photoid || !Auth::user()->photo) {
+        //if (!Auth::user()->photoid || !Auth::user()->photo) {
+        if (!Auth::user()->photoid) {
             return redirect()->route('profile');
         }
 

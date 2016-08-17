@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Bank;
 use App\Order;
+use App\User;
 use Auth;
 use App\Settings;
 use Storage;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -46,6 +48,14 @@ class OrderController extends Controller
         $order->total    = $total;
         $order->save();
 
+        $admins = User::whereAdmin(1)->whereBanned(0)->get();
+        $admins->each(function($admin) use ($order){
+            Mail::send('admin.emails.new', ['order' => $order, 'admin' => $admin], function($message) use ($admin) {
+                $message->to($admin->email);
+                $message->subject('New order');
+            });
+        });
+
         return redirect()->route('dashboard')->with('success', 'Order created successfully.');
     }
 
@@ -60,6 +70,16 @@ class OrderController extends Controller
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
             $order->receipt = $hash;
             $order->save();
+
+            $admins = User::whereAdmin(1)->whereBanned(0)->get();
+            $admins->each(function($admin) use ($order, $request){
+                Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                    $message->to($admin->email);
+                    $message->subject('Receipt upload');
+                    $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+                });
+            });
+
             return back()->with('success', 'Receipt uploaded successfully.');
         }
         return back()->with('warning', 'Can\'t upload receipt. Try again later.');

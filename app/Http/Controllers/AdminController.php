@@ -155,7 +155,7 @@ class AdminController extends Controller
             if ($oldStatus != 'issue' || $order->note != $note) {
                 Mail::send('admin.emails.issue', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
-                    $message->subject('Issue order #'.$order->hash);
+                    $message->subject('Order Issue - Attention Needed');
                 });
             }
         }
@@ -164,19 +164,19 @@ class AdminController extends Controller
             if ($oldStatus != 'completed') {
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
-                    $message->subject('Completed order #'.$order->hash);
+                    $message->subject('Bitcoins Sent!');
                 });
             }
         }
 
-        if ($newStatus == 'pending') {
+        /*if ($newStatus == 'pending') {
             if ($oldStatus == 'issue') {
                 Mail::send('admin.emails.resolved', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Resolved order #'.$order->hash);
                 });
             }
-        }
+        }*/
 
         return back()->with(['success' => "Order successfully updated.", 'company' => $company]);
     }

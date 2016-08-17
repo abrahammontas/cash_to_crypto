@@ -9,7 +9,8 @@
                 	<h2 class="fw-300">Profile</h2>
                 	@if(!Auth::user()->photo || !Auth::user()->photoid)
 	                <div class="alert alert-danger" role="alert">
-						Note: You must upload both a valid Photo ID and Selfie before purchasing bitcoins!
+						Note: You must upload a valid Photo ID before purchasing bitcoins!
+                        <!--Note: You must upload both a valid Photo ID and Selfie before purchasing bitcoins!-->
 					</div>
 					@endif
 			        @if ($message = Session::get('success'))
@@ -44,7 +45,7 @@
                             <div class="col-xs-2">
                                 <strong>Photo ID:</strong>
                             </div>
-                            <div class="col-xs-4 text-left">
+                            <div class="col-xs-10 col-sm-4 text-left">
                                 {{ Form::open(['method'=> 'post', 'enctype' => 'multipart/form-data']) }}
                                     <div class="form-group">
                                         @if (Auth::user()->photoid)
@@ -63,7 +64,7 @@
                                     </div>
                                 {{Form::close()}}
                             </div>
-                            <div class="col-xs-2">
+                            <!--<div class="col-xs-2">
                                 <strong>Selfie Image:</strong>
                             </div>
                             <div class="col-xs-4 text-left">
@@ -83,7 +84,7 @@
                                         <input class="btn btn-primary" type="submit" value="Update Selfie">
                                     </div>
                                 {{ Form::close() }}
-                            </div>
+                            </div>-->
                         </div>
                         <hr />
                         <div style="margin-top:30px;"></div>
@@ -163,17 +164,17 @@
                         <hr/>
 
                         <div class="row font-main">
-                            <div class="col-xs-2">
+                            <div class="col-xs-6 col-sm-2">
                                 <strong>Transaction Limits:</strong>
                             </div>
-                            <div class="col-xs-4 text-left">
+                            <div class="col-xs-6 col-sm-4 text-left">
                                 <div class="row">
-                                    <div class="col-xs-3 text-left">Daily:</div>
-                                    <div class="col-xs-3">$6,000</div>
+                                    <div class="col-xs-6 col-sm-3 text-left">Daily:</div>
+                                    <div class="col-xs-6 col-sm-3">$6,000</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-3 text-left">Monthly:</div>
-                                    <div class="col-xs-3">$30,000</div>
+                                    <div class="col-xs-6 col-sm-3 text-left">Monthly:</div>
+                                    <div class="col-xs-6 col-sm-3">$30,000</div>
                                 </div>
                             </div>
                             <div class="col-xs-2">

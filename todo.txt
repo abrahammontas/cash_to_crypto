@@ -17,3 +17,14 @@ Users:
 [*] Remove ‘Wallet’ navigation item.
 [*] In profile, allow user to upload photo id image and add/remove bitcoin wallets
 [*] user must upload PHOTO ID before being able to purchase bitcoins
+
+
+Notes:
+[-] I will do "how to” page, “locations” page, and “contact”page after you have completed backend work
+[-] I will also make guest layout responsive after you have completed backend work
+[*] There will no only be two emails to the user, “issue email” and “completed email”
+[*] There will also be two emails to the admin: “new order email” and “user uploaded receipt email"
+[-] Bitcoin Exchange Rate: make exchange rate update every time page is loaded (or do you not recommend?)
+[*] In user profile: remove selfie image (only need selfie receipt after user has ordered)
+[*] Buy Bitcoins page: Get Bitcoins button stays grayed out when choosing Wallet Address dropdown (please fix)
+[*] Once user uploads the selfie receipt, email the admin user(s)
