@@ -11,6 +11,18 @@
             <div class="col-lg-5 col-lg-offset-1 form-border order-form">
                <h2 class="text-center form-title-font">Buy Bitcoins</h2>
                <hr>
+                    @if ($message = session('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    @if ($message = session('warning'))
+                        <div class="alert alert-warning">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
                     <div class="form-group form-inline{{ $errors->has('bank') ? ' has-error' : '' }}">
                         <label for="order-bank">Bank:</label>
                         {{ Form::select('bank', $banks, old('bank'), ['class'=> 'form-control pull-right', 'required']) }}
@@ -34,7 +46,7 @@
                     <div class="form-group form-inline{{ $errors->has('wallet') ? ' has-error' : '' }}">
                         <label for="bitcoin-address">Wallet Address:</label>
                         <div class="input-group pull-right">
-                            <input type="text" name="wallet" id='wallet' class="form-control" required aria-label="Wallet">
+                            <input type="text" name="wallet" id='wallet' class="form-control" value='{{old('wallet')}}' required aria-label="Wallet">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class='fa fa-btc'></span> <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
@@ -112,6 +124,7 @@
             $("#bitcoin_total").val('$'+total.toFixed(2));
             $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
         });
+        $("#amount").change();
 
         $(document).on("click", ".saved-wallet", function(e){
             e.preventDefault();

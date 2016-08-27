@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
+use App\Settings;
 
 class User extends Authenticatable
 {
@@ -30,5 +32,21 @@ class User extends Authenticatable
 
     public function orders() {
         return $this->hasMany('App\Order');
+    }
+
+    public function dailyLimitUsed() {
+        return $this->orders()->whereDate('created_at', '=', Carbon::today()->toDateString())->sum('amount');
+    }
+
+    public function monthlyLimitUsed() {
+        return $this->orders()->whereDate('created_at', '>', Carbon::today()->subMonth()->toDateString())->sum('amount');
+    }
+
+    public function dailyLimitLeft() {
+        return ($this->personalLimits ? $this->dailyLimit : Settings::getParam('dailyLimit')) - $this->dailyLimitUsed();
+    }
+
+    public function monthlyLimitLeft() {
+        return ($this->personalLimits ? $this->dailyLimit : Settings::getParam('monthlyLimit')) - $this->monthlyLimitUsed();
     }
 }

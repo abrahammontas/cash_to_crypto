@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Order;
 use App\Wallet;
+use App\Settings;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

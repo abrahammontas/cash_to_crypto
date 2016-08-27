@@ -33,10 +33,19 @@ class OrderController extends Controller
     		'bank'   => 'required|integer|exists:banks,id'
     	]);
 
+
     	$total = round($request->input('amount'), 2);
         $fees = round($total * 0.02, 2);
         $amount = $total - $fees;
         $bitcoins = round($amount/$this->price, 5);
+
+        if (Auth::user()->dailyLimitLeft() < $amount) {
+            return back()->with('warning', 'Daily limit reached. Try agin later or decrease ammount.')->withInput();
+        }
+
+        if (Auth::user()->monthlyLimitLeft() < $amount) {
+            return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
+        }
 
     	$order = new Order();
     	$order->user_id  = Auth::id();
