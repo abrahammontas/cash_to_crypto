@@ -40,4 +40,4 @@ If the wallet address comes back as invalid, the user will receive an error that
 Limits
 [ ] When user hits limit user receives error message and is blocked from proceeding with order
 [ ] limit remaining function added
-[ ] admin can set limit for specific user
+[*] admin can set limit for specific user
