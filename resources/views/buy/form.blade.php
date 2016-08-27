@@ -39,7 +39,7 @@
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class='fa fa-btc'></span> <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                   @forelse (Auth::user()->wallets as $wallet)
-                                  <li><a href="" class='saved-wallet' data-target='#wallet'>{{$wallet->address}}</a></li>
+                                  <li><a href="" class='saved-wallet' data-target='#wallet' data-address="{{$wallet->address}}">{{$wallet->name}}</a></li>
                                   @empty
                                   <li><a href="#" onclick='return false'>You have no saved wallets</a></li>
                                   @endforelse
@@ -115,7 +115,7 @@
 
         $(document).on("click", ".saved-wallet", function(e){
             e.preventDefault();
-            $($(this).attr('data-target')).val($(this).text()).change();
+            $($(this).attr('data-target')).val($(this).attr('data-address')).change();
         });
 
     })(jQuery);

@@ -22,6 +22,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
+	        		<div class="table-responsive">
 					<table class='table table-stripped table-hover'>
 						<thead>
 					        <tr>
@@ -97,10 +98,39 @@
 				            		<button type='submit' title='Unban' class='btn btn-success btn-xs'><i class='fa fa-check-circle-o'></i></button>
 				            		{{Form::close()}}
 				            	@endif
+				            	<button data-toggle="modal" data-target="#limits-{{$user->id}}" type='button' title='Limits' class='btn btn-default btn-xs'><i class='fa fa-lock'></i></button>
+
+								<div id="limits-{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
+								  <div class="modal-dialog modal-lg">
+						        	{{Form::open(['method' => 'put', 'route' =>['admin.users.limits', $user->id]])}}
+						                <div class="panel panel-yellow">
+						                    <div class="panel-heading">
+						                        User limits <button class="close" data-dismiss="modal">×</button>
+						                    </div>
+						                    <div class="panel-body">
+						                    	<div class='form-group'>
+						                        	{{Form::checkbox('personalLimits', 1, $user->personalLimits)}} Personal limits
+						                        </div>
+						                    	<div class='form-group'>
+						                        	{{Form::number('dailyLimit', $user->dailyLimit, ['class' => 'form-control', 'placeholder' => 'Daily limit'])}}
+						                        </div>
+						                        <div class='form-group'>
+						                        	{{Form::number('monthlyLimit', $user->monthlyLimit, ['class' => 'form-control', 'placeholder' => 'Monthly limit'])}}
+						                        </div>
+						                    </div>
+						                    <div class="panel-footer">
+						                        <button type="submit" class="btn btn-primary">Save</button>
+						        				<button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						                    </div>
+						                </div>
+						            {{Form::close()}}
+								  </div>
+								</div>
 				            </td>
 						</tr>
 						@endforeach
 					</table>
+					</div>
 					{{ $users->links() }}
 		       	</div>
 	        </div>

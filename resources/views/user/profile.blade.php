@@ -24,6 +24,13 @@
                         <p>{{ $message }}</p>
                     </div>
                 	@endif
+
+                    @foreach ($errors->all() as $error) 
+                    <div class="alert alert-warning">
+                        <p>{{ $error }}</p>
+                    </div>
+                    @endforeach
+
                     <div class="form-border" style="margin-top:30px; background-color: #f2f2f2">
                     	<div class="row font-main">
                     		<div class="col-xs-2">
@@ -98,6 +105,7 @@
 	                               	<table class='table table-stripped table-hover'>
 	                               		<thead>
 									        <tr>
+                                                <th>Name</th>
 									            <th>Address</th>
 									            <th>Orders</th>
 									            <th></th>
@@ -105,6 +113,7 @@
 									    </thead>
 										@foreach (Auth::user()->wallets as $wallet)
 											<tr>
+                                                <td>{{$wallet->name}}</td>
 												<td><a target='_blank' class='btn btn-primary btn-sm can-select' href='https://blockchain.info/address/{{$wallet->address}}'>{{$wallet->address}}</a></td>
 												<td>{{$wallet->orders()->count()}}</td>
 												<td>
@@ -138,7 +147,7 @@
                                 <button type="button" class="btn btn-outline btn-default pull-right" data-toggle="modal" data-target="#wallet-create">
                                 	<span class='fa fa-plus'> Add wallet</span>
                                 </button>
-
+                                
                                 <div id="wallet-create" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                                   <div class="modal-dialog">
                                 	{{Form::open(['method' => 'post', 'route' =>'wallet.create'])}}
@@ -149,6 +158,9 @@
                                             <div class="panel-body">
                                             	<div class='form-group'>
                                                 	{{Form::text('address', '', ['class' => 'form-control', 'placeholder' => 'Address', 'required' => true])}}
+                                                </div>
+                                                <div class='form-group'>
+                                                    {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name', 'required' => true])}}
                                                 </div>
                                             </div>
                                             <div class="panel-footer">
@@ -170,11 +182,11 @@
                             <div class="col-xs-6 col-sm-4 text-left">
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-3 text-left">Daily:</div>
-                                    <div class="col-xs-6 col-sm-3">$6,000</div>
+                                    <div class="col-xs-6 col-sm-3">${{number_format(Auth::user()->personalLimits ? Auth::user()->dailyLimit : Settings::getParam('dailyLimit'), 0, ',', ',')}}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-3 text-left">Monthly:</div>
-                                    <div class="col-xs-6 col-sm-3">$30,000</div>
+                                    <div class="col-xs-6 col-sm-3">${{number_format(Auth::user()->personalLimits ? Auth::user()->monthlyLimit : Settings::getParam('monthlyLimit'), 0, ',', ',')}}</div>
                                 </div>
                             </div>
                             <div class="col-xs-2">

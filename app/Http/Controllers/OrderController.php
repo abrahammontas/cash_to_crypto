@@ -29,7 +29,7 @@ class OrderController extends Controller
     public function order(Request $request) {
     	$this->validate($request, [
     		'amount' => 'required|numeric',
-    		'wallet' => 'required|between:1,50',
+    		'wallet' => 'required|btc_address',
     		'bank'   => 'required|integer|exists:banks,id'
     	]);
 

@@ -92,6 +92,8 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    'btc_address' => 'Your Bitcoin wallet address is invalid. Please submit a different wallet address',
+
 
     'custom' => [
         'attribute-name' => [

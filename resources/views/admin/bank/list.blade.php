@@ -22,6 +22,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
+	        		<div class="table-responsive">
 					<table class='table table-stripped table-hover'>
 						<thead>
 					        <tr>
@@ -43,6 +44,7 @@
 						</tr>
 						@endforeach
 					</table>
+					</div>
 					{{ $banks->links() }}
 		       	</div>
 	        </div>

@@ -103,6 +103,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="{{route('admin.settings')}}" class="dropdown-font-size"><i class="fa fa-fw fa-cogs"></i> Settings</a>
+                            </li>
+                            <li>
                                 <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
                             </li>
                             <li>

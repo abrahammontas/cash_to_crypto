@@ -75,11 +75,13 @@ class UserController extends Controller
 
     public function walletCreate(Request $request) {
         $this->validate($request, [
-            'address'   => 'required'
+            'address'   => 'required|btc_address',
+            'name'      => 'required|max:32'
         ]);
         $wallet = new Wallet();
         $wallet->user_id = Auth::id();
         $wallet->address = trim($request->input('address'));
+        $wallet->name = trim($request->input('name'));
         $wallet->save();
         return back()->with('success', 'Wallet successfully created.');
     }

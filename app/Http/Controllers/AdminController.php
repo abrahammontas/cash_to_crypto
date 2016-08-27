@@ -7,6 +7,7 @@ use DB;
 use App\Order;
 use App\Bank;
 use App\User;
+use App\Settings;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -179,5 +180,27 @@ class AdminController extends Controller
         }*/
 
         return back()->with(['success' => "Order successfully updated.", 'company' => $company]);
+    }
+
+    public function settings(Request $request) {
+        if ($request->isMethod('post')) {
+            Settings::updateParams($request->all());
+            return back()->with(['success' => "Settings saved"]);
+        }
+        return view('admin.settings', ['settings' => Settings::getParams()]);
+    }
+
+    public function limits(Request $request, $id) {
+        $user = User::find($id);
+        if (!$user) {
+            return back()->with('warning', 'User not found.');
+        }
+        
+        $user->dailyLimit = $request->input('dailyLimit');
+        $user->monthlyLimit = $request->input('monthlyLimit');
+        $user->personalLimits = $request->input('personalLimits');
+        $user->save();
+
+        return back()->with('success', "User limits saved." );
     }
 }

@@ -28,3 +28,16 @@ Notes:
 [*] In user profile: remove selfie image (only need selfie receipt after user has ordered)
 [*] Buy Bitcoins page: Get Bitcoins button stays grayed out when choosing Wallet Address dropdown (please fix)
 [*] Once user uploads the selfie receipt, email the admin user(s)
+
+Profile & Buy
+[*] When user adds wallet address the wallet is automatically searched on blockchain.info. 
+If the wallet address comes back as invalid, the user will receive an error that their wallet address is invalid.
+“Your Bitcoin wallet address is invalid. Please submit a different wallet address” 
+
+[*] Users need ability to nickname their wallet when adding it. 
+[*] Then when they buy bitcoins, the nickname of the wallet will come up instead of the wallet address
+
+Limits
+[ ] When user hits limit user receives error message and is blocked from proceeding with order
+[ ] limit remaining function added
+[ ] admin can set limit for specific user

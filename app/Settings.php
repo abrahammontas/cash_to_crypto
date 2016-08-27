@@ -20,4 +20,18 @@ class Settings extends Model
     	$param->val = $value;
     	$param->save();
     }
+
+    public static function deleteParam($key) {
+        Settings::whereName($key)->delete();
+    }
+
+    public static function getParams() {
+        return Settings::lists('val', 'name');
+    }
+
+    public static function updateParams($params) {
+        foreach ($params as $key => $value) {
+            Settings::setParam($key, $value);
+        }
+    }
 }

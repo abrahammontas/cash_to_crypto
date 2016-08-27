@@ -60,6 +60,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 	Route::delete('order/{id}', ['as' => 'order.delete', 'uses' => 'AdminController@orderDelete']);
 	Route::put('order/{id}', ['as' => 'order.update', 'uses' => 'AdminController@orderUpdate']);
+	Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
+	Route::post('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
+	Route::put('limits/{id}', ['as' => 'users.limits', 'uses' => 'AdminController@limits']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);
