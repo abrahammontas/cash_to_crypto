@@ -38,6 +38,6 @@ If the wallet address comes back as invalid, the user will receive an error that
 [*] Then when they buy bitcoins, the nickname of the wallet will come up instead of the wallet address
 
 Limits
-[ ] When user hits limit user receives error message and is blocked from proceeding with order
-[ ] limit remaining function added
+[*] When user hits limit user receives error message and is blocked from proceeding with order
+[*] limit remaining function added
 [*] admin can set limit for specific user
