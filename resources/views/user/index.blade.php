@@ -23,27 +23,27 @@
 	        <div class="row">
 	        	<div class="col-md-12">
 	        		<div class='table-responsive'>
-					<table class='table table-hover'>
+					<table class='table table-hover table-bordered'>
 						<thead>
 							<tr>
 								<th>Order Number</th>
 								<th>Date</th>
 								<th>Status</th>
-								<th>Amount Paid</th>
-								<th>Bitcoins Received</th>
+								<th>Amount</th>
+								<th>Bitcoins</th>
 								<th style='width:400px'>Receipt</th>
 							</tr>
 						</thead>
 						@forelse ($orders as $order)
 						<tr>
 					    	<td>{{$order->hash}}</td>
-							<td>{{$order->created_at}}</td>
+							<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at)) }}</td>
 							<td>{{ucwords($order->status)}}</td>
-							<td>{{$order->amount}}</td>
+							<td>${{$order->amount}}</td>
 							<td>{{$order->bitcoins}}</td>
 							<td>
 								@if ($order->receipt)
-								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span></button>
+								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span> View Receipt</button>
 
 									<div id="receipt-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog modal-lg">
@@ -54,6 +54,16 @@
 									    </div>
 									  </div>
 									</div>
+
+
+									<div style="margin-top:10px;">
+										<p>Update image below:</p>
+									</div>
+									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
+									{{Form::file('receipt', ['class' => 'pull-left'])}}
+									{{Form::hidden('order', $order->hash)}}
+									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+									{{Form::close()}}
 								@else
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
 										{{Form::file('receipt', ['class' => 'pull-left'])}}

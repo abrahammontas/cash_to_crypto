@@ -58,6 +58,11 @@ class AdminController extends Controller
     	}
     	$bank->name = $request->input('name', $bank->name);
     	$bank->company = $request->input('company', $bank->company);
+        $bank->account_type = $request->input('account_type', $bank->account_type);
+        $bank->account_number = $request->input('account_number', $bank->account_number);
+        $bank->account_address = $request->input('account_address', $bank->account_address);
+        $bank->directions_before = $request->input('directions_before', $bank->directions_before);
+        $bank->directions_after = $request->input('directions_after', $bank->directions_after);
     	$bank->active = $request->has('active');
 
     	$bank->save();
@@ -70,6 +75,11 @@ class AdminController extends Controller
 
     	$bank->name = $request->input('name', $bank->name);
     	$bank->company = $request->input('company', $bank->company);
+        $bank->account_type = $request->input('account_type', $bank->account_type);
+        $bank->account_number = $request->input('account_number', $bank->account_number);
+        $bank->account_address = $request->input('account_address', $bank->account_address);
+        $bank->directions_before = $request->input('directions_before', $bank->directions_before);
+        $bank->directions_after = $request->input('directions_after', $bank->directions_after);
     	$bank->active = $request->has('active');
 
     	$bank->save();

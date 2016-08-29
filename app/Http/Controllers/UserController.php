@@ -21,6 +21,11 @@ class UserController extends Controller
         return view('user.wallet');
     }
 
+    public function currentOrder() {
+        $orders = Order::whereUserId(Auth::id())->with('bank')->orderBy('created_at', 'DESC')->paginate(10);
+        return view('user.current-order', ['orders' => $orders]);
+    }
+
     public function profile() {
         return view('user.profile');
     }
