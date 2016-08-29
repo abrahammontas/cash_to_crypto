@@ -28,14 +28,17 @@ class BitcoinPrice extends Command
      */
     public function handle()
     {
-        $result = file_get_contents('http://api.coindesk.com/v1/bpi/currentprice.json', true);
+        $result = file_get_contents('https://api.gemini.com/v1/pubticker/btcusd', true);
+
         if ($result) {
+
             $result = json_decode($result);
-            $price = $result->bpi->USD->rate_float;
-            $ourprice = $price * 1.045;
+            $price = $result->last;
+            $ourprice = $price * 1.065;
 
             \App\Settings::setParam('bitcoinPrice', $price);
             \App\Settings::setParam('ourprice', $ourprice);
+
         }
         
     }

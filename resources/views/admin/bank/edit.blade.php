@@ -16,6 +16,21 @@
                 	{{Form::text('company', $bank->company, ['class' => 'form-control', 'placeholder' => 'Company'])}}
                 </div>
                 <div class='form-group'>
+                    {{Form::text('account_type', $bank->account_type, ['class' => 'form-control', 'placeholder' => 'Account'])}}
+                </div>
+                <div class='form-group'>
+                    {{Form::text('account_number', $bank->account_number, ['class' => 'form-control', 'placeholder' => 'Account Number'])}}
+                </div>
+                <div class='form-group'>
+                    {{Form::textarea('account_address', $bank->account_address, ['class' => 'form-control', 'size'=>'30x2' , 'placeholder' => 'Address'])}}
+                </div>
+                <div class='form-group'>
+                    {{Form::textarea('directions_before', $bank->directions_before, ['class' => 'form-control', 'size'=>'30x5','placeholder' => 'Directions Before Bank Info'])}}
+                </div>
+                <div class='form-group'>
+                    {{Form::textarea('directions_after', $bank->directions_after, ['class' => 'form-control', 'size'=>'30x5', 'placeholder' => 'Directions After Bank Info'])}}
+                </div>
+                <div class='form-group'>
                 	{{Form::checkbox('active', 1, $bank->active)}} Enabled
                 </div>
             </div>

@@ -28,14 +28,20 @@
 					        <tr>
 					            <th>Name</th>
 					            <th>Company</th>
+								<th>Account</th>
+								<th>Address</th>
+								<th>Account Number</th>
 					            <th>Status</th>
 					            <th>Actions</th>
 					        </tr>
 					    </thead>
 						@foreach ($banks as $i => $bank)
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
-					    	<td>{{$bank->name}}</td>
-					    	<td>{{$bank->company}}</td>
+					    	<td> {{ $bank->name }} </td>
+					    	<td> {{ $bank->company }} </td>
+							<td> {{ $bank->account_type }} </td>
+							<td> {{ $bank->account_address }} </td>
+							<td> {{ $bank->account_number }} </td>
 							<td>{{$bank->active ? 'Enabled' : 'Disabled'}}</td>
 							<td>
 								@include('admin.bank.edit', ['bank' => $bank])

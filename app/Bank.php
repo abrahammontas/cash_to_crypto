@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bank extends Model
 {
     protected $fillable = [
-        'name', 'company', 'active'
+        'name', 'company', 'account_type', 'account_address', 'account_number', 'active'
     ];
 
     public function orders() {

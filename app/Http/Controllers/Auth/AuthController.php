@@ -97,8 +97,8 @@ class AuthController extends Controller
                 $this->logout();
                 return back()->with('warning',"Verify your email first.")->withInput();
             }
-            return redirect()->intended($this->redirectTo);
-        }else{
+            return redirect()->to($this->redirectTo);
+        } else{
             return back()->with('warning','Wrong email/password combination.')->withInput();
         }
     }
@@ -154,7 +154,7 @@ class AuthController extends Controller
             DB::table('user_activations')->where('token',$token)->delete();
 
             return redirect()->to('login')
-                ->with('success',"Email verified successfully.");
+                ->with('success',"Email verified successfully. Login to access your account.");
         }
 
         return redirect()->to('login')

@@ -20,9 +20,9 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body style="margin-top:0px;">
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: white;" role="navigation">
+        <nav class="navbar navbar-inverse" style="background-color: white; padding-left:20px; padding-right:20px;" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,16 +31,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand" style="color:white"><img src="/images/bd_logo_transparent.png" width="200" alt="Bitcoin-Depot-Logo"></a>
+                <a href="/" class="navbar-brand" style="color:white"><img src="/images/c2clogo.png" width="200" alt="Bitcoin-Depot-Logo"></a>
             </div>
             <div class="navbar-header" style="margin-top:-8px; margin-left:10px;">
-                <p style="color:#48aa3b">Exchange Rate: 1BTC = ${{number_format(\App\Settings::getParam('ourprice'),2)}}</p>
+                <p style="color:#48aa3b"><span style="font-weight:400;">Exchange Rate: 1BTC </span> = <span style="font-weight:600;">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></p>
             </div>
 
             <div class='hidden-sm hidden-md hidden-lg'>
                 <ul class='nav navbar-collapse collapse'>
                     <li>
                         <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{{route('current-order')}}"> Current Order</a>
                     </li>
                     <li>
                         <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
@@ -62,6 +65,9 @@
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
                 <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="{{route('current-order')}}"> Current Order</a>
                 </li>
                 <li>
                     <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
