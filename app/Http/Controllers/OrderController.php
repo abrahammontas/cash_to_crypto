@@ -22,6 +22,9 @@ class OrderController extends Controller
 	}
 
     public function index(Request $request) {
+        if (Order::whereUserId(Auth::id())->with('bank')->whereStatus('pending')->exists()) {
+            //return redirect()->route('current-order');
+        }
     	$banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
     }
@@ -92,5 +95,90 @@ class OrderController extends Controller
             return back()->with('success', 'Receipt uploaded successfully.');
         }
         return back()->with('warning', 'Can\'t upload receipt. Try again later.');
+    }
+
+    public function uploadSelfie(Request $request) {
+        $this->validate($request, [
+            'selfie' => 'required|image',
+            'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
+        ]);
+        $order = Order::whereHash($request->input('order'))->first();
+        $hash = md5(microtime().$order->id);
+
+        if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+            $order->selfie = $hash;
+            $order->save();
+
+            $admins = User::whereAdmin(1)->whereBanned(0)->get();
+            $admins->each(function($admin) use ($order, $request){
+                Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                    $message->to($admin->email);
+                    $message->subject('Selfie upload');
+                    $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+                });
+            });
+
+            return back()->with('success', 'Selfie uploaded successfully.');
+        }
+        return back()->with('warning', 'Can\'t upload selfie. Try again later.');
+    }
+
+    public function uploadImages(Request $request) {
+        $this->validate($request, [
+            'receipt' => 'required_without:selfie|image',
+            'selfie' => 'required_without:receipt|image',
+            'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
+        ]);
+        $order = Order::whereHash($request->input('order'))->first();
+        $hash = md5(microtime().$order->id);
+
+        $selfieUploaded = $receiptUploaded = true;
+
+        if ($request->hasFile('receipt')) {
+            if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+                $order->receipt = $hash;
+                $order->save();
+
+                $admins = User::whereAdmin(1)->whereBanned(0)->get();
+                $admins->each(function($admin) use ($order, $request){
+                    Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                        $message->to($admin->email);
+                        $message->subject('Receipt upload');
+                        $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+                    });
+                });
+            } else {
+                $receiptUploaded = false;
+            }
+        }
+
+        if ($request->hasFile('selfie')) {
+            if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+                $order->selfie = $hash;
+                $order->save();
+
+                $admins = User::whereAdmin(1)->whereBanned(0)->get();
+                $admins->each(function($admin) use ($order, $request){
+                    Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                        $message->to($admin->email);
+                        $message->subject('Selfie upload');
+                        $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+                    });
+                });
+
+            } else {
+                $selfieUploaded = false;
+            }
+        }
+
+        if ($selfieUploaded && $receiptUploaded && $request->hasFile('receipt') && $request->hasFile('selfie')) {
+            return back()->with('success', 'Receipt and selfie uploaded successfully.');
+        } else if ($selfieUploaded && $request->hasFile('selfie')) {
+            return back()->with(['success' => 'Selfie uploaded successfully.']);
+        } else if ($receiptUploaded && $request->hasFile('receipt')) {
+            return back()->with(['success' => 'Receipt uploaded successfully.']);
+        }
+        
+        return back()->with('warning', 'Can\'t upload images. Try again later.');
     }
 }

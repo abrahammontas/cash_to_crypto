@@ -74,7 +74,8 @@
 					            <th>BTC Amount</th>
 					            <th>USD</th>
 					            <th>Total Charged</th>
-					            <th>Receipt Photo</th>
+					            <th>Receipt</th>
+					            <th>Selfie</th>
 					            <th>Status</th>
 					        </tr>
 					    </thead>
@@ -105,9 +106,22 @@
 									        </div>
 									    </div>
 									  </div>
-									</div>
-								@else
-								
+									</div>				
+								@endif
+							</td>
+							<td>
+								@if ($order->selfie)
+									<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#selfie-{{$order->id}}"><span class='fa fa-eye'></span></button>
+									<a title='Download' target='_blank' class="btn btn-primary btn-xs" href='{{Storage::url('selfie/'.$order->selfie)}}'><span class='fa fa-download'></span></a>
+									<div id="selfie-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									        <div class="modal-body">
+									            <img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive">
+									        </div>
+									    </div>
+									  </div>
+									</div>				
 								@endif
 							</td>
 							<td>

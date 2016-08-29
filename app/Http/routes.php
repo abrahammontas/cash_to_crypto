@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 	Route::post('profile', ['as' => 'profile', 'uses' => 'UserController@profileUpdate']);
 	Route::delete('wallet', ['as' => 'wallet.delete', 'uses' => 'UserController@walletDelete']);
 	Route::post('wallet', ['as' => 'wallet.create', 'uses' => 'UserController@walletCreate']);
+	Route::post('selfie', ['as' => 'selfie', 'uses' => 'OrderController@uploadSelfie']);
+	Route::post('both', ['as' => 'both', 'uses' => 'OrderController@uploadImages']);
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {

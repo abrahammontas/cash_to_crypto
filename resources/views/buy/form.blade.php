@@ -58,7 +58,7 @@
         <div class="row">
         <form action="{{route('buy')}}" data-toggle="validator"  role="form"  method="post">
             {{ csrf_field() }}
-            <div class="col-lg-5 form-border order-form">
+            <div class="col-lg-6  col-lg-offset-3 form-border order-form">
                <h2 class="text-center form-title-font">Buy Bitcoins</h2>
                <hr>
                     @if ($message = session('success'))
@@ -135,7 +135,7 @@
                         <input class="btn btn-success" style="padding:10px 20px;" type="submit" name="submit-order" value="Get Bitcoins">
                    </div>
             </div>
-            <div class="col-lg-5 col-lg-offset-1">
+            <div class="col-lg-6 col-lg-offset-3">
               <div class="form-border" style="margin-bottom:0px;">
                <h2 class="text-center form-title-font">Pricing Information</h2>
                <hr>

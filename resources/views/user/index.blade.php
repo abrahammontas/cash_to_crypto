@@ -31,7 +31,8 @@
 								<th>Status</th>
 								<th>Amount</th>
 								<th>Bitcoins</th>
-								<th style='width:400px'>Receipt</th>
+								<th>Receipt</th>
+								<th>Selfie</th>
 							</tr>
 						</thead>
 						@forelse ($orders as $order)
@@ -67,6 +68,37 @@
 								@else
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
 										{{Form::file('receipt', ['class' => 'pull-left'])}}
+										{{Form::hidden('order', $order->hash)}}
+										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+									{{Form::close()}}
+								@endif
+							</td>
+							<td>
+								@if ($order->selfie)
+								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#selfie-{{$order->hash}}"><span class='fa fa-eye'></span> View Selfie</button>
+
+									<div id="selfie-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+									    <div class="modal-content">
+									        <div class="modal-body">
+									            <img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive">
+									        </div>
+									    </div>
+									  </div>
+									</div>
+
+
+									<div style="margin-top:10px;">
+										<p>Update image below:</p>
+									</div>
+									{{Form::open(["route" =>'selfie', 'enctype' => 'multipart/form-data'])}}
+									{{Form::file('selfie', ['class' => 'pull-left'])}}
+									{{Form::hidden('order', $order->hash)}}
+									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+									{{Form::close()}}
+								@else
+									{{Form::open(["route" =>'selfie', 'enctype' => 'multipart/form-data'])}}
+										{{Form::file('selfie', ['class' => 'pull-left'])}}
 										{{Form::hidden('order', $order->hash)}}
 										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}

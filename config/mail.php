@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'no-reply@bitcoindepot.com', 'name' => 'Bitcoin Depot'],
+    'from' => ['address' => 'support@cashtocrypto.com', 'name' => 'Cash to Crypto'],
 
     /*
     |--------------------------------------------------------------------------
