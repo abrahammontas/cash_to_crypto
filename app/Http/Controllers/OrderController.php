@@ -23,7 +23,7 @@ class OrderController extends Controller
 
     public function index(Request $request) {
         if (Order::whereUserId(Auth::id())->with('bank')->whereStatus('pending')->exists()) {
-            //return redirect()->route('current-order');
+            return redirect()->route('current-order');
         }
     	$banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
