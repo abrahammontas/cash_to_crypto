@@ -23,7 +23,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Cash To Crypto</a>
+                <a class="navbar-brand" href="/">Cash To Crypto</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
@@ -32,7 +32,7 @@
                     <li><a class="scroll-link" href="#how-it-works">How It Works</a></li>
                     <li><a class="scroll-link" href="#about-us">About</a></li>
                     <li><a class="scroll-link" href="#testimonials">Testimonials</a></li> -->
-                    <li><a href="mailto:support@cashtocrypto.com" style="color:white !important">Contact</a></li>
+                    <li><a href="#contact" style="color:white !important">Contact</a></li>
                     @if (Auth::guest())
                         <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important">Login</a></li>
                         <li><a class="btn btn-link-2" style="background-color:#707070; color:white !important" href="{{ url('/register') }}" style="color:white">Register</a></li>

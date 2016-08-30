@@ -15,13 +15,13 @@
 					@endif
 			        @if ($message = Session::get('success'))
                     <div class="alert alert-success">
-                        <p>{{ $message }}</p>
+                        <p>{!! $message !!}</p>
                     </div>
                 	@endif
 
                 	@if ($message = Session::get('warning'))
                     <div class="alert alert-warning">
-                        <p>{{ $message }}</p>
+                        <p>{!! $message !!}</p>
                     </div>
                 	@endif
 
@@ -130,7 +130,7 @@
 										@foreach (Auth::user()->wallets as $wallet)
 											<tr>
                                                 <td>{{$wallet->name}}</td>
-												<td><a target='_blank' class='btn btn-primary btn-sm can-select' href='https://blockchain.info/address/{{$wallet->address}}'>{{$wallet->address}}</a></td>
+												<td>{{$wallet->address}}</td>
 												<td>{{$wallet->orders()->count()}}</td>
 												<td>
 													<button type="button" title='Delete' class="btn btn-danger btn-xs" data-toggle="modal" data-target="#wallet-delete-{{$wallet->id}}">

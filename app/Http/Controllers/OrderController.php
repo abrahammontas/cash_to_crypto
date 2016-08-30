@@ -22,14 +22,19 @@ class OrderController extends Controller
 	}
 
     public function index(Request $request) {
-        if (Order::whereUserId(Auth::id())->with('bank')->whereStatus('pending')->exists()) {
-            return redirect()->route('current-order');
-        }
     	$banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
     }
 
     public function order(Request $request) {
+        if (!Auth::user()->photoid) {
+            return back()->withInput()->with('warning', "Please upload your Photo ID in your <a href='/profile'>profile</a>.");
+        }
+
+        if (Auth::user()->hasPending()) {
+            return back()->withInput()->with('warning', 'Please cancel or complete your current order before you can submit a new order.');
+        }
+
     	$this->validate($request, [
     		'amount' => 'required|numeric',
     		'wallet' => 'required|btc_address',
@@ -50,9 +55,16 @@ class OrderController extends Controller
             return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
         }
 
+        $faker = \Faker\Factory::create();
+        do {
+            $hash = $faker->unique()->randomNumber(7, true);
+        } while ( Order::whereHash($hash)->exists());
+
+
+
     	$order = new Order();
     	$order->user_id  = Auth::id();
-        $order->hash     = uniqid();
+        $order->hash     = $hash;
         $order->bank_id  = $request->input('bank');
         $order->wallet   = trim($request->input('wallet'));
         $order->amount   = $amount;
@@ -180,5 +192,22 @@ class OrderController extends Controller
         }
         
         return back()->with('warning', 'Can\'t upload images. Try again later.');
+    }
+
+    public function cancel(Request $request, $hash) {
+        $order = Order::whereHash($hash)->whereUserId(Auth::id())->first();
+        if (!$order) {
+            return back()->with('warning', 'Order not found!');
+        }
+        if ($order->status == 'completed') {
+            return back()->with('warning', 'Order completed.');
+        }
+        if ($order->status == 'cancelled') {
+            return back()->with('warning', 'Order already cancelled.');
+        }
+
+        $order->status = 'cancelled';
+        $order->save();
+        return back()->with('success', 'Order successfully cancelled.');
     }
 }

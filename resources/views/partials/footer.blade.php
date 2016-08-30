@@ -13,7 +13,7 @@
         </div> -->
         <div class="row">
             <div class="col-sm-12 footer-copyright">
-                Copyright 2016 &copy; Marco Bootstrap Cash To Crypto LLC
+                Copyright 2016 &copy; Cash To Crypto LLC
             </div>
         </div>
     </div>

@@ -14,13 +14,13 @@
 	        </div>
 	        @if ($message = session('success'))
 	            <div class="alert alert-success">
-	                <p>{{ $message }}</p>
+	                <p>{!! $message !!}</p>
 	            </div>
 	        @endif
 
 	        @if ($message = session('warning'))
 	            <div class="alert alert-warning">
-	                <p>{{ $message }}</p>
+	                <p>{!! $message !!}</p>
 	            </div>
 	        @endif
 	        <div class="row">

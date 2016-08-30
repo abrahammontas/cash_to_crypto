@@ -10,6 +10,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
+use Mail;
 
 class UserController extends Controller
 {
@@ -24,7 +25,10 @@ class UserController extends Controller
 
     public function currentOrder() {
         $order = Order::whereUserId(Auth::id())->with('bank')->whereStatus('pending')->first();
-        return view('user.current-order', ['order' => $order]);
+        if ($order) {
+            return view('user.current-order', ['order' => $order]);
+        }
+        return redirect()->route('dashboard');
     }
 
     public function profile() {
@@ -90,5 +94,20 @@ class UserController extends Controller
         $wallet->name = trim($request->input('name'));
         $wallet->save();
         return back()->with('success', 'Wallet successfully created.');
+    }
+
+    public function contact(Request $request) {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'name'    => 'required|max:100',
+            'subject'    => 'required|max:100',
+            'text'    => 'required',
+        ]);
+
+        Mail::send('contact.email', $request->all(), function($message) use ($request){
+            $message->to('support@cashtocrypto.com');
+            $message->subject('Contact: '.$request->input('subject'));
+        });
+        return back();
     }
 }

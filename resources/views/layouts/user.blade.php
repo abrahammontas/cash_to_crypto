@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand" style="color:white"><img src="/images/c2clogo.png" width="200" alt="Bitcoin-Depot-Logo"></a>
+                <a href="/" class="navbar-brand" style="color:white"><img src="/images/c2clogo.png" width="200" alt="Cash To Crypto"></a>
             </div>
             <div class="navbar-header" style="margin-top:-8px; margin-left:10px;">
                 <p style="color:#48aa3b"><span style="font-weight:400;">Exchange Rate: 1BTC </span> = <span style="font-weight:600;">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></p>
@@ -45,9 +45,11 @@
                     <li>
                         <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+                    @if (auth()->user()->hasPending())
                     <li>
                         <a href="{{route('current-order')}}"> Current Order</a>
                     </li>
+                    @endif
                     <!-- <li>
                         <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
                     </li> -->
@@ -72,9 +74,11 @@
                 <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
+                @if (auth()->user()->hasPending())
                 <li>
                     <a href="{{route('current-order')}}"> Current Order</a>
                 </li>
+                @endif
                 <!-- <li>
                     <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
                 </li> -->
@@ -98,6 +102,7 @@
         <div class="wrapper user">
         @yield('content')
         </div>
+        @include('contact.form')
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery.js"></script>

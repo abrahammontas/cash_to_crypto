@@ -6,12 +6,21 @@
 <div class='wrapper current-order-page' style='margin-top:-20px;'>
     <div class='container'>
         <div class="row">
-            <div class="col-md-12 col-md-5">
+            <div class="col-xs-12">
                 @if ($message = session('success'))
                     <div class="alert alert-success">
-                        <p>{{ $message }}</p>
+                        <p>{!! $message !!}</p>
                     </div>
                 @endif
+
+                @if ($message = session('warning'))
+                    <div class="alert alert-warning">
+                        <p>{!! $message !!}</p>
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-12 col-md-5">
+
                 <div class='row'>
                     <div class="col-xs-12 form-border" style="padding:5%;">
                         <h2 class="text-center form-title-font">Current Order</h2>
@@ -67,17 +76,6 @@
                     <div class="col-xs-12 form-border uploads" style="padding:5%;">
                         <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
                         <hr>
-                        @if ($message = session('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                            </div>
-                        @endif
-
-                        @if ($message = session('warning'))
-                            <div class="alert alert-warning">
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
                         {{Form::open(["route" =>'both', 'enctype' => 'multipart/form-data'])}}
                         {{Form::hidden('order', $order->hash)}}
                         <div class="form-group form-inline {{ $errors->has('receipt') ? ' has-error' : '' }}">
@@ -117,7 +115,7 @@
                         <h2 class="text-center form-title-font">Deposit Information</h2>
                         <hr>
                         <div class="form-group form-inline">
-                            {!!$order->bank->directions_before!!}
+                            {!!nl2br($order->bank->directions_before)!!}
                         </div>
                         <div class="form-group form-inline">
                             <div class='row'>
@@ -175,7 +173,7 @@
                         </div>
                         <hr/>
                         <div>
-                            {!!$order->bank->directions_after!!}
+                            {!!nl2br($order->bank->directions_after)!!}
                         </div>
                     </div>
                 </div>
@@ -184,8 +182,7 @@
 
         <div class="row" style="margin:5%;">
             <div class="col-md-12 footer">
-                <center><b>Thanks for choosing Bitcoin Depot</b><br/>
-                <b>2016 &copy; Cash To Crypto</b></center>
+                <center><b>2016 &copy; Cash To Crypto</b></center>
             </div>
         </div>
     </div>

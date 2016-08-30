@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Mail;
 use DB;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -97,7 +98,14 @@ class AuthController extends Controller
                 $this->logout();
                 return back()->with('warning',"Verify your email first.")->withInput();
             }
-            return redirect()->to($this->redirectTo);
+            $data = [];
+            $user = Auth::user();
+            if ($user->firstLogin && !$user->admin) {
+                $data['success'] = "Welcome to your new Cash To Crypto customer account! To place your first order, upload your Photo ID in your <a href='/profile'>Profile</a> and click the Buy Bitcoins! button at the top of the page.";
+                $user->firstLogin = 0;
+                $user->save();
+            }
+            return redirect()->route($user->admin ? 'admin.dashboard' : 'dashboard')->with($data);
         } else{
             return back()->with('warning','Wrong email/password combination.')->withInput();
         }

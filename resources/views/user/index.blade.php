@@ -11,13 +11,13 @@
 	        </div>
 	        @if ($message = session('success'))
 	            <div class="alert alert-success">
-	                <p>{{ $message }}</p>
+	                <p>{!! $message !!}</p>
 	            </div>
 	        @endif
 
 	        @if ($message = session('warning'))
 	            <div class="alert alert-warning">
-	                <p>{{ $message }}</p>
+	                <p>{!! $message !!}</p>
 	            </div>
 	        @endif
 	        <div class="row">
@@ -31,8 +31,8 @@
 								<th>Status</th>
 								<th>Amount</th>
 								<th>Bitcoins</th>
-								<th>Receipt</th>
-								<th>Selfie</th>
+								<th>Photos</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						@forelse ($orders as $order)
@@ -44,6 +44,9 @@
 							<td>${{$order->amount}}</td>
 							<td>{{$order->bitcoins}}</td>
 							<td>
+								<div class="row form-group">
+									<div class='col-xs-12'>
+									Receipt: 
 								@if ($order->receipt)
 								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span> View Receipt</button>
 
@@ -57,7 +60,7 @@
 									  </div>
 									</div>
 
-
+									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									<div style="margin-top:10px;">
 										<p>Update image below:</p>
 									</div>
@@ -66,15 +69,21 @@
 									{{Form::hidden('order', $order->hash)}}
 									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}
+									@endif
 								@else
+									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
 										{{Form::file('receipt', ['class' => 'pull-left'])}}
 										{{Form::hidden('order', $order->hash)}}
 										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}
+									@endif
 								@endif
-							</td>
-							<td>
+									</div>
+								</div>
+								<div class="row">
+									<div class='col-xs-12'>
+									Selfie:
 								@if ($order->selfie)
 								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#selfie-{{$order->hash}}"><span class='fa fa-eye'></span> View Selfie</button>
 
@@ -88,7 +97,7 @@
 									  </div>
 									</div>
 
-
+									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									<div style="margin-top:10px;">
 										<p>Update image below:</p>
 									</div>
@@ -97,12 +106,42 @@
 									{{Form::hidden('order', $order->hash)}}
 									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}
+									@endif
 								@else
+									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									{{Form::open(["route" =>'selfie', 'enctype' => 'multipart/form-data'])}}
 										{{Form::file('selfie', ['class' => 'pull-left'])}}
 										{{Form::hidden('order', $order->hash)}}
 										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
 									{{Form::close()}}
+									@endif
+								@endif
+									</div>
+								</div>
+							</td>
+							<td>
+								@if ($order->status != 'completed' && $order->status != 'cancelled')
+								<button type="button" title='Cancel' class="btn btn-danger btn-xs" data-toggle="modal" data-target="#order-cancel-{{$order->hash}}">
+									<span class='fa fa-trash'></span>
+								</button>
+								<div id="order-cancel-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+								  <div class="modal-dialog">
+								  	{{Form::open(['method' => 'post', 'route' =>['order.cancel', $order->hash]])}}
+							        <div class="panel panel-red">
+							            <div class="panel-heading">
+							                Cancel order <button class="close" data-dismiss="modal">×</button>
+							            </div>
+							            <div class="panel-body">
+							                Are you sure to cancel <b>{{$order->hash}}</b>?
+							            </div>
+							            <div class="panel-footer">
+							                <button type="submit" class="btn btn-primary">Yes</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+							            </div>
+							        </div>
+							        {{Form::close()}}
+								  </div>
+								</div>
 								@endif
 							</td>
 						</tr>

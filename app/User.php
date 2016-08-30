@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function monthlyLimitLeft() {
         return ($this->personalLimits ? $this->dailyLimit : Settings::getParam('monthlyLimit')) - $this->monthlyLimitUsed();
     }
+
+    public function hasPending() {
+        return Order::whereUserId($this->id)->whereStatus('pending')->exists();
+    }
 }

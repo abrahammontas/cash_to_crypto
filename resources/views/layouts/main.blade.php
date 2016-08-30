@@ -41,6 +41,8 @@
 
         @yield('content')
 
+        @include('contact.form')
+
         @include('partials.footer')
 
         <!-- Javascript -->
@@ -65,6 +67,6 @@
         <script src="/js/custom.js"></script>
 
         @yield('scripts')
-
+        
     </body>
 </html>

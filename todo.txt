@@ -41,3 +41,43 @@ Limits
 [*] When user hits limit user receives error message and is blocked from proceeding with order
 [*] limit remaining function added
 [*] admin can set limit for specific user
+
+Update 2
+[*] Make the numbers left-aligned like in screen shot
+[*] After user presses buy bitcoins redirect to the current order with message saying "Your order has been created."
+[*] Have error pop up after user presses the buy button (if they have a current order)
+    Error message after pressing by bitcoins if user has a current order: “Please cancel or complete your current order before you can submit a new order”
+[*] Remove blockchain links for the wallets
+[*] Allow user to access buy bitcoins page before they upload their photo id. 
+    When they press buy bitcoins, have Error Message: "Please upload your photo id in your <a href='/profile'>profile</a>."
+[ ] Remove the disabled submit button feature. See image
+[*] After user logs in, redirect to the user's dashboard. 
+[*] On the user's first login, create message, saying: "Welcome to your new Cash To Crypto customer account! To place your first order, upload your photo id in your <a href='/profile'>profile</a> and click the buy bitcoins button at the top of the page."
+[*] Add c2clogo.png to navbar-brand section
+[*] Remove "Thanks for choosing Bitcoin Depot" on current orders page please
+[*] make order_id only 7 characters long and all numbers?
+[*] Please add 
+		<div class="row font-main">
+		<div class="col-xs-2">
+		<strong>Email:</strong>
+		</div>
+		<div class="col-xs-4 text-left">
+		{{Auth::user()->email}}
+		</div>
+		<div class="col-xs-2">
+		<strong>Phone:</strong>
+		</div>
+		<div class="col-xs-4 text-left">
+		{{Auth::user()->phone}}
+		</div>
+		</div>
+		<hr />
+    to user.profile
+    below the First Name, Last Name row
+[*] Please add this contact form to the bottom of each page and create a scroll link
+    send email to support@cashtocrypto.com
+[*] allow users to cancel an order
+
+
+admin panel:
+see doc

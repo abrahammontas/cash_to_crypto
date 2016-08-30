@@ -34,10 +34,10 @@ Route::get('/faq', ['as' => 'faq', function () {
 Route::auth();
 
 Route::group(['middleware' => ['auth', 'banned']], function () {
-	Route::group(['middleware' => 'photo'], function () {
+	//Route::group(['middleware' => 'photo'], function () {
 		Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
 		Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
-	});
+	//});
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
     Route::get('current-order', ['as' => 'current-order', 'uses' => 'UserController@currentOrder']);
 	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 	Route::post('wallet', ['as' => 'wallet.create', 'uses' => 'UserController@walletCreate']);
 	Route::post('selfie', ['as' => 'selfie', 'uses' => 'OrderController@uploadSelfie']);
 	Route::post('both', ['as' => 'both', 'uses' => 'OrderController@uploadImages']);
+	Route::post('order/cancel/{hash}', ['as' => 'order.cancel', 'uses' => 'OrderController@cancel']);
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -69,3 +70,5 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);
+Route::post('contact', ['as' => 'contact', 'uses' => 'UserController@contact']);
+
