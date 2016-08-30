@@ -4,7 +4,7 @@
 
 @section('content')
 		<?php 
-			$statusClasses = ['pending' => 'warning', 'completed' => 'success', 'issue' => 'danger'];
+			$statusClasses = ['pending' => 'warning', 'completed' => 'success', 'issue' => 'danger', 'cancelled' => 'normal'];
 		?>
 	    <div class="container-fluid container-padding">
 	        <div class="row">
@@ -141,7 +141,7 @@
 								                	{{Form::number('bitcoins', $order->bitcoins, ['class' => 'form-control', 'placeholder' => 'Bitcoins', 'min' => 0, 'step' => 0.00001, 'required' => true])}}
 								                </div>
 								                <div class='form-group'>
-								                	{{Form::select('status', ['pending' => 'Pending', 'issue' => 'Issue', 'completed' => 'Completed'], $order->status, ['class' => 'form-control'])}}
+								                	{{Form::select('status', ['pending' => 'Pending', 'issue' => 'Issue', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], $order->status, ['class' => 'form-control'])}}
 								                </div>
 								                <div class='form-group'>
 								                	{{Form::textarea('note', $order->note, ['class' => 'form-control', 'placeholder' => 'Note'])}}
