@@ -28,14 +28,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
-                    {{--<li><a class="scroll-link" href="#features">Home</a></li>--}}
+                    <!-- <li><a class="scroll-link" href="#features">Home</a></li>
                     <li><a class="scroll-link" href="#how-it-works">How It Works</a></li>
                     <li><a class="scroll-link" href="#about-us">About</a></li>
-                    <li><a class="scroll-link" href="#testimonials">Testimonials</a></li>
-                    <li><a class="scroll-link" href="#pricing">Contact</a></li>
+                    <li><a class="scroll-link" href="#testimonials">Testimonials</a></li> -->
+                    <li><a href="mailto:support@cashtocrypto.com" style="color:white !important">Contact</a></li>
                     @if (Auth::guest())
-                        <li><a class="btn btn-link-2" href="{{ url('/login') }}">Login</a></li>
-                        <li><a class="btn btn-link-2" style="background-color:#707070; color:white;" href="{{ url('/register') }}">Register</a></li>
+                        <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important">Login</a></li>
+                        <li><a class="btn btn-link-2" style="background-color:#707070; color:white !important" href="{{ url('/register') }}" style="color:white">Register</a></li>
                     @else
                         <li>
                             <div class="dropdown">
@@ -67,9 +67,9 @@
                             We have made purchasing bitcoin even easier! Register for a free account, upload your photo id once and make your first purchase with our new system!
                         </p>
                     </div>
-                    <div class="top-big-link wow fadeInUp">
-                        <a class="btn btn-link-2" style="background-color:#707070;" href="{{ url('/register') }}">Register</a>
-                        <a class="btn btn-link-2" href="#features">Learn more</a>
+                    <div class="top-big-link wow fadeInUp" style="margin-bottom:20px;">
+                        <a class="btn btn-link-2" style="background-color:#707070;" href="{{ url('/register') }}">Register For A Free Account!</a>
+                        <!-- <a class="btn btn-link-2" href="#features">Learn more</a> -->
                     </div>
                 </div>
                 <div class="col-sm-5 form-box wow fadeInUp">
@@ -165,7 +165,8 @@
 
                         </form>
                         <hr />
-                        <p style="font-size:16px; font-weight:300; color:#c6c4c4;">Already have an account? - <button class="btn btn-primary">Login</button></p>
+                        <p style="font-size:16px; font-weight:300; color:#c6c4c4;">Already have an account? - <a href="{{ url('/login') }}"><button class="btn btn-primary">
+                                Login</button></a></p>
                     </div>
                 </div>
             </div>
@@ -175,8 +176,8 @@
 
 
 
-<!-- Features -->
-<div class="features-container section-container">
+<!-- <!-- <!-- Features -->
+<!-- <div class="features-container section-container">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 features section-description wow fadeIn">
@@ -236,10 +237,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- More features -->
-<div class="more-features-container section-container section-container-gray-bg">
+<!-- <div class="more-features-container section-container section-container-gray-bg">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 more-features section-description wow fadeIn">
@@ -278,7 +279,7 @@
 </div>
 
 <!-- Always beautiful -->
-<div class="always-beautiful-container section-container">
+<!-- <div class="always-beautiful-container section-container">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 always-beautiful section-description wow fadeIn">
@@ -307,10 +308,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- How it works -->
-<div class="how-it-works-container section-container section-container-image-bg">
+<!-- <div class="how-it-works-container section-container section-container-image-bg">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 how-it-works section-description wow fadeIn">
@@ -360,10 +361,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Pricing -->
-<div class="pricing-container section-container">
+<!-- <div class="pricing-container section-container">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 pricing section-description wow fadeIn">
@@ -439,7 +440,7 @@
 </div>
 
 <!-- Call to action -->
-<div class="call-to-action-container section-container section-container-image-bg">
+<!-- <div class="call-to-action-container section-container section-container-image-bg">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 call-to-action section-description wow fadeInLeftBig">
@@ -457,10 +458,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- About us -->
-<div class="about-us-container section-container">
+<!-- <div class="about-us-container section-container">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 about-us section-description wow fadeIn">
@@ -511,9 +512,9 @@
         </div>
     </div>
 </div>
-
+ -->
 <!-- Testimonials -->
-<div class="testimonials-container section-container section-container-gray-bg">
+<!-- <div class="testimonials-container section-container section-container-gray-bg">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 testimonials section-description wow fadeIn">
@@ -525,7 +526,7 @@
             <div class="col-sm-10 col-sm-offset-1 testimonial-list wow fadeInUp">
                 <div role="tabpanel">
                     <!-- Tab panes -->
-                    <div class="tab-content">
+                 <!--    <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="tab1">
                             <div class="testimonial-image">
                                 <img src="assets/img/testimonials/1.jpg" alt="" data-at2x="assets/img/testimonials/1.jpg">
@@ -590,9 +591,9 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
+            <!--         <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab"></a>
                         </li>
@@ -602,15 +603,15 @@
                         <li role="presentation">
                             <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab"></a>
                         </li>
-                        <li role="presentation">
-                            <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab"></a>
+                        <li role="presentation">  -->
+<!--                             <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab"></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>  -->
 
 {{--<div class='frontpage'>--}}
     {{--<section id="buy-now">--}}

@@ -24,10 +24,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/" style="color:white !important;">Home</a></li>
+                    <li><a href="mailto:support@cashtocrypto.com" style="color:white !important;">Contact</a></li>
                     @if (Auth::guest())
-                        <li><a class="btn btn-link-2" href="{{ url('/login') }}">Login</a></li>
-                        <li><a class="btn btn-link-2" style="background-color:#707070; color:white;" href="{{ url('/register') }}">Register</a></li>
+                        <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important;">Login</a></li>
+                        <li><a class="btn btn-link-2" href="{{ url('/register') }}" style="background-color:#707070; color:white !important">Register</a></li>
                     @else
                         <li>
                             <div class="dropdown">
@@ -145,8 +146,8 @@
 
                         </form>
                         <hr />
-                        <p style="font-size:16px; font-weight:300; color:#c6c4c4;">Already have an account? - <button class="btn btn-primary">
-                                <a href="{{ url('/login') }}"></a>Login</button></p>
+                        <p style="font-size:16px; font-weight:300; color:#c6c4c4;">Already have an account? - <a href="{{ url('/login') }}"><button class="btn btn-primary">
+                                Login</button></a></p>
                     </div>
                 </div>
             </div>

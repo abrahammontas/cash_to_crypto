@@ -40,14 +40,17 @@
             <div class='hidden-sm hidden-md hidden-lg'>
                 <ul class='nav navbar-collapse collapse'>
                     <li>
+                        <a href="{{ url('/') }}"> Homepage</a>
+                    </li>
+                    <li>
                         <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="{{route('current-order')}}"> Current Order</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="{{route('buy')}}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
                     </li>
@@ -64,14 +67,17 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
                 <li>
+                    <a href="{{ url('/') }}"> Homepage</a>
+                </li>
+                <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="{{route('current-order')}}"> Current Order</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                </li>
+                </li> -->
                 <li class="no-border">
                     <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px;"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
                 </li>

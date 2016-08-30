@@ -237,9 +237,9 @@ ul.navbar-nav {
 	color: #fff;
 }
 
-.navbar-inverse ul.navbar-nav li a { color: #fff; opacity: 0.8; border-bottom: 1px solid transparent; }
-.navbar-inverse ul.navbar-nav li a:hover { color: #fff; opacity: 1; border-bottom: 1px solid #fff; }
-.navbar-inverse ul.navbar-nav li a:focus { color: #fff; outline: 0; opacity: 1; border-bottom: 1px solid #fff; }
+.navbar-inverse ul.navbar-nav li a { color: #565656; opacity: 1; border-bottom: 1px solid transparent; }
+.navbar-inverse ul.navbar-nav li a:hover { color: #565656; opacity: 1; border-bottom: 1px solid #fff; }
+.navbar-inverse ul.navbar-nav li a:focus { color: #565656; outline: 0; opacity: 1; border-bottom: 1px solid #fff; }
 
 .navbar-inverse ul.navbar-nav li a.btn-link-2 {
 	height: auto;
@@ -721,5 +721,23 @@ footer {
 .exchange-rate {
 	padding: 10px 20px;
 }
+
+.buy-form {
+	border: 1px solid black;
+	border-radius: 4px;
+	background-color: white;
+	padding: 5% 7%;
+	margin-top: 5%;
+	margin-bottom: 2%;
+}
+
+div.input-group.pull-right {
+	width:40px;
+}
+
+/*.form-border {
+	padding: 5% !important;
+}*/
+
 
 

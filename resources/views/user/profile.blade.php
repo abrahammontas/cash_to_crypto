@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                 	<h2 class="fw-300">Profile</h2>
-                	@if(!Auth::user()->photo || !Auth::user()->photoid)
+                	@if(!Auth::user()->photoid)
 	                <div class="alert alert-danger" role="alert">
 						Note: You must upload a valid Photo ID before purchasing bitcoins!
                         <!--Note: You must upload both a valid Photo ID and Selfie before purchasing bitcoins!-->
@@ -46,6 +46,22 @@
                     			{{Auth::user()->lastName}}
                     		</div>
                     	</div>
+                        <hr />
+                        <div style="margin-top:30px;"></div>
+                        <div class="row font-main">
+                            <div class="col-xs-2">
+                                <strong>Email:</strong>
+                            </div>
+                            <div class="col-xs-4 text-left">
+                                {{Auth::user()->email}}
+                            </div>
+                            <div class="col-xs-2">
+                                <strong>Phone:</strong>
+                            </div>
+                            <div class="col-xs-4 text-left">
+                                {{Auth::user()->phone}}
+                            </div>
+                        </div>
                         <hr />
                         <div style="margin-top:30px;"></div>
                         <div class="row font-main">

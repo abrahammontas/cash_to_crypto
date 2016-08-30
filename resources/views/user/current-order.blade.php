@@ -7,8 +7,13 @@
     <div class='container'>
         <div class="row">
             <div class="col-md-12 col-md-5">
+                @if ($message = session('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
                 <div class='row'>
-                    <div class="col-xs-12 form-border" style="padding:1px">
+                    <div class="col-xs-12 form-border" style="padding:5%;">
                         <h2 class="text-center form-title-font">Current Order</h2>
                         <hr>
                         <div class="form-group form-inline">
@@ -59,7 +64,7 @@
                     </div>
                 
 
-                    <div class="col-xs-12 form-border uploads" style="padding:1px">
+                    <div class="col-xs-12 form-border uploads" style="padding:5%;">
                         <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
                         <hr>
                         @if ($message = session('success'))
@@ -84,8 +89,9 @@
                                 </span>
                             @endif
                         </div>
+                        <br />
                         <div class="form-group form-inline {{ $errors->has('selfie') ? ' has-error' : '' }}">
-                            <strong>Selfie with Receipt</strong>
+                            <strong style="padding-bottom:5px;">Selfie with Receipt</strong>
                             <input type='file' name='selfie'/>
                             @if ($errors->has('selfie'))
                                 <span class="help-block">
@@ -93,9 +99,10 @@
                                 </span>
                             @endif
                         </div>
+                        <br />
                         <div class="form-group text-center">
                             <input class="btn btn-success" style="padding:10px 20px;" type="submit" name="submit-order" value="Upload">
-                            <span class='help-block'>Make shure images are clear</span>
+                            <span class='help-block'>Make sure images are clear</span>
                         </div>
                         {{Form::close()}}
                     </div>
@@ -106,7 +113,7 @@
 
             <div class="col-md-12 col-md-offset-1 col-md-6 text-left">
                 <div class='row'>
-                    <div class="col-xs-12 form-border" style="padding:1px 20px">
+                    <div class="col-xs-12 form-border" style="padding:5%">
                         <h2 class="text-center form-title-font">Deposit Information</h2>
                         <hr>
                         <div class="form-group form-inline">
@@ -175,7 +182,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin:5%;">
             <div class="col-md-12 footer">
                 <center><b>Thanks for choosing Bitcoin Depot</b><br/>
                 <b>2016 &copy; Cash To Crypto</b></center>

@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer>
     <div class="container">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-12 footer-social">
                 <a href="#"><span class="typcn typcn-social-facebook"></span></a>
                 <a href="#"><span class="typcn typcn-social-dribbble"></span></a>
@@ -10,7 +10,7 @@
                 <a href="#"><span class="typcn typcn-social-instagram"></span></a>
                 <a href="#"><span class="typcn typcn-social-pinterest"></span></a>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-sm-12 footer-copyright">
                 Copyright 2016 &copy; Marco Bootstrap Cash To Crypto LLC

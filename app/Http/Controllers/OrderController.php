@@ -23,7 +23,7 @@ class OrderController extends Controller
 
     public function index(Request $request) {
         if (Order::whereUserId(Auth::id())->with('bank')->whereStatus('pending')->exists()) {
-            //return redirect()->route('current-order');
+            return redirect()->route('current-order');
         }
     	$banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
@@ -68,7 +68,7 @@ class OrderController extends Controller
             });
         });
 
-        return redirect()->route('dashboard')->with('success', 'Order created successfully.');
+        return redirect()->route('current-order')->with('success', 'Order created successfully. Below you will find your order summary and deposit directions.');
     }
 
     public function uploadReceipt(Request $request) {

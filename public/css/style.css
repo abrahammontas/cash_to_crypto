@@ -238,59 +238,10 @@ td.with-avatar {
     background-color: white; 
 }
 
-.current-order-page .form-border hr {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    border: 0;
-    border-top: 1px solid #e5e5e5;
+.dropdown-menu>li>a {
+    color:black !important;
 }
 
-.current-order-page .form-border hr:first-child {
-    border-top: 2px solid #e5e5e5;
-}
-.current-order-page .form-border hr:last-child {
-    margin-bottom:0px;
-}
-
-.current-order-page .form-inline .row div:first-child {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #7c7c7c;
-}
-
-.current-order-page .form-inline .row div:last-child {
-    text-align: center;
-    font-size: 16px;
-    color: #7c7c7c;
-}
-
-.current-order-page .uploads {
-    text-align: center;
-}
-
-.current-order-page .uploads input {
-    margin:20px auto;
-}
-.current-order-page .form-border {
-    margin-top: 20px;
-    margin-bottom: 0px;
-}
-.current-order-page .form-title-font {
-    padding-bottom: 0px;
-}
-.current-order-page .footer {
-    padding: 50px;
-}
-
-.current-order-page .text-left .form-inline .row div:first-child {
-    text-align: left;
-}
-
-.current-order-page .text-left .form-inline .row div:last-child {
-    text-align: left;
-}
-
-.current-order-page .form-inline .row {
-    margin:0px;
+.dropdown-menu>li>a:hover {
+    color: black !important;
 }
