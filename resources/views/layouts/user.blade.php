@@ -102,7 +102,6 @@
         <div class="wrapper user">
         @yield('content')
         </div>
-        @include('contact.form')
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery.js"></script>

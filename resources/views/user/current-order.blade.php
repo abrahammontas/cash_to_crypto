@@ -8,13 +8,13 @@
         <div class="row">
             <div class="col-xs-12">
                 @if ($message = session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" style="margin-top:6%; margin-bottom:0px;">
                         <p>{!! $message !!}</p>
                     </div>
                 @endif
 
                 @if ($message = session('warning'))
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning" style="margin-top:6%; margin-bottom:0px;">
                         <p>{!! $message !!}</p>
                     </div>
                 @endif
@@ -68,8 +68,29 @@
                                 </div>
                             </div>
                         </div>
-
                         <hr>
+
+                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#order-cancel-{{$order->hash}}">
+                            <span class='fa fa-trash' style="font-size:14px;"> Cancel Order</span>
+                        </button>
+                        <div id="order-cancel-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                {{Form::open(['method' => 'post', 'route' =>['order.cancel', $order->hash]])}}
+                                <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        Cancel order <button class="close" data-dismiss="modal">×</button>
+                                    </div>
+                                    <div class="panel-body">
+                                        Are you sure to cancel <b>{{$order->hash}}</b>?
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="submit" class="btn btn-primary">Yes</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                                {{Form::close()}}
+                            </div>
+                        </div>
                     </div>
                 
 

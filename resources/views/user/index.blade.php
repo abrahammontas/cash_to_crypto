@@ -121,8 +121,8 @@
 							</td>
 							<td>
 								@if ($order->status != 'completed' && $order->status != 'cancelled')
-								<button type="button" title='Cancel' class="btn btn-danger btn-xs" data-toggle="modal" data-target="#order-cancel-{{$order->hash}}">
-									<span class='fa fa-trash'></span>
+								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#order-cancel-{{$order->hash}}">
+									<span class='fa fa-trash' style="font-size:14px;"> Cancel Order</span>
 								</button>
 								<div id="order-cancel-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 								  <div class="modal-dialog">

@@ -72,9 +72,9 @@
                    <h2 class="text-center form-title-font">Buy Bitcoins</h2>
                    <hr>
                     @if ($message = session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" style="margin-top:5%;">
                         <p>{!! $message !!}</p>
-                        </div>
+                    </div>
                     @endif
 
                     @if ($message = session('warning'))
@@ -95,7 +95,7 @@
                     <hr>
                     <div class="form-group form-inline{{ $errors->has('amount') ? ' has-error' : '' }}">
                         <label for="bitcoin-amount" style="font-weight:400;">USD Amount:</label>
-                        <input type="number" min=0 name="amount" style="width:200px" id="amount" class="form-control pull-right" required value='{{old('amount')}}'>
+                        <input type="number" step="any" min=0 name="amount" style="width:200px" id="amount" class="form-control pull-right" required value='{{old('amount')}}'>
                         @if ($errors->has('amount'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('amount') }}</strong>
@@ -127,6 +127,10 @@
                    <hr>
                    <div class="help-block with-errors"></div>
                </div>
+                <div class="col-md-12 hidden-sm hidden-xs" style="margin-top:10px; padding-left:0px; padding-right:0px;">
+                    <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
+                </div>
+
             </div>
             <div class="col-sm-5 col-sm-offset-1" style="">
                 <div class="buy-form" style="
@@ -149,12 +153,15 @@
                             <label for="estimated-bitcoins"><span style="font-weight:400">Estimated Bitcoins:</span></label>
                             <input readonly="readonly" name="bitcoins" class="form-control pull-right" id="estimated_bitcoins" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:80px;" value="0.00000">
                         </div>
+                        <div class="form-group text-center" style="margin-top:20px;">
+                            <span style="color:red">Note: Actual Bitcoin Amount will be calculated when your receipt is uploaded.</span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group text-center" style="margin-top:20px;">
-                    <input class="btn btn-success form-control" style="padding:10px 20px; height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
-                </div>
             </div>
+        </div>
+        <div class="row hidden-md hidden-lg" style="margin-bottom:10%; margin-left:9%; margin-right:9%;">
+            <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
         </div>
         </form>
         </div>
@@ -166,14 +173,14 @@
 <script>
     (function($){
         $(document).on("change keyup mouseup blur", "#amount", function(){
-            var total = parseFloat($("#amount").val() ? $("#amount").val() : 0);
+            var amount = parseFloat($("#amount").val() ? $("#amount").val() : 0);
             
-            var fees = total * .02;
-            var amount = total - fees;
+//            var fees = total * .02;
+//            var amount = total;
 
-            $("#bitcoin_subtotal").val('$'+amount.toFixed(2));
-            $("#bitcoin_fees").val('$'+fees.toFixed(2));
-            $("#bitcoin_total").val('$'+total.toFixed(2));
+//            $("#bitcoin_subtotal").val('$'+amount.toFixed(2));
+//            $("#bitcoin_fees").val('$'+fees.toFixed(2));
+//            $("#bitcoin_total").val('$'+total.toFixed(2));
             $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
         });
         $("#amount").change();

@@ -41,8 +41,6 @@
 
         @yield('content')
 
-        @include('contact.form')
-
         @include('partials.footer')
 
         <!-- Javascript -->

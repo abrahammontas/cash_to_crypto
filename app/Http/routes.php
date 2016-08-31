@@ -15,21 +15,21 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('/how-to', ['as' => 'howto', function () {
-    return view('help.index');
-}]);
-
-Route::get('/contact-us', ['as' => 'contacts', function () {
-    return view('contact.index');
-}]);
-
-Route::get('/blog', ['as' => 'blog', function () {
-    return view('blog.index');
-}]);
-
-Route::get('/faq', ['as' => 'faq', function () {
-    return view('faq.index');
-}]);
+//Route::get('/how-to', ['as' => 'howto', function () {
+//    return view('help.index');
+//}]);
+//
+//Route::get('/contact-us', ['as' => 'contacts', function () {
+//    return view('contact.index');
+//}]);
+//
+//Route::get('/blog', ['as' => 'blog', function () {
+//    return view('blog.index');
+//}]);
+//
+//Route::get('/faq', ['as' => 'faq', function () {
+//    return view('faq.index');
+//}]);
 
 Route::auth();
 
@@ -70,5 +70,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);
+Route::get('/contact', ['as' => 'contact', function() {
+    return view('contact.index');
+}]);
 Route::post('contact', ['as' => 'contact', 'uses' => 'UserController@contact']);
 

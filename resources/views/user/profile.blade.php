@@ -123,7 +123,7 @@
 									        <tr>
                                                 <th>Name</th>
 									            <th>Address</th>
-									            <th>Orders</th>
+									            {{--<th>Orders</th>--}}
 									            <th></th>
 									        </tr>
 									    </thead>
@@ -131,7 +131,7 @@
 											<tr>
                                                 <td>{{$wallet->name}}</td>
 												<td>{{$wallet->address}}</td>
-												<td>{{$wallet->orders()->count()}}</td>
+												{{--<td>{{$wallet->orders()->count()}}</td>--}}
 												<td>
 													<button type="button" title='Delete' class="btn btn-danger btn-xs" data-toggle="modal" data-target="#wallet-delete-{{$wallet->id}}">
 														<span class='fa fa-minus'></span>

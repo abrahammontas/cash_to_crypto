@@ -32,7 +32,7 @@ class OrderController extends Controller
         }
 
         if (Auth::user()->hasPending()) {
-            return back()->withInput()->with('warning', 'Please cancel or complete your current order before you can submit a new order.');
+            return back()->withInput()->with('warning', 'Please cancel or complete your current order before submitting a new one.');
         }
 
     	$this->validate($request, [

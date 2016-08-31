@@ -100,13 +100,12 @@ class UserController extends Controller
         $this->validate($request, [
             'email'   => 'required|email',
             'name'    => 'required|max:100',
-            'subject'    => 'required|max:100',
             'text'    => 'required',
         ]);
 
         Mail::send('contact.email', $request->all(), function($message) use ($request){
-            $message->to('support@cashtocrypto.com');
-            $message->subject('Contact: '.$request->input('subject'));
+            $message->to('boudreaujab@gmail.com');
+            $message->subject('Contact: '. $request->input('subject'));
         });
         return back();
     }
