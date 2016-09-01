@@ -50,7 +50,7 @@ Update 2
 [*] Remove blockchain links for the wallets
 [*] Allow user to access buy bitcoins page before they upload their photo id. 
     When they press buy bitcoins, have Error Message: "Please upload your photo id in your <a href='/profile'>profile</a>."
-[ ] Remove the disabled submit button feature. See image
+[?] Remove the disabled submit button feature. See image
 [*] After user logs in, redirect to the user's dashboard. 
 [*] On the user's first login, create message, saying: "Welcome to your new Cash To Crypto customer account! To place your first order, upload your photo id in your <a href='/profile'>profile</a> and click the buy bitcoins button at the top of the page."
 [*] Add c2clogo.png to navbar-brand section
@@ -79,5 +79,27 @@ Update 2
 [*] allow users to cancel an order
 
 
-admin panel:
-see doc
+admin updates:
+[ ] Enable all companies to be shown in the completed section (currently only three companies are shown)
+[ ] Remove User ID column
+[ ] Replace with column called Name, which will show $user->firstName . ‘ ‘ . $user->lastName 
+    Name will be hyperlinked to user profile so admin can view user information.
+
+[ ] Remove the Total Charged column and change the USD amount to the Total Charged amount.
+[ ] Combine the Receipt and Selfie columns into one column call Photos.
+	For each record create a View Photos button 
+	When the view photos button is clicked a modal will appear with the customer’s photo_id, receipt photo, and selfie with receipt.
+	The modal will be three columns:
+		Photo Id
+		Receipt photo
+		Selfie with receipt
+
+
+[ ] Remove pagination for orders. Instead do this:
+	When a company is clicked, the accordion expands as a scrollbar. When the admin click a company tab, the accordion expands and shows 10 orders and then uses a scrollbar to view the rest of the company’s orders. 
+
+[ ] Also, when user cancels order, the daily and monthly amounts need to be refunded the order amount 
+[ ] Also, please change pending orders to show only users that have uploaded both selfie image and receipt image
+	
+[ ] And boss says some completed orders aren't showing in completed orders section and only in All Orders section
+	Please make sure all of the orders are showing in correct Orders section.
