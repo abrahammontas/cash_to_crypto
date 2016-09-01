@@ -36,8 +36,9 @@ class AdminController extends Controller
             ->select(DB::raw("DISTINCT(company)"))
             ->orderBy('company')
             ->pluck('company');
+        $company = session('company');
 
-    	return view('admin.orders.page', ['type' => $type, 'companies' => $companies]);
+    	return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company ? $company : $companies[0]]);
     }
 
     public function getOrders(Request $request) {
@@ -56,7 +57,7 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-        $orders = $orders->orderBy('created_at', $type == 'completed' ? 'DESC' : 'ASC')->paginate(3);
+        $orders = $orders->orderBy('created_at', $type == 'completed' ? 'DESC' : 'ASC')->paginate(20);
         return view('admin.orders.rows', ['orders' => $orders]);
     }
 

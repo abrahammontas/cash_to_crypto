@@ -9,11 +9,11 @@
 	        		<h2 class="text-left fw-300 pull-left">{{ucwords($type).' Orders'}}</h2>
 	        		<div class="btn-group pull-right">
 					  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    <span id='company-switch-selected'>{{$companies[0]}}</span> <span class="caret"></span>
+					    <span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu">
-					  	@foreach ($companies as $company)
-					     <li><a href="" class="company-switch" data-company="{{$company}}">{{$company}}</a></li>
+					  	@foreach ($companies as $c)
+					     <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 					    @endforeach
 					  </ul>
 					</div>
@@ -75,7 +75,7 @@
 	    });
 	    var page = 1;
 
-	    var company = '{{$companies[0]}}';
+	    var company = '{{$company}}';
 	    $("#loader").show();
 	    var loading = true;
 	  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "company": company, "page": page}, function(html){
