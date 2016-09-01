@@ -104,7 +104,7 @@ class UserController extends Controller
         ]);
 
         Mail::send('contact.email', $request->all(), function($message) use ($request){
-            $message->to('boudreaujab@gmail.com');
+            $message->to('support@cashtocrypto.com');
             $message->subject('Contact: '. $request->input('subject'));
         });
         return back();

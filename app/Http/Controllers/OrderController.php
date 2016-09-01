@@ -15,14 +15,14 @@ use Mail;
 
 class OrderController extends Controller
 {
-	private $price;
+    private $price;
 
-	public function __construct() {
-		$this->price = Settings::getParam('ourprice');
-	}
+    public function __construct() {
+        $this->price = Settings::getParam('ourprice');
+    }
 
     public function index(Request $request) {
-    	$banks = Bank::whereActive(true)->lists('name', 'id');
+        $banks = Bank::whereActive(true)->lists('name', 'id');
         return view('buy.form', ['ourbitcoinprice' => $this->price, 'banks' => $banks]);
     }
 
@@ -35,16 +35,16 @@ class OrderController extends Controller
             return back()->withInput()->with('warning', 'Please cancel or complete your current order before submitting a new one.');
         }
 
-    	$this->validate($request, [
-    		'amount' => 'required|numeric',
-    		'wallet' => 'required|btc_address',
-    		'bank'   => 'required|integer|exists:banks,id'
-    	]);
+        $this->validate($request, [
+            'amount' => 'required|numeric',
+            'wallet' => 'required|btc_address',
+            'bank'   => 'required|integer|exists:banks,id'
+        ]);
 
 
-    	$total = round($request->input('amount'), 2);
+        $total = round($request->input('amount'), 2);
         $fees = round($total * 0.02, 2);
-        $amount = $total - $fees;
+        $amount = $total;
         $bitcoins = round($amount/$this->price, 5);
 
         if (Auth::user()->dailyLimitLeft() < $amount) {
@@ -62,23 +62,23 @@ class OrderController extends Controller
 
 
 
-    	$order = new Order();
-    	$order->user_id  = Auth::id();
+        $order = new Order();
+        $order->user_id  = Auth::id();
         $order->hash     = $hash;
         $order->bank_id  = $request->input('bank');
         $order->wallet   = trim($request->input('wallet'));
-        $order->amount   = $amount;
+        $order->amount   = $total;
         $order->bitcoins = $bitcoins;
         $order->total    = $total;
         $order->save();
 
-        $admins = User::whereAdmin(1)->whereBanned(0)->get();
-        $admins->each(function($admin) use ($order){
-            Mail::send('admin.emails.new', ['order' => $order, 'admin' => $admin], function($message) use ($admin) {
-                $message->to($admin->email);
-                $message->subject('New order');
-            });
-        });
+//        $admins = User::whereAdmin(1)->whereBanned(0)->get();
+//        $admins->each(function($admin) use ($order){
+//            Mail::send('admin.emails.new', ['order' => $order, 'admin' => $admin], function($message) use ($admin) {
+//                $message->to($admin->email);
+//                $message->subject('New order');
+//            });
+//        });
 
         return redirect()->route('current-order')->with('success', 'Order created successfully. Below you will find your order summary and deposit directions.');
     }
@@ -95,14 +95,14 @@ class OrderController extends Controller
             $order->receipt = $hash;
             $order->save();
 
-            $admins = User::whereAdmin(1)->whereBanned(0)->get();
-            $admins->each(function($admin) use ($order, $request){
-                Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-                    $message->to($admin->email);
-                    $message->subject('Receipt upload');
-                    $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
-                });
-            });
+//            $admins = User::whereAdmin(1)->whereBanned(0)->get();
+//            $admins->each(function($admin) use ($order, $request){
+//                Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+//                    $message->to($admin->email);
+//                    $message->subject('Receipt upload');
+//                    $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+//                });
+//            });
 
             return back()->with('success', 'Receipt uploaded successfully.');
         }
@@ -121,14 +121,14 @@ class OrderController extends Controller
             $order->selfie = $hash;
             $order->save();
 
-            $admins = User::whereAdmin(1)->whereBanned(0)->get();
-            $admins->each(function($admin) use ($order, $request){
-                Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-                    $message->to($admin->email);
-                    $message->subject('Selfie upload');
-                    $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
-                });
-            });
+//            $admins = User::whereAdmin(1)->whereBanned(0)->get();
+//            $admins->each(function($admin) use ($order, $request){
+//                Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+//                    $message->to($admin->email);
+//                    $message->subject('Selfie upload');
+//                    $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+//                });
+//            });
 
             return back()->with('success', 'Selfie uploaded successfully.');
         }
@@ -151,14 +151,14 @@ class OrderController extends Controller
                 $order->receipt = $hash;
                 $order->save();
 
-                $admins = User::whereAdmin(1)->whereBanned(0)->get();
-                $admins->each(function($admin) use ($order, $request){
-                    Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-                        $message->to($admin->email);
-                        $message->subject('Receipt upload');
-                        $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
-                    });
-                });
+//                $admins = User::whereAdmin(1)->whereBanned(0)->get();
+//                $admins->each(function($admin) use ($order, $request){
+//                    Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+//                        $message->to($admin->email);
+//                        $message->subject('Receipt upload');
+//                        $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+//                    });
+//                });
             } else {
                 $receiptUploaded = false;
             }
@@ -169,14 +169,14 @@ class OrderController extends Controller
                 $order->selfie = $hash;
                 $order->save();
 
-                $admins = User::whereAdmin(1)->whereBanned(0)->get();
-                $admins->each(function($admin) use ($order, $request){
-                    Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-                        $message->to($admin->email);
-                        $message->subject('Selfie upload');
-                        $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
-                    });
-                });
+//                $admins = User::whereAdmin(1)->whereBanned(0)->get();
+//                $admins->each(function($admin) use ($order, $request){
+//                    Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+//                        $message->to($admin->email);
+//                        $message->subject('Selfie upload');
+//                        $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+//                    });
+//                });
 
             } else {
                 $selfieUploaded = false;

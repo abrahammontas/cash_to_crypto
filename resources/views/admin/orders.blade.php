@@ -73,7 +73,6 @@
 					            <th>Wallet Address</th>
 					            <th>BTC Amount</th>
 					            <th>USD</th>
-					            <th>Total Charged</th>
 					            <th>Receipt</th>
 					            <th>Selfie</th>
 					            <th>Status</th>
@@ -86,14 +85,13 @@
 							<!--<td><input type='checkbox' class='checkbox' name='orders[]' value='{{$order->id}}'/></td>-->
 					    	<td>{{$order->hash}}</td>
 					    	<td>
-								{{$order->user->hash}}
+								{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}
 					    	</td>
 							<td>{{$order->created_at}}</td>
 							<td>{{$order->bank->name}}</td>
-							<td><a target='_blank' class='btn btn-default btn-xs can-select' href='https://blockchain.info/address/{{$order->wallet}}'>{{$order->wallet}}</a></td>
+							<td>{{$order->wallet}}</td>
 							<td>{{$order->bitcoins}}</td>
-							<td>{{$order->amount}}</td>
-							<td>{{$order->total}}</td>
+							<td>${{$order->amount}}</td>
 							<td>
 								@if ($order->receipt)
 									<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->id}}"><span class='fa fa-eye'></span></button>

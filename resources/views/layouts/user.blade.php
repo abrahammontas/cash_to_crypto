@@ -45,6 +45,9 @@
                     <li>
                         <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+                    <li>
+                    	<a href="{{ url('/contact') }}"><i class="fa fa-fw fa-envelope-o"></i> Contact</a>
+                	</li>
                     @if (auth()->user()->hasPending())
                     <li>
                         <a href="{{route('current-order')}}"> Current Order</a>
@@ -73,6 +76,9 @@
                 </li>
                 <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="{{ url('/contact') }}"><i class="fa fa-fw fa-envelope-o"></i> Contact</a>
                 </li>
                 @if (auth()->user()->hasPending())
                 <li>
