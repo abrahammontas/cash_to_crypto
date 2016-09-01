@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
 	Route::get('banks', ['as' => 'banks', 'uses' => 'AdminController@banks']);
-	Route::get('orders/{type?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue');
+	Route::get('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue');
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
 	Route::post('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
 	Route::put('limits/{id}', ['as' => 'users.limits', 'uses' => 'AdminController@limits']);
+	Route::get('profile/{id}', ['as' => 'users.profile', 'uses' => 'AdminController@profile']);
+	Route::get('orders', ['as' => 'orders.ajax', 'uses' => 'AdminController@getOrders']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);

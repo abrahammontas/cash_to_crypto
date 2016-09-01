@@ -80,13 +80,13 @@ Update 2
 
 
 admin updates:
-[ ] Enable all companies to be shown in the completed section (currently only three companies are shown)
-[ ] Remove User ID column
-[ ] Replace with column called Name, which will show $user->firstName . ‘ ‘ . $user->lastName 
+[*] Enable all companies to be shown in the completed section (currently only three companies are shown)
+[*] Remove User ID column
+[*] Replace with column called Name, which will show $user->firstName . ‘ ‘ . $user->lastName 
     Name will be hyperlinked to user profile so admin can view user information.
 
-[ ] Remove the Total Charged column and change the USD amount to the Total Charged amount.
-[ ] Combine the Receipt and Selfie columns into one column call Photos.
+[*] Remove the Total Charged column and change the USD amount to the Total Charged amount.
+[*] Combine the Receipt and Selfie columns into one column call Photos.
 	For each record create a View Photos button 
 	When the view photos button is clicked a modal will appear with the customer’s photo_id, receipt photo, and selfie with receipt.
 	The modal will be three columns:
@@ -95,11 +95,11 @@ admin updates:
 		Selfie with receipt
 
 
-[ ] Remove pagination for orders. Instead do this:
+[*] Remove pagination for orders. Instead do this:
 	When a company is clicked, the accordion expands as a scrollbar. When the admin click a company tab, the accordion expands and shows 10 orders and then uses a scrollbar to view the rest of the company’s orders. 
 
 [ ] Also, when user cancels order, the daily and monthly amounts need to be refunded the order amount 
-[ ] Also, please change pending orders to show only users that have uploaded both selfie image and receipt image
+[*] Also, please change pending orders to show only users that have uploaded both selfie image and receipt image
 	
-[ ] And boss says some completed orders aren't showing in completed orders section and only in All Orders section
+[*] And boss says some completed orders aren't showing in completed orders section and only in All Orders section
 	Please make sure all of the orders are showing in correct Orders section.

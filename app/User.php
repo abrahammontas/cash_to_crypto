@@ -35,11 +35,11 @@ class User extends Authenticatable
     }
 
     public function dailyLimitUsed() {
-        return $this->orders()->whereDate('created_at', '=', Carbon::today()->toDateString())->sum('amount');
+        return $this->orders()->where('status', '!=', 'cancelled')->whereDate('created_at', '=', Carbon::today()->toDateString())->sum('amount');
     }
 
     public function monthlyLimitUsed() {
-        return $this->orders()->whereDate('created_at', '>', Carbon::today()->subMonth()->toDateString())->sum('amount');
+        return $this->orders()->where('status', '!=', 'cancelled')->whereDate('created_at', '>', Carbon::today()->subMonth()->toDateString())->sum('amount');
     }
 
     public function dailyLimitLeft() {

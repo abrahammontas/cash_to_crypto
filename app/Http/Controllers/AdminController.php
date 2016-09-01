@@ -20,7 +20,10 @@ class AdminController extends Controller
         	'admin.dashboard',
         	[
         		'banks' => Bank::count(),
-        		'pendingOrders'   => Order::whereStatus('pending')->count(),
+        		'pendingOrders'   => Order::whereStatus('pending')
+                                        ->whereNotNull('selfie')->where('selfie', '!=', '')
+                                        ->whereNotNull('receipt')->where('receipt', '!=', '')
+                                    ->count(),
         		'issueOrders' 	  => Order::whereStatus('issue')->count(),
         		'completedOrders' => Order::whereStatus('completed')->count(),
                 'users'           => User::count()
@@ -29,12 +32,32 @@ class AdminController extends Controller
     }
 
     public function orders($type) {
-    	$orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')->select(['orders.*','name','company'])->with('user');
-    	if ($type !== 'all') {
-    		$orders->whereStatus($type);
-    	}
-    	$orders = $orders->orderBy('company', 'ASC')->orderBy('created_at', $type == 'completed' ? 'DESC' : 'ASC')->paginate(10);
-        return view('admin.orders', ['orders' => $orders, 'type' => ucwords($type)]);
+        $companies = DB::table('banks')
+            ->select(DB::raw("DISTINCT(company)"))
+            ->orderBy('company')
+            ->pluck('company');
+
+    	return view('admin.orders.page', ['type' => $type, 'companies' => $companies]);
+    }
+
+    public function getOrders(Request $request) {
+
+        $type = $request->input("type");
+        $company = $request->input("company");
+
+        $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+            ->select(['orders.*','name','company'])
+            ->with('user')
+            ->where('company', '=', $company);
+
+        if ($type !== 'all') {
+            $orders->whereStatus($type);
+        }
+        if ($type == 'pending') {
+            $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
+        }
+        $orders = $orders->orderBy('created_at', $type == 'completed' ? 'DESC' : 'ASC')->paginate(3);
+        return view('admin.orders.rows', ['orders' => $orders]);
     }
 
 	public function banks() {
@@ -212,5 +235,10 @@ class AdminController extends Controller
         $user->save();
 
         return back()->with('success', "User limits saved." );
+    }
+
+    public function profile(Request $request, $id) {
+        $user = User::find($id);
+        return view('admin.user.profile', ['user' => $user]);
     }
 }
