@@ -7,7 +7,7 @@
 	        <div class="row">
 	        	<div class="col-md-12">
 	        		<h2 class="text-left fw-300 pull-left">{{ucwords($type).' Orders'}}</h2>
-	        		<div class="btn-group pull-right">
+	        		<!-- <div class="btn-group pull-right">
 					  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    <span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
 					  </button>
@@ -16,7 +16,7 @@
 					     <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 					    @endforeach
 					  </ul>
-					</div>
+					</div> -->
 	        	</div>
 	        </div>
 	        @if ($message = session('success'))
@@ -75,28 +75,28 @@
 	    });
 	    var page = 1;
 
-	    var company = '{{$company}}';
+	    // var company = '{{$company}}';
 	    $("#loader").show();
 	    var loading = true;
-	  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "company": company, "page": page}, function(html){
+	  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "page": page}, function(html){
 	  		$("#loader").hide();
 	  		$("#orders-table #loader").before(html);
 	  		loading = false;
 	  	});
 
-	    $( ".dropdown-menu" ).on("click", ".company-switch", function(e) {
-	    	page = 1;
-	    	company = $(this).attr("data-company");
-	    	e.preventDefault();
+	 //    $( ".dropdown-menu" ).on("click", ".company-switch", function(e) {
+	 //    	page = 1;
+	 //    	company = $(this).attr("data-company");
+	 //    	e.preventDefault();
 
-		  	$("#company-switch-selected").text(company);
-		  	$("#orders-table tbody tr:not(#loader)").remove();
-		  	$("#loader").show();
-		  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "company": company, "page": page}, function(html){
-		  		$("#loader").hide();
-		  		$("#orders-table #loader").before(html);
-		  	});
-		});
+		//   	$("#company-switch-selected").text(company);
+		//   	$("#orders-table tbody tr:not(#loader)").remove();
+		//   	$("#loader").show();
+		//   	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "company": company, "page": page}, function(html){
+		//   		$("#loader").hide();
+		//   		$("#orders-table #loader").before(html);
+		//   	});
+		// });
 
 		var win = $(window);
 
@@ -109,7 +109,7 @@
 				}
 				loading = true;
 				$("#loader").show();
-			  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "company": company, "page": page+1}, function(html){
+			  	$.get("{{route('admin.orders.ajax')}}", {"type": "{{$type}}", "page": page+1}, function(html){
 			  		$("#loader").hide();
 			  		if (html != '') {
 			  			page++;
@@ -120,5 +120,6 @@
 			}
 		});
 	});
+
 </script>
 @endsection

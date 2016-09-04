@@ -14,7 +14,7 @@
 <!-- Top content -->
 <div class="top-content">
     <!-- Top menu -->
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom:0px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
@@ -57,19 +57,62 @@
         </div>
     </nav>
 
-    <div class="inner-bg">
+    <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
         <div class="container">
             <div class="row">
-                <div class="col-sm-7 text">
-                    <h1 class="wow fadeInLeftBig">Buy Bitcoin With Cash!</h1>
-                    <div class="description wow fadeInLeftBig">
-                        <p>
-                            We have made purchasing bitcoin even easier! Register for a free account, upload your photo id once and make your first purchase with our new system!
-                        </p>
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
+                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="inner-bg" style="padding-bottom:100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 text fadeInLeftBig" style="padding:20px 20px;">
+                    <div class="row" style="margin-bottom:5%;">
+                        <h1 class="wow">Buy Bitcoin With Cash!</h1>
+                        <div class="description wow">
+                            <p style="padding-right:40px; padding-left:40px;">
+                                We have made purchasing bitcoin even easier! Register for a free account and follow our three simple steps to start buying Bitcoin!
+                            </p>
+                        </div>
                     </div>
-                    <div class="top-big-link wow fadeInUp" style="margin-bottom:20px;">
-                        <a class="btn btn-link-2" style="background-color:#707070;" href="{{ url('/register') }}">Register For A Free Account!</a>
-                        <!-- <a class="btn btn-link-2" href="#features">Learn more</a> -->
+                    <div class="row" style="margin-top:10%;">
+                        <div class="col-md-12">
+                            <div class="col-md-4 text-center">
+                                <img src="images/bank-icon.png" class="img-responsive" style="margin:auto;" alt="bitcoin-icon"><br>
+                                <h4 style="font-weight:400">Step 1: Choose Location</h4>
+                                <p class="steps-padding">Choose the most convenient deposit location from thousands of locations around the U.S.</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <img src="images/wallet-icon.png" class="img-responsive" style="margin:auto;" alt="bitcoin-icon"><br>
+                                <h4 style="font-weight:400">Step 2: Deposit Cash</h4>
+                                <p class="steps-padding">After placing an order, make a cash deposit to our account</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <img src="images/bitcoin-icon.png" class="img-responsive" style="margin:auto;" alt="bitcoin-icon"><br>
+                                <h4 style="font-weight:400">Step 3: Get Bitcoin!</h4>
+                                <p class="steps-padding">Your bitcoin purchase will be processed and delivered within 2 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="top-big-link wow fadeInUp">
+                            <a class="btn btn-link-2" style="background-color:#707070;" href="{{ url('/register') }}">Register For A Free Account!</a>
+                            <!-- <a class="btn btn-link-2" href="#features">Learn more</a> -->
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-5 form-box wow fadeInUp">

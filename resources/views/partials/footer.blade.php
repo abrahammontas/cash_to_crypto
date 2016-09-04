@@ -1,117 +1,160 @@
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <!-- <div class="row">
-            <div class="col-sm-12 footer-social">
-                <a href="#"><span class="typcn typcn-social-facebook"></span></a>
-                <a href="#"><span class="typcn typcn-social-dribbble"></span></a>
-                <a href="#"><span class="typcn typcn-social-twitter"></span></a>
-                <a href="#"><span class="typcn typcn-social-google-plus"></span></a>
-                <a href="#"><span class="typcn typcn-social-instagram"></span></a>
-                <a href="#"><span class="typcn typcn-social-pinterest"></span></a>
-            </div>
-        </div> -->
-        <div class="row">
-            <div class="col-sm-12 footer-copyright">
-                Copyright 2016 &copy; Cash To Crypto LLC
+<div class="footer-v1">
+    <div class="footer">
+        <div class="container">
+            <div class="row" style="margin-bottom:30px;">
+                <div class="col-md-12">
+                    <div class="col-md-4" >
+                        <h2 style="padding-top:15px; text-align:left; color:gold;">Contact Info</h2>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span>Email:</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span>support@cashtocrypto.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span>Phone:</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span>(678) 435-9604</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                        <h2 style="padding-top:15px; text-align:left; color:gold;">Business Hours</h2>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span>Monday-Friday:</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span>9:00am - 8:00pm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span>Saturday</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span>9:00am - 3:00pm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span>Sunday</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span>Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</footer>
+</div>
 
 
 <!-- MODAL: Privacy policy -->
-<div class="modal fade" id="modal-privacy" tabindex="-1" role="dialog" aria-labelledby="modal-privacy-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <h2 class="modal-title" id="modal-privacy-label">Privacy policy</h2>
-            </div>
-            <div class="modal-body">
-                <h3>1. Dolor sit amet</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <ul>
-                    <li>Easy To Use</li>
-                    <li>Awesome Design</li>
-                    <li>Cloud Based</li>
-                </ul>
-                <p>
-                    Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation</a> ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat nostrud tation.
-                </p>
-                <h3>2. Sed do eiusmod</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <h3>3. Nostrud exerci tation</h3>
-                <p>
-                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat nostrud tation.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div class="modal fade" id="modal-privacy" tabindex="-1" role="dialog" aria-labelledby="modal-privacy-label" aria-hidden="true">--}}
+    {{--<div class="modal-dialog">--}}
+        {{--<div class="modal-content">--}}
+            {{--<div class="modal-header">--}}
+                {{--<button type="button" class="close" data-dismiss="modal">--}}
+                    {{--<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>--}}
+                {{--</button>--}}
+                {{--<h2 class="modal-title" id="modal-privacy-label">Privacy policy</h2>--}}
+            {{--</div>--}}
+            {{--<div class="modal-body">--}}
+                {{--<h3>1. Dolor sit amet</h3>--}}
+                {{--<p>--}}
+                    {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut--}}
+                    {{--labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+                {{--<ul>--}}
+                    {{--<li>Easy To Use</li>--}}
+                    {{--<li>Awesome Design</li>--}}
+                    {{--<li>Cloud Based</li>--}}
+                {{--</ul>--}}
+                {{--<p>--}}
+                    {{--Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation</a> ullamcorper suscipit lobortis nisl ut aliquip ex ea--}}
+                    {{--commodo consequat nostrud tation.--}}
+                {{--</p>--}}
+                {{--<h3>2. Sed do eiusmod</h3>--}}
+                {{--<p>--}}
+                    {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut--}}
+                    {{--labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+                {{--<h3>3. Nostrud exerci tation</h3>--}}
+                {{--<p>--}}
+                    {{--Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea--}}
+                    {{--commodo consequat nostrud tation.--}}
+                {{--</p>--}}
+                {{--<p>--}}
+                    {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut--}}
+                    {{--labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+            {{--</div>--}}
+            {{--<div class="modal-footer">--}}
+                {{--<button type="button" class="btn" data-dismiss="modal">Close</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <!-- MODAL: Frequent questions -->
-<div class="modal fade" id="modal-faq" tabindex="-1" role="dialog" aria-labelledby="modal-faq-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <h2 class="modal-title" id="modal-faq-label">Frequent questions</h2>
-            </div>
-            <div class="modal-body">
-                <h3>1. Lorem ipsum dolor?</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <h3>2. Ut wisi enim ad minim?</h3>
-                <p>
-                    Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation</a> ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat nostrud tation.
-                </p>
-                <h3>3. Sed do eiusmod tempor?</h3>
-                <p>
-                    Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <h3>4. Nostrud exerci tation?</h3>
-                <p>
-                    Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat nostrud tation.
-                </p>
-                <h3>5. Consectetur adipisicing elit?</h3>
-                <p>
-                    Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
+{{--<div class="modal fade" id="modal-faq" tabindex="-1" role="dialog" aria-labelledby="modal-faq-label" aria-hidden="true">--}}
+    {{--<div class="modal-dialog">--}}
+        {{--<div class="modal-content">--}}
+            {{--<div class="modal-header">--}}
+                {{--<button type="button" class="close" data-dismiss="modal">--}}
+                    {{--<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>--}}
+                {{--</button>--}}
+                {{--<h2 class="modal-title" id="modal-faq-label">Frequent questions</h2>--}}
+            {{--</div>--}}
+            {{--<div class="modal-body">--}}
+                {{--<h3>1. Lorem ipsum dolor?</h3>--}}
+                {{--<p>--}}
+                    {{--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut--}}
+                    {{--labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+                {{--<h3>2. Ut wisi enim ad minim?</h3>--}}
+                {{--<p>--}}
+                    {{--Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation</a> ullamcorper suscipit lobortis nisl ut aliquip ex ea--}}
+                    {{--commodo consequat nostrud tation.--}}
+                {{--</p>--}}
+                {{--<h3>3. Sed do eiusmod tempor?</h3>--}}
+                {{--<p>--}}
+                    {{--Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+                {{--<h3>4. Nostrud exerci tation?</h3>--}}
+                {{--<p>--}}
+                    {{--Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea--}}
+                    {{--commodo consequat nostrud tation.--}}
+                {{--</p>--}}
+                {{--<h3>5. Consectetur adipisicing elit?</h3>--}}
+                {{--<p>--}}
+                    {{--Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut--}}
+                    {{--labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.--}}
+                {{--</p>--}}
+            {{--</div>--}}
+            {{--<div class="modal-footer">--}}
+                {{--<button type="button" class="btn" data-dismiss="modal">Close</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 
 

@@ -43,6 +43,12 @@
 
         @include('partials.footer')
 
+        <div class="row" style="margin-bottom:30px; text-align:center">
+            <div class="col-sm-12 footer-copyright">
+                Copyright 2016 &copy; Cash To Crypto LLC
+            </div>
+        </div>
+
         <!-- Javascript -->
         {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
         <script src="assets/js/jquery-1.11.1.min.js"></script>

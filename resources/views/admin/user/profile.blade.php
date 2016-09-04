@@ -65,7 +65,7 @@
 	                               	<table class='table table-stripped table-hover'>
 	                               		<thead>
 									        <tr>
-                                                <th>Name</th>
+                                                <th>Nickame</th>
 									            <th>Address</th>
 									        </tr>
 									    </thead>
@@ -73,12 +73,10 @@
 											<tr>
                                                 <td>{{$wallet->name}}</td>
 												<td>{{$wallet->address}}</td>
-							
 											</tr>
 										@endforeach
 									</table>
                                 </div>
-
                             </div>
                         </div>
                         <hr/>

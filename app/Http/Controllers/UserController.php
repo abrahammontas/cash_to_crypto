@@ -107,6 +107,6 @@ class UserController extends Controller
             $message->to('support@cashtocrypto.com');
             $message->subject('Contact: '. $request->input('subject'));
         });
-        return back();
+        return back()->with('success', 'Email sent successfully!');
     }
 }

@@ -22,7 +22,7 @@
     </head>
     <body style="margin-top:0px;">
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse" style="background-color: white; padding-left:20px; padding-right:20px;" role="navigation">
+        <nav class="navbar navbar-inverse" style="background-color: white; margin-bottom:0px; padding-left:20px; padding-right:20px;" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand" style="color:white"><img src="/images/c2clogo.png" width="200" alt="Cash To Crypto"></a>
+                <a href="/" class="navbar-brand" style="padding-top:12px; color:white"><img src="/images/c2clogo.png" width="200" alt="Cash To Crypto"></a>
             </div>
             <div class="navbar-header" style="margin-top:-8px; margin-left:10px;">
                 <p style="color:#48aa3b"><span style="font-weight:400;">Exchange Rate: 1BTC </span> = <span style="font-weight:600;">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></p>
@@ -106,7 +106,16 @@
         </nav>
 
         <div class="wrapper user">
-        @yield('content')
+        	<section id="closed" style="background-color:#9cb8e2; border-bottom: 1px solid #147ae0;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px;">
+                            <h3 style="color:white; margin-top:5px; font-weight: 400; text-align:center;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        	@yield('content')
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

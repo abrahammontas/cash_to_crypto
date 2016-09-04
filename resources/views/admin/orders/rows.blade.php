@@ -11,7 +11,7 @@
     	<td>
 			<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
     	</td>
-		<td>{{$order->created_at}}</td>
+		<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td></td>
 		<td>{{$order->bank->name}}</td>
 		<td>{{$order->wallet}}</td>
 		<td>{{$order->bitcoins}}</td>

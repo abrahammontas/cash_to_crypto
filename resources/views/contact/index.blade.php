@@ -12,7 +12,7 @@
     <!-- Top content -->
     <div class="top-content">
         <!-- Top menu -->
-        <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom:0px">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
@@ -55,6 +55,36 @@
                 </div>
             </div>
         </nav>
+
+        <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
+                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        @if ($message = session('success'))
+            <div class="row">
+                <div class="container">
+                    <div class="alert alert-success" style="margin-top:6%; margin-bottom:0px; text-align:left;">
+                        <p>{!! $message !!}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
 
 
         <div class="inner-bg">
@@ -122,22 +152,54 @@
                     <div class="col-sm-4 col-sm-offset-2" >
                         <h2 style="padding-top:15px; text-align:left; color:gold;">Contact Info</h2>
                         <div class="row">
-                            <div class="col-xs-4" style="text-align:left;">
+                            <div class="col-xs-6" style="text-align:left;">
                                 <span style="color:white;">Email:</span>
                             </div>
-                            <div class="col-xs-8" style="text-align:left;">
+                            <div class="col-xs-6" style="text-align:left;">
                                 <div class="row">
                                     <span style="color:white;">support@cashtocrypto.com</span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-4" style="text-align:left;">
+                            <div class="col-xs-6" style="text-align:left;">
                                 <span style="color:white;">Phone:</span>
                             </div>
-                            <div class="col-xs-8" style="text-align:left;">
+                            <div class="col-xs-6" style="text-align:left;">
                                 <div class="row">
                                     <span style="color:white;">(678) 435-9604</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <h2 style="padding-top:15px; text-align:left; color:gold;">Business Hours</h2>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span style="color:white;">Monday-Friday:</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span style="color:white;">9:00am - 8:00pm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span style="color:white;">Saturday</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span style="color:white;">9:00am - 3:00pm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align:left;">
+                                <span style="color:white;">Sunday</span>
+                            </div>
+                            <div class="col-xs-6" style="text-align:left;">
+                                <div class="row">
+                                    <span style="color:white;">Closed</span>
                                 </div>
                             </div>
                         </div>

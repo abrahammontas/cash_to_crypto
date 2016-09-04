@@ -121,7 +121,7 @@
 	                               	<table class='table table-stripped table-hover'>
 	                               		<thead>
 									        <tr>
-                                                <th>Name</th>
+                                                <th>Nickname</th>
 									            <th>Address</th>
 									            {{--<th>Orders</th>--}}
 									            <th></th>
@@ -176,7 +176,7 @@
                                                 	{{Form::text('address', '', ['class' => 'form-control', 'placeholder' => 'Address', 'required' => true])}}
                                                 </div>
                                                 <div class='form-group'>
-                                                    {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name', 'required' => true])}}
+                                                    {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nickame', 'required' => true])}}
                                                 </div>
                                             </div>
                                             <div class="panel-footer">

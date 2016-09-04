@@ -87,7 +87,7 @@
 									</div>
 				            	@endif
 				            </td>
-				            <td>{{$user->created_at}}</td>
+				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 4) }}</td>
 				            <td>
 				            	@if(!$user->banned)
 				            		{{Form::open(['method' => 'post', 'route' => ['admin.users.ban', $user->id] ]) }}
@@ -95,7 +95,7 @@
 				            		{{Form::close()}}
 				            	@else
 				            		{{Form::open(['method' => 'post', 'route' => ['admin.users.unban', $user->id] ]) }}
-				            		<button type='submit' title='Unban' class='btn btn-success btn-xs'><i class='fa fa-check-circle-o'></i></button>
+				            		<button type='submit' title='Unban' class='btn btn-success btn-xs' style="float:right;"><i class='fa fa-check-circle-o'></i></button>
 				            		{{Form::close()}}
 				            	@endif
 				            	<button data-toggle="modal" data-target="#limits-{{$user->id}}" type='button' title='Limits' class='btn btn-default btn-xs'><i class='fa fa-lock'></i></button>

@@ -10,7 +10,7 @@
 <!-- Top content -->
 <div class="top-content">
     <!-- Top menu -->
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom:0px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
@@ -49,6 +49,26 @@
             </div>
         </div>
     </nav>
+
+    <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
+                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="inner-bg">
         <div class="container">
