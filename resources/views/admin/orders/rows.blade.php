@@ -12,6 +12,11 @@
 			<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
     	</td>
 		<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td></td>
+		@if ($order->img_updated_at == '')
+			<td></td>
+		@else
+			<td>Date: {{ date('m/d/Y', strtotime($order->img_updated_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 4) }}</td></td>
+		@endif
 		<td>{{$order->bank->name}}</td>
 		<td>{{$order->wallet}}</td>
 		<td>{{$order->bitcoins}}</td>
@@ -20,7 +25,7 @@
 				<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#photos-{{$order->id}}"><span class='fa fa-eye'></span></button>
 
 				<div id="photos-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog modal-lg">
+				  <div class="modal-dialog modal-lg" style="width:1200px">
 				    <div class="modal-content">
 				        <div class="modal-body">
 				        	<div class='row'>

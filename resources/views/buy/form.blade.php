@@ -53,7 +53,7 @@
     </nav>
 </div>
 
-<section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+<!-- <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
     <div class="container">
         <div class="row">
             <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px;">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <div class="wrapper" style="background-color:#f2f2f2;">
     <div class="container">

@@ -12,13 +12,16 @@ use Auth;
 use App\Settings;
 use Storage;
 use Mail;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
     private $price;
+    private $current_time;
 
     public function __construct() {
         $this->price = Settings::getParam('ourprice');
+        $this->current_time = Carbon::now()->toDateTimeString();
     }
 
     public function index(Request $request) {
@@ -184,10 +187,16 @@ class OrderController extends Controller
         }
 
         if ($selfieUploaded && $receiptUploaded && $request->hasFile('receipt') && $request->hasFile('selfie')) {
+            $order->img_updated_at = $this->current_time;
+            $order->save();
             return back()->with('success', 'Receipt and selfie uploaded successfully.');
         } else if ($selfieUploaded && $request->hasFile('selfie')) {
+            $order->img_updated_at = $this->current_time;
+            $order->save();
             return back()->with(['success' => 'Selfie uploaded successfully.']);
         } else if ($receiptUploaded && $request->hasFile('receipt')) {
+            $order->img_updated_at = $this->current_time;
+            $order->save();
             return back()->with(['success' => 'Receipt uploaded successfully.']);
         }
         

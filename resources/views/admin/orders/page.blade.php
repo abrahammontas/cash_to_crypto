@@ -38,7 +38,8 @@
 					        <tr>
 					            <th>Order ID</th>
 					            <th>Name</th>
-					            <th>Time</th>
+					            <th>Time Created</th>
+					            <th>Images Updated At</th>
 					            <th>Bank</th>
 					            <th>Wallet Address</th>
 					            <th>BTC Amount</th>
