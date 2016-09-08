@@ -41,7 +41,7 @@
 						@foreach ($users as $i => $user)
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
 				            <td>{{$user->hash}}</td>
-				            <td>{{$user->firstName}}</td>
+				            <td><a href="{{route('admin.users.profile',['id' => $user->id])}}">{{$user->firstName}}</a></td>
 				            <td>{{$user->lastName}}</td>
 				            <td>{{$user->phone}}</td>
 				            <td>{{$user->email}}</td>

@@ -45,10 +45,11 @@
                             <div class="col-xs-2">
                                 <strong>Photo ID:</strong>
                             </div>
-                            <div class="col-xs-10 col-sm-4 text-left">
+                            <div class="col-xs-10 col-sm-6 text-left">
                                     <div class="form-group">
                                         @if ($user->photoid)
-                                        	<div class='thumbnail' style="height:250px; background-size: cover; background-image: url({{Storage::url('photoid/'.$user->photoid)}})"/></div>
+                                            <img src="{{Storage::url('photoid/'.$user->photoid)}}" class="img-responsive">
+                                        	<!-- <div class='thumbnail' style="height:250px; background-size: cover; background-image: url({{Storage::url('photoid/'.$user->photoid)}})"/></div> -->
                                         @endif
                                     </div>
                             </div>

@@ -5,7 +5,7 @@
 @section('content')
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12">
                 	<h2 class="fw-300">Profile</h2>
                 	@if(!Auth::user()->photoid)
 	                <div class="alert alert-danger" role="alert">
@@ -68,11 +68,12 @@
                             <div class="col-xs-2">
                                 <strong>Photo ID:</strong>
                             </div>
-                            <div class="col-xs-10 col-sm-4 text-left">
+                            <div class="col-xs-10 col-sm-6 text-left">
                                 {{ Form::open(['method'=> 'post', 'enctype' => 'multipart/form-data']) }}
                                     <div class="form-group">
                                         @if (Auth::user()->photoid)
-                                        	<div class='thumbnail' style="height:250px; background-size: cover; background-image: url({{Storage::url('photoid/'.Auth::user()->photoid)}})"/></div>
+                                            <img class="img-responsive" src="{{Storage::url('photoid/'.Auth::user()->photoid)}}">
+                                        	<!-- <div class='thumbnail' style="height:300px; background-size: cover; background-image: url({{Storage::url('photoid/'.Auth::user()->photoid)}})"/></div> -->
                                         @endif
 
                                         <input type="file" name="photoid">
@@ -114,7 +115,7 @@
                         
                         <div class="row font-main">
                             <div class="col-xs-2">
-                                <strong>Wallets:</strong>
+                                <strong>Bitcoin Wallets:</strong>
                             </div>
                          	<div class="col-xs-10">
                               	<div class="table-responsive">
@@ -122,7 +123,7 @@
 	                               		<thead>
 									        <tr>
                                                 <th>Nickname</th>
-									            <th>Address</th>
+									            <th>Bitcoin Address</th>
 									            {{--<th>Orders</th>--}}
 									            <th></th>
 									        </tr>
@@ -161,7 +162,7 @@
 									</table>
                                 </div>
                                 <button type="button" class="btn btn-outline btn-default pull-right" data-toggle="modal" data-target="#wallet-create">
-                                	<span class='fa fa-plus'> Add wallet</span>
+                                	<span class='fa fa-plus'> Add Bitcoin address</span>
                                 </button>
                                 
                                 <div id="wallet-create" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

@@ -65,7 +65,7 @@
 			                	{{Form::select('status', ['pending' => 'Pending', 'issue' => 'Issue', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], $order->status, ['class' => 'form-control'])}}
 			                </div>
 			                <div class='form-group'>
-			                	{{Form::textarea('note', $order->note, ['class' => 'form-control', 'placeholder' => 'Note'])}}
+			                	{{Form::textarea('note', $order->note, ['class' => 'form-control', 'placeholder' => 'Email to Buyer'])}}
 			                </div>
 			            </div>
 			            <div class="panel-footer">

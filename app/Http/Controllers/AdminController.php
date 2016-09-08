@@ -44,12 +44,12 @@ class AdminController extends Controller
     public function getOrders(Request $request) {
 
         $type = $request->input("type");
-        // $company = $request->input("company");
+        $company = $request->input("company");
 
         $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
             ->select(['orders.*','name','company'])
-            ->with('user');
-            // ->where('company', '=', $company);
+            ->with('user')
+            ->where('company', '=', $company);
 
         if ($type !== 'all') {
             $orders->whereStatus($type);
@@ -57,7 +57,11 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-        $orders = $orders->orderBy('created_at', 'DESC')->paginate(20);
+        if ($type == 'completed') {
+            $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+        } else {
+            $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+        }
         return view('admin.orders.rows', ['orders' => $orders]);
     }
 
@@ -130,7 +134,7 @@ class AdminController extends Controller
     }
 
     public function users() {
-        $users = User::orderBy('created_at', 'DESC')->paginate(20);
+        $users = User::orderBy('created_at', 'DESC')->paginate(50);
         return view('admin.user.list', ['users' => $users]);
     }
 
