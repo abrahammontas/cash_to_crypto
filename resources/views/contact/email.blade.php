@@ -2,9 +2,8 @@
 
 @section('content')
 
-<p>From: {{$name}} ({{$email}})</p>
-<p>Subject: {{$subject}}</p>
-
+<p>Email: ({{$email}})</p>
+<br />
 {{$text}}
 
 @endsection

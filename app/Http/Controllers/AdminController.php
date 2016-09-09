@@ -33,12 +33,11 @@ class AdminController extends Controller
 
     public function orders($type) {
         $companies = DB::table('banks')
-            ->select(DB::raw("DISTINCT(company)"))
-            ->orderBy('company')
-            ->pluck('company');
+                        ->select(DB::raw("DISTINCT(company)"))
+                        ->orderBy('company')
+                        ->pluck('company');
         $company = session('company');
-
-    	return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company ? $company : $companies[0]]);
+        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company ? $company : $companies[0]]);
     }
 
     public function getOrders(Request $request) {
@@ -46,10 +45,17 @@ class AdminController extends Controller
         $type = $request->input("type");
         $company = $request->input("company");
 
-        $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-            ->select(['orders.*','name','company'])
-            ->with('user')
-            ->where('company', '=', $company);
+        if($type == 'completed') {
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->select(['orders.*','name','company'])
+                ->with('user')
+                ->where('company', '=', $company);
+        } else {
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->select(['orders.*','name','company'])
+                ->with('user');
+//                ->where('company', '=', $company);
+        }
 
         if ($type !== 'all') {
             $orders->whereStatus($type);

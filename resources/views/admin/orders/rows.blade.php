@@ -29,17 +29,16 @@
 				    <div class="modal-content">
 				        <div class="modal-body">
 				        	<div class='row'>
-				        		<div class='col-xs-4'>
-				        			<img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive">
+								<div class='col-xs-4'>
+									<a class="fancybox" href="{{Storage::url('photoid/'.$order->user->photoid)}}" target="_blank"><img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive" alt="" /></a>
 				        		</div>
 				        		<div class='col-xs-4'>
-				        			<img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive">
+									<a class="fancybox" href="{{ Storage::url('receipts/'.$order->receipt)}}" target="_blank"><img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive"></a>
 				        		</div>
 				        		<div class='col-xs-4'>
-				        			<img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive">
+									<a class="fancybox" href="{{Storage::url('selfie/'.$order->selfie)}}" target="_blank"><img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive"></a>
 				        		</div>
-				        	</div>
-				            
+				        	</div>	    
 				        </div>
 				    </div>
 				  </div>

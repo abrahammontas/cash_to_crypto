@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">{{$pendingOrders}}</div>
-                                        <div>New Orders</div>
+                                        <div>Pending Orders</div>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa  fa-flag-checkered fa-5x"></i>
+                                        <i class="fa fa-flag-checkered fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">{{$completedOrders}}</div>

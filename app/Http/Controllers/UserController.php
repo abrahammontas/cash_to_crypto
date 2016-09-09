@@ -105,7 +105,7 @@ class UserController extends Controller
 
         Mail::send('contact.email', $request->all(), function($message) use ($request){
             $message->to('support@cashtocrypto.com');
-            $message->subject('Contact: '. $request->input('subject'));
+            $message->subject($request->input('name') . ' - ' . $request->input('subject'));
         });
         return back()->with('success', 'Email sent successfully!');
     }
