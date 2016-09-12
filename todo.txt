@@ -98,8 +98,21 @@ admin updates:
 [*] Remove pagination for orders. Instead do this:
 	When a company is clicked, the accordion expands as a scrollbar. When the admin click a company tab, the accordion expands and shows 10 orders and then uses a scrollbar to view the rest of the company’s orders. 
 
-[ ] Also, when user cancels order, the daily and monthly amounts need to be refunded the order amount 
+[*] Also, when user cancels order, the daily and monthly amounts need to be refunded the order amount 
 [*] Also, please change pending orders to show only users that have uploaded both selfie image and receipt image
 	
 [*] And boss says some completed orders aren't showing in completed orders section and only in All Orders section
 	Please make sure all of the orders are showing in correct Orders section.
+
+
+Locations: This will go in the locations tab when the user logs in
+
+[ ] The map will need to show only the banks that the admin has listed on the banks page in the admin panel. When the admin adds a bank, it will be added to the map, and when the admin removes or disables a bank, it will be removed from the map.
+[*] The map will show all active banks in a 5 mile radius (default location is Atlanta if user does not share location). 
+[*] There will be a search bar where the user can search by zipcode.
+[ ] The bank name will be shown above each pin on the map without the user needing to click or hover on a pin. 
+[ ] When a user hovers over a pin, the pin will enlarge and still show the bank's name in addition to the bank's address.
+[ ] The bank list will also be shown in a list view on the right side of the map. The list view will show the bank name and address. When the user hovers over a bank in the list view the according bank pin will highlight on the map.
+
+[*] In completed orders section can you show all companies as well as filter by companies?
+[*] and make the fancybox image allowed to rotate 90 degrees with left and right arrows
