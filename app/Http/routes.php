@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('home.index');
 });
 
+Route::get('/atm-locations', ['as' => 'atm-locations', function(){
+   return view('atms.index');
+}]);
+
 //Route::get('/how-to', ['as' => 'howto', function () {
 //    return view('help.index');
 //}]);
