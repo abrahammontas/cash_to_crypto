@@ -37,7 +37,9 @@ class AdminController extends Controller
                         ->orderBy('company')
                         ->pluck('company');
         $company = session('company');
-        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company ? $company : $companies[0]]);
+        $companies = ['All']+$companies;
+        $company = in_array($company, $companies) ? $company : $companies[0];
+        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company]);
     }
 
     public function getOrders(Request $request) {
@@ -45,7 +47,7 @@ class AdminController extends Controller
         $type = $request->input("type");
         $company = $request->input("company");
 
-        if($type == 'completed') {
+        if($type == 'completed' && $company !== 'All') {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                 ->select(['orders.*','name','company'])
                 ->with('user')

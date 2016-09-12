@@ -153,7 +153,47 @@
 			$(".fancybox").fancybox({
 				type        : 'image',
 				openEffect  : 'none',
-				closeEffect : 'none'
+				closeEffect : 'none',
+				afterShow: function(){
+				    var click = 0;
+				    var moveCloseButton = function(deg) {
+				    	switch ( ((deg%360)+360)%360 ) {
+		                    case 90:
+		                        $('.fancybox-close').css('transform', 'translate(-' + $('.fancybox-wrap').width() + 'px, 0px)');
+		                        $('.fancybox-title').find('span.child').css('transform', 'translate(' + ($('.fancybox-wrap').width() / 2 + $('.fancybox-title').height() / 2 + 8) + 'px, -' + ($('.fancybox-wrap').height() / 2) + 'px) rotate(-' + deg + 'deg)');
+		                        break;
+		                    case 180:
+		                        $('.fancybox-close').css('transform', 'translate(-' + $('.fancybox-wrap').width() + 'px, ' + $('.fancybox-wrap').height() + 'px)');
+		                        $('.fancybox-title').find('span.child').css('transform', 'translate(0px, -'+ ($('.fancybox-wrap').height() + $('.fancybox-title').height() + 16) +'px) rotate(-' + deg + 'deg)');
+		                        break;
+		                    case 270:
+		                        $('.fancybox-close').css('transform', 'translate(0px, ' + $('.fancybox-wrap').height() + 'px)');
+		                        $('.fancybox-title').find('span.child').css('transform', 'translate(-' + ($('.fancybox-wrap').width() / 2 + $('.fancybox-title').height() / 2 + 8) + 'px, -' + ($('.fancybox-wrap').height() / 2) + 'px) rotate(-' + deg + 'deg)');
+		                        break;
+		                    case 0:
+		                    case 360:
+		                    default:
+		                        $('.fancybox-close').css('transform', 'translate(0px, 0px)');
+		                        $('.fancybox-title').find('span.child').css('transform', 'translate(0px, 0px) rotate(0deg)');
+		                }
+				    }
+				    $('.fancybox-overlay').prepend('<img id="rotate_button_right" src="/images/rotate_right.png" title="Rotate 90°">')
+				        .on('click', '#rotate_button_right', function(){
+				        	click = (++click % 4 === 0) ? 0 : click;
+				            var n = 90 * click;
+				            $('.fancybox-skin').css('webkitTransform', 'rotate(' + n + 'deg)');
+				            $('.fancybox-skin').css('mozTransform', 'rotate(' + n + 'deg)');
+				            moveCloseButton(n);
+				        })
+				    .prepend('<img id="rotate_button_left" src="/images/rotate_left.png" title="Rotate -90°">')
+				        .on('click', '#rotate_button_left', function(){
+				        	click = (--click % 4 === 0) ? 0 : click;
+				            var n = 90 * click;
+				            $('.fancybox-skin').css('webkitTransform', 'rotate(' + n + 'deg)');
+				            $('.fancybox-skin').css('mozTransform', 'rotate(' + n + 'deg)');
+				            moveCloseButton(n);
+				        });
+				}
 			});
 	});
 
