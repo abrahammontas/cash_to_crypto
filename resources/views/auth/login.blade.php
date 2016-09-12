@@ -29,6 +29,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/" style="color:white !important;">Home</a></li>
                     <li><a href="{{ url('/contact') }}" style="color:white !important;">Contact</a></li>
+                    <li><a href="{{ url('/atm-locations') }}">Bitcoin ATMs</a></li>
                     @if (Auth::guest())
                         <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important;">Login</a></li>
                         <li><a class="btn btn-link-2" href="{{ url('/register') }}" style="background-color:#707070; color:white !important;">Register</a></li>

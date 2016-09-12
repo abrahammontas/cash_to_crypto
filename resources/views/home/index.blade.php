@@ -33,6 +33,7 @@
                     <li><a class="scroll-link" href="#about-us">About</a></li>
                     <li><a class="scroll-link" href="#testimonials">Testimonials</a></li> -->
                     <li><a href="{{ url('/contact') }}" style="color:white !important">Contact</a></li>
+                    <li><a href="{{ url('/atm-locations') }}" style="color:white !important">Bitcoin ATMs</a></li>
                     @if (Auth::guest())
                         <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important">Login</a></li>
                         <li><a class="btn btn-link-2" style="background-color:#707070; color:white !important" href="{{ url('/register') }}" style="color:white">Register</a></li>
