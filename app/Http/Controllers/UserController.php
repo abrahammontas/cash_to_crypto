@@ -6,6 +6,7 @@ use Auth;
 use App\Order;
 use App\Wallet;
 use App\Settings;
+use App\Bank;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class UserController extends Controller
     }
 
     public function locations() {
-        return view('user.locations');
+        return view('user.locations', ["banks" => Bank::whereActive(1)->lists('name')]);
     }
 
     public function profileUpdate(Request $request) {
@@ -47,7 +48,7 @@ class UserController extends Controller
         [
             'photoid.image' => 'Photo ID must be an image.',
             'photo.image' => 'Selfie must be an image.',
-        ]);
+        ]); 
 
         $updated = false;
         $user = Auth::user();
