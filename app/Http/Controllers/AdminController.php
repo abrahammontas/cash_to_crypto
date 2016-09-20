@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use DB;
 use App\Order;
 use App\Bank;
@@ -15,6 +16,13 @@ use Mail;
 
 class AdminController extends Controller
 {
+    private $current_time;
+
+    public function __construct() {
+        $this->current_time = Carbon::now()->toDateTimeString();
+    }
+    
+    
     public function index() {
         return view(
         	'admin.dashboard',
@@ -65,16 +73,13 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-        if ($type == 'completed') {
-            $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
-        } else {
-            $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
-        }
-        return view('admin.orders.rows', ['orders' => $orders]);
+        $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+
+        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type]);
     }
 
 	public function banks() {
-    	$banks = Bank::paginate(10);
+    	$banks = Bank::paginate(50);
         return view('admin.bank.list', ['banks' => $banks]);
     }
  
@@ -190,24 +195,36 @@ class AdminController extends Controller
         $newStatus = $request->input('status');
         $oldStatus = $order->status;
         $bitcoins  = $request->input('bitcoins');
-        $note      = $request->input('note');
+        $email     = $request->input('email');
+        $oldEmail  = $order->email;
+        $notes     = $request->input('notes');
 
         $order->status   = $newStatus;
         $order->bitcoins = $bitcoins;
-        $order->note     = $note;
+        $order->email    = $email;
+        $order->notes    = $notes;
         $order->save();
 
         if ($newStatus == 'issue') {
-            if ($oldStatus != 'issue' || $order->note != $note) {
-                Mail::send('admin.emails.issue', ['order' => $order], function($message) use ($order) {
+            if ($order->email != $oldEmail && $order->email != '') {
+                Mail::send('admin.emails.issue', ['order' => $order], function ($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Order Issue - Attention Needed');
+                });
+            }
+        } else {
+            if ($order->email != $oldEmail && $order->email != '') {
+                Mail::send('admin.emails.general', ['order' => $order], function ($message) use ($order) {
+                    $message->to($order->user->email);
+                    $message->subject('Message From Support');
                 });
             }
         }
 
         if ($newStatus == 'completed') {
             if ($oldStatus != 'completed') {
+                $order->completed_at = $this->current_time;
+                $order->save();
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Bitcoins Sent!');
@@ -252,5 +269,16 @@ class AdminController extends Controller
     public function profile(Request $request, $id) {
         $user = User::find($id);
         return view('admin.user.profile', ['user' => $user]);
+    }
+
+    public function userUpdate(Request $request, $id)
+    {
+        $user = User::find($id);
+        $notes = $request->input('notes');
+
+        $user->notes = $notes;
+        $user->save();
+
+        return back()->with('success', 'User notes updated successfully');
     }
 }

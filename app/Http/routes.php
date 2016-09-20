@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::put('limits/{id}', ['as' => 'users.limits', 'uses' => 'AdminController@limits']);
 	Route::get('profile/{id}', ['as' => 'users.profile', 'uses' => 'AdminController@profile']);
 	Route::get('orders', ['as' => 'orders.ajax', 'uses' => 'AdminController@getOrders']);
+	Route::put('profile/{id}', ['as' => 'user.update', 'uses' => 'AdminController@userUpdate']);
 });
 
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);

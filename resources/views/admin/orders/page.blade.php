@@ -40,8 +40,11 @@
 					        <tr>
 					            <th>Order ID</th>
 					            <th>Name</th>
-					            <th>Time Created</th>
+					            <th>Time Created At</th>
 					            <th>Images Updated At</th>
+								@if ($type == 'completed')
+									<th>Completed At</th>
+								@endif
 					            <th>Bank</th>
 					            <th>Wallet Address</th>
 					            <th>BTC Amount</th>

@@ -11,11 +11,18 @@
     	<td>
 			<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
     	</td>
-		<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td></td>
+		<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td>
 		@if ($order->img_updated_at == '')
-			<td></td>
-		@else
-			<td>Date: {{ date('m/d/Y', strtotime($order->img_updated_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 4) }}</td></td>
+            <td></td>
+        @else
+            <td>Date: {{ date('m/d/Y', strtotime($order->img_updated_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 4) }}</td>
+        @endif
+		@if ($type == 'completed'))
+			@if ($order->completed_at == '')
+				<td></td>
+			@else
+				<td>Date: {{ date('m/d/Y', strtotime($order->completed_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 4) }}</td>
+            @endif
 		@endif
 		<td>{{$order->bank->name}}</td>
 		<td>{{$order->wallet}}</td>
@@ -64,8 +71,11 @@
 			                	{{Form::select('status', ['pending' => 'Pending', 'issue' => 'Issue', 'completed' => 'Completed', 'cancelled' => 'Cancelled'], $order->status, ['class' => 'form-control'])}}
 			                </div>
 			                <div class='form-group'>
-			                	{{Form::textarea('note', $order->note, ['class' => 'form-control', 'placeholder' => 'Email to Buyer'])}}
+			                	{{Form::textarea('email', $order->email, ['class' => 'form-control', 'placeholder' => 'Email to Buyer'])}}
 			                </div>
+							<div class='form-group'>
+								{{Form::textarea('notes', $order->notes, ['class' => 'form-control', 'placeholder' => 'Order Notes'])}}
+							</div>
 			            </div>
 			            <div class="panel-footer">
 			          		<input type='hidden' name='company' value='{{$order->bank->company}}'/>

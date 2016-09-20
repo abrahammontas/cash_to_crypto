@@ -95,6 +95,7 @@ class OrderController extends Controller
         $hash = md5(microtime().$order->id);
 
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+        	$order->img_updated_at = $this->current_time;
             $order->receipt = $hash;
             $order->save();
 
@@ -121,6 +122,7 @@ class OrderController extends Controller
         $hash = md5(microtime().$order->id);
 
         if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+        	$order->img_updated_at = $this->current_time;
             $order->selfie = $hash;
             $order->save();
 
