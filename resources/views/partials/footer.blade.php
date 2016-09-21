@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-xs-6" style="text-align:left;">
                                 <div class="row">
-                                    <span>9:00am - 8:00pm</span>
+                                    <span>9:00am EST - 8:00pm EST</span>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-xs-6" style="text-align:left;">
                                 <div class="row">
-                                    <span>9:00am - 3:00pm</span>
+                                    <span>9:00am EST - 3:00pm EST</span>
                                 </div>
                             </div>
                         </div>
