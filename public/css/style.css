@@ -466,10 +466,18 @@ html, body {
 }
 
 .right-panel, #banks {
-    height: 100%;
-    max-height: calc(100vh - 52px);
+    height: calc(100vh - 52px);
     overflow: auto;
     background-color: white;
+}
+
+#banks {
+    margin-top:10px;
+    height: calc(100vh - 62px);
+}
+
+.right-panel {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 1024px) {
@@ -477,7 +485,7 @@ html, body {
         height: calc(100vh - 150px);
     }
     .right-panel, #banks {
-        max-height: calc(100vh - 150px);
+        height: calc(100vh - 150px);
     }
 }
 
@@ -502,6 +510,7 @@ html, body {
     text-overflow: ellipsis;
     margin-left: 5pt;
     margin-bottom: 5pt;
+    margin-right: 20px;
 }
 
 #bl-input:focus {
@@ -591,4 +600,31 @@ body.user-layout {
 #banks li.active {
     background-color: #5cb85c;
     color: white;
+}
+.address-item div {
+    float: left;
+}
+.address-item .name {
+    font-weight: bold;
+}
+.address-item .address {
+    clear: left;
+}
+
+.address-item {
+    padding: 10px;
+    padding-left: 40px;
+    border-bottom: 1px solid #e5e5e5;
+    clear: both;
+    height: 60px;
+}
+.address-item .distance {
+    font-style: italic;
+    font-weight: bold;
+    color: black;
+    float: right;
+}
+
+.address-item .clear {
+    clear: both;
 }
