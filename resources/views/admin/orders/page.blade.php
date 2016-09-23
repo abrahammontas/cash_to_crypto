@@ -11,7 +11,9 @@
 	        		<div class="btn-group pull-right">
 					  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    <span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
-					  </button>
+					  </button><br />
+					  <br />
+					  <a href="#" class="export">Export</a>
 					  <ul class="dropdown-menu">
 					  	@foreach ($companies as $c)
 					     <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
@@ -34,7 +36,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-        			<div class="table-responsive">
+        			<div id="dvData" class="table-responsive">
 						<table id="orders-table" class='table table-stripped table-hover'>
 						<thead>
 					        <tr>
@@ -49,8 +51,8 @@
 					            <th>Wallet Address</th>
 					            <th>BTC Amount</th>
 					            <th>USD</th>
-					            <th>Photos</th>
-					            <th>Status</th>
+					            <th data-remove="true">Photos</th>
+					            <th data-remove="true">Status</th>
 					        </tr>
 					    </thead>
 					    <tbody>
@@ -132,6 +134,63 @@
 				loading = false;
 			});
 		}
+        
+        
+        function exportTableToCSV($table, filename) {
+
+			$table = $table.clone();
+			$table.find("td:nth-child(10)").remove();
+			$table.find("td:nth-child(11)").remove();
+
+			var $rows = $table.find('tr:has(td,th)'),
+
+					// Temporary delimiter characters unlikely to be typed by keyboard
+					// This is to avoid accidentally splitting the actual contents
+					tmpColDelim = String.fromCharCode(11), // vertical tab character
+					tmpRowDelim = String.fromCharCode(0), // null character
+
+					// actual delimiter characters for CSV format
+					colDelim = '","',
+					rowDelim = '"\r\n"',
+
+					// Grab text from table into CSV formatted string
+					csv = '"' + $rows.map(function (i, row) {
+								var $row = $(row),
+										$cols = $row.find('td,th');
+
+								return $cols.map(function (j, col) {
+									var $col = $(col),
+											text = $col.text();
+
+									return text.replace(/"/g, '""'); // escape double quotes
+
+								}).get().join(tmpColDelim);
+
+							}).get().join(tmpRowDelim)
+									.split(tmpRowDelim).join(rowDelim)
+									.split(tmpColDelim).join(colDelim) + '"',
+
+					// Data URI
+					csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+			$(this)
+					.attr({
+						'download': filename,
+						'href': csvData,
+						'target': '_blank'
+					});
+		}
+
+		// This must be a hyperlink
+		$(".export").on('click', function (event) {
+			// CSV
+			exportTableToCSV.apply(this, [$('#dvData>table'), 'completed_orders.csv']);
+
+			// IF CSV, don't do event.preventDefault() or return false
+			// We actually need this to be a typical hyperlink
+		});
+        
+        
 		{{--var win = $(window);--}}
 		{{--// Each time the user scrolls--}}
 		{{--win.scroll(function() {--}}
