@@ -17,11 +17,12 @@
 	    			<li class="active">All</li>
 	    			@foreach($banks as $bank)
 	    			<li>{{$bank}}</li>
+	    			<div class='addresses' id="{{preg_replace("/[^a-z]/", '', strtolower($bank))}}"></div>
 	    			@endforeach
 	    		</ul>
 	    	</div> 
 	    </div>
-	    <form id="bl-form" onclick="return false;">
+	    <form id="bl-form" onclick="return false;" style="margin:10px">
 	    	<input autocomplete="off" class="controls" type="text" placeholder="Look for specific zipcode.." id="bl-input" />
 	    </form>
 	

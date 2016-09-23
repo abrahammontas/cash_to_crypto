@@ -11,6 +11,7 @@
       var directionsDisplay;
       var markers = [];
 
+
       function initMap() {
         radius = 5*1609.34;// in meters(1 miles equals to 1609.34 meter)
         defaultLocation = {lat: 33.7489950, lng: -84.3879820};
@@ -24,7 +25,7 @@
         // Create the search box and link it to the UI element.
         var input = /** @type {HTMLInputElement} */(
             document.getElementById('bl-form'));
-        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(input);
+        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(input);
         // Try HTML5 geolocation
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -67,8 +68,15 @@
         }
       }
 
-      function nearbyBanks(bank){
+      function nearbyBanks(bank, showList){
+
         deleteMarkers();
+        if (showList) {
+          $(".addresses").each(function(){
+            $(this).html('').removeClass("active");
+          });
+        }
+
         //set center
         map.setCenter(defaultLocation);
         
@@ -88,29 +96,37 @@
 
         infowindow = new google.maps.InfoWindow({maxWidth: 300});
         var services = [];
+        var handlers = [];
         for (var i = 0; i < banks.length; i++) {
             if (bank !== undefined && banks[i] != bank) {
               continue;
             }
+            var searchedBank = banks[i];
+
+            handlers.push(function(searchedBank){
+              return function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  for (var j = 0; j < results.length; j++) {
+                    if (results[j].name.toLowerCase().includes(searchedBank.toLowerCase())) {
+                      createMarker(results[j], searchedBank, showList);
+                    }
+                  }
+                }
+              };
+            }(searchedBank));
+
+
             services.push(new google.maps.places.PlacesService(map));
             services[services.length-1].nearbySearch({
               location: defaultLocation,
               radius: radius,//in meters
               type: ['bank'],
-              keyword: banks[i]
-            }, callback);
+              keyword: searchedBank
+            }, handlers[handlers.length-1]);
         }
       }
 
-      function callback(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-          }
-        }
-      }
-
-      function createMarker(place) {
+      function createMarker(place, bank, showList) {
         var marker = new google.maps.Marker({
           map: map,
           position: place.geometry.location,
@@ -128,6 +144,33 @@
 
         google.maps.event.addListener(marker, 'mouseover', bankInfo);
         google.maps.event.addListener(marker, 'click', bankInfo);
+        if (showList){
+          var hash = "#"+bank.toLowerCase().replace(/[^a-z]/g, '');
+
+          var service = new google.maps.DistanceMatrixService();
+          service.getDistanceMatrix(
+            {
+              origins: [defaultLocation],
+              destinations: [place.geometry.location],
+              travelMode: google.maps.TravelMode.DRIVING
+            }, function callback(response, status) {
+                $(hash).append(
+                  "<div class='address-item' data-sort='"+response.rows[0].elements[0].distance.value+"'>"+
+                    "<div class='name'>"+ place.name+"</div>"+
+                    "<div class='address'>"+ place.vicinity+"</div>"+
+                    "<div class='distance'>"+ response.rows[0].elements[0].distance.text+"</div>"+
+                    "<div class='clear'></div>"+
+                  "</div>"
+                ).addClass('active');
+
+                var items = $('.addresses.active > div');
+                items.sort(function(a, b){
+                    return +$(a).data('sort') - +$(b).data('sort');
+                });
+                items.appendTo('.addresses.active');
+
+            });      
+        }
       }
 
       function directions(placeId) {
@@ -185,7 +228,7 @@
         return false;
       });
 
-      $("#banks li").on("mouseenter click", function(){
+      $("#banks li").on("mouseenter", _.debounce(function(){
         var bank = $(this).text();
         $("#banks li.active").removeClass("active");
         $(this).addClass("active");
@@ -195,7 +238,19 @@
           nearbyBanks(bank);
         }
         
-      })
+      },300));
+
+      $("#banks li").on("click", _.debounce(function(){
+        var bank = $(this).text();
+        $("#banks li.active").removeClass("active");
+        $(this).addClass("active");
+        if (bank == "All") {
+          nearbyBanks(null, true);
+        } else {
+          nearbyBanks(bank, true);
+        }
+        
+      },300));
 
       function setMapOnAll(map) {
         for (var i = 0; i < markers.length; i++) {
