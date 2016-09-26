@@ -155,6 +155,11 @@
                             </span>
                                 @endif
                             </div>
+                            
+                            <div class="form-group">
+                                <label for="subscribed">I agree to receive text and email promotions</label>
+                                <input type="checkbox" name="subscribed" style="float:left;">
+                            </div>
 
                             <div class="form-group">
                                 <button type="submit" name="register" id="btn-register" class="btn form-control" style="text-transform:uppercase;">Create Free Account</button>
