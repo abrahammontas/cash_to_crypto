@@ -54,9 +54,9 @@ class OrderController extends Controller
             return back()->with('warning', 'Daily limit reached. Try agin later or decrease ammount.')->withInput();
         }
 
-        if (Auth::user()->monthlyLimitLeft() < $amount) {
-            return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
-        }
+//        if (Auth::user()->monthlyLimitLeft() < $amount) {
+//            return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
+//        }
 
         $faker = \Faker\Factory::create();
         do {

@@ -201,10 +201,10 @@
                                     <div class="col-xs-6 col-sm-3 text-left">Daily:</div>
                                     <div class="col-xs-6 col-sm-9">${{number_format(Auth::user()->dailyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->dailyLimit : App\Settings::getParam('dailyLimit'), 0, '.', ',')}}</div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-6 col-sm-3 text-left">Monthly:</div>
-                                    <div class="col-xs-6 col-sm-9">${{number_format(Auth::user()->monthlyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->monthlyLimit : App\Settings::getParam('monthlyLimit'), 0, '.', ',')}}</div>
-                                </div>
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-xs-6 col-sm-3 text-left">Monthly:</div>--}}
+                                    {{--<div class="col-xs-6 col-sm-9">${{number_format(Auth::user()->monthlyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->monthlyLimit : App\Settings::getParam('monthlyLimit'), 0, '.', ',')}}</div>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="col-xs-2">
                                 <!-- Title.... -->

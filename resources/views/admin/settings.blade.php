@@ -37,14 +37,14 @@
                             		<input type="number" required min="1" name='dailyLimit' value='{{$settings['dailyLimit']}}'/>
                             	</div>
                             </div>
-                            <div class='row form-group'>
-                        		<div class='col-lg-4'>
-                        			Monthly Limit:
-                        		</div>
-                        		<div class='col-lg-8'>
-                            		<input type="number" required min="1" name='monthlyLimit' value='{{$settings['monthlyLimit']}}'/>
-                            	</div>
-                            </div>
+                            {{--<div class='row form-group'>--}}
+                        		{{--<div class='col-lg-4'>--}}
+                        			{{--Monthly Limit:--}}
+                        		{{--</div>--}}
+                        		{{--<div class='col-lg-8'>--}}
+                            		{{--<input type="number" required min="1" name='monthlyLimit' value='{{$settings['monthlyLimit']}}'/>--}}
+                            	{{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>
