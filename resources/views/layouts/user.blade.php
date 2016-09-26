@@ -31,7 +31,7 @@
             ga('send', 'pageview');
         </script>
     </head>
-    <body style="margin-top:0px;">
+    <body class="user-layout">
         <!-- Navigation -->
         <nav class="navbar navbar-inverse" style="background-color: white; margin-bottom:0px; padding-left:20px; padding-right:20px;" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -64,9 +64,11 @@
                         <a href="{{route('current-order')}}"> Current Order</a>
                     </li>
                     @endif
-                    <!-- <li>
+<!--
+                    <li>
                         <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                    </li> -->
+                    </li>
+-->
                     <li>
                         <a href="{{route('buy')}}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
                     </li>
@@ -96,9 +98,11 @@
                     <a href="{{route('current-order')}}"> Current Order</a>
                 </li>
                 @endif
-                <!-- <li>
+<!--
+                <li>
                     <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                </li> -->
+                </li>
+-->
                 <li class="no-border">
                     <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px;"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
                 </li>
@@ -131,6 +135,7 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery.js"></script>
+        <script src="/js/underscore-min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/js/bootstrap.min.js"></script>
         <!-- custom JS -->

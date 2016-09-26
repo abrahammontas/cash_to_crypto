@@ -448,3 +448,183 @@ td.with-avatar {
         -moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
 }
+
+/* all map containers must be full height */
+/*#map {
+    width:100%;
+    height:calc(100vh - 52px);
+    margin-right:390px;
+}*/
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    height: calc(100vh - 52px);
+}
+
+.right-panel, #banks {
+    height: calc(100vh - 52px);
+    overflow: auto;
+    background-color: white;
+}
+
+#banks {
+    margin-top:10px;
+    height: calc(100vh - 62px);
+}
+
+.right-panel {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+    #map {
+        height: calc(100vh - 150px);
+    }
+    .right-panel, #banks {
+        height: calc(100vh - 150px);
+    }
+}
+
+.controls {
+    
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#bl-input {
+    background-color: #fff;
+    padding-left: 10px;
+    width: 400px;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    margin-left: 5pt;
+    margin-bottom: 5pt;
+    margin-right: 20px;
+}
+
+#bl-input:focus {
+    border-color: #4d90fe;
+    /*margin-left: -1px;
+    padding-left: 14px;  /* Regular padding-left + 1. */*/
+}
+
+@media only screen and (max-width: 500px) {
+    #bl-input{
+        width: 150%;
+    }
+}
+
+#iw-container {
+    margin-bottom: 10px;
+}
+#iw-container .iw-title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 10px;
+    background-color: #48b5e9;
+    color: white;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+}
+#iw-container .iw-content {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-right: 1px;
+    padding: 15px 5px 20px 15px;
+    max-height: 140px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.iw-content img {
+    float: right;
+    margin: 0 5px 5px 10px; 
+}
+.iw-subTitle {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 0;
+}
+.iw-bottom-gradient {
+    position: absolute;
+    
+    height: 25px;
+    bottom: 10px;
+    right: 18px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+.bank-info-window  .title{
+    overflow: hidden;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.bank-info-window .full-width {
+    width: 180px;
+}
+
+body.user-layout {
+    background-color: white;
+    margin-top:0px;
+}
+
+#banks ul {
+    padding:0px;
+}
+#banks li {
+    list-style: none;
+    line-height: 60px;
+    font-size: 20px;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+
+#banks li.active {
+    background-color: #5cb85c;
+    color: white;
+}
+.address-item div {
+    float: left;
+}
+.address-item .name {
+    font-weight: bold;
+}
+.address-item .address {
+    clear: left;
+}
+
+.address-item {
+    padding: 10px;
+    padding-left: 40px;
+    border-bottom: 1px solid #e5e5e5;
+    clear: both;
+    height: 60px;
+}
+.address-item .distance {
+    font-style: italic;
+    font-weight: bold;
+    color: black;
+    float: right;
+}
+
+.address-item .clear {
+    clear: both;
+}
