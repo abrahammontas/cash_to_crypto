@@ -38,7 +38,7 @@
 
                             <div class="form-group{{ $errors->has('used_us') ? ' has-error' : '' }}">
                                 {{ Form::label('question-1', 'Have you used cashtocrypto.com before?') }}<br />
-                                {{ Form::radio('used_us', 'Yes')  }} Yes<br />
+                                {{ Form::radio('used_us', 'Yes', '', ['required' => 'required'])  }} Yes<br />
                                 {{ Form::radio('used_us', 'No') }} No<br />
                             </div>
 
@@ -48,15 +48,15 @@
                                 </span>
                             @endif
 
-                            <div class="form-group{{ $errors->has('hear_about') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('hear_about') ? ' has-error' : '' }}  required">
                                 {{ Form::label('question-2', 'How did you hear about us?') }}<br />
-                                {{ Form::radio('hear_about', 'google', '', ['id' => 'google', 'class' => 'h_about'])  }} Google<br />
+                                {{ Form::radio('hear_about', 'google', '', ['id' => 'google', 'class' => 'h_about', 'required' => 'required'])  }} Google<br />
                                 {{ Form::radio('hear_about', 'localbitcoins', '', ['id' => 'bitcoins', 'class' => 'h_about'])  }} Localbitcoins<br />
                                 {{ Form::radio('hear_about', 'paxful', '', ['id' => 'paxful', 'class' => 'h_about'])  }} Paxful<br />
                                 {{ Form::radio('hear_about', 'facebook', '', ['id' => 'facebook', 'class' => 'h_about'])  }} Facebook<br />
                                 {{ Form::radio('hear_about', 'twitter', '', ['id' => 'twitter', 'class' => 'h_about'])  }} Twitter<br />
                                 {{ Form::radio('hear_about', 'instagram', '', ['id' => 'instagram', 'class' => 'h_about'])  }} Instagram<br />
-                                {{ Form::radio('hear_about', 'linkedin',' ', ['id' => 'linkedin', 'class' => 'h_about'])  }} LinkedIn<br />
+                                {{ Form::radio('hear_about', 'linkedin', '', ['id' => 'linkedin', 'class' => 'h_about'])  }} LinkedIn<br />
                                 {{ Form::radio('hear_about', 'friend', '', ['id' => 'friend', 'class' => 'h_about']) }} Friend<br />
                                 {{ Form::radio('hear_about', 'other', '', ['id' => 'other', 'class' => 'h_about']) }} Other<br />
                             </div>
@@ -145,18 +145,25 @@
             </div>
         </div>
     </div>
+<div id="other2-box" class="form-group" style="height:100px;">
+
+</div>
 @endsection
 
 @section('scripts')
     <script>
         $('#other-box').fadeOut();
+        $('#other2-box').fadeIn();
+
         $(document).ready(function(){
 
             $('.h_about').on('click', function(){
                 if($(this).val() == 'other') {
                     $('#other-box').fadeIn('slow');
+                    $('#other2-box').fadeOut();
                 } else {
                     $('#other-box').fadeOut('slow');
+                    $('#other2-box').fadeIn();
                 }
             });
 

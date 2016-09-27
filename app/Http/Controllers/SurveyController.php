@@ -23,9 +23,10 @@ class SurveyController extends Controller
 
         Survey::create([
             'user_id' => $user->id,
-            'used_us' => $request['used_us'],
-            'hear_about' => $request['hear_about'],
-            'state' => $request['state']
+            'used_us' => $request['used_us'] ? $request['used_us'] : '',
+            'hear_about' => $request['hear_about'] ? $request['hear_about'] : '',
+            'state' => $request['state'] ? $request['state'] : '',
+            'other' => $request['other'] ? $request['other'] : '',
         ]);
 
         return redirect()->route($user->admin ? 'admin.dashboard' : 'dashboard');
