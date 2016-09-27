@@ -199,6 +199,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="subscribed" style="padding-left:10px;">I agree to receive text and email promotions</label>
+                                <input type="checkbox" name="subscribed" value="1" style="float:left;">
+                            </div>
+
+                            <div class="form-group">
                                 <button type="submit" name="register" id="btn-register" class="btn form-control" style="text-transform:uppercase;">Create Free Account</button>
                             </div>
 

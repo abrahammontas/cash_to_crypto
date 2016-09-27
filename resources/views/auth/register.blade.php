@@ -157,8 +157,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="subscribed">I agree to receive text and email promotions</label>
-                                <input type="checkbox" name="subscribed" style="float:left;">
+                                <label for="subscribed" style="padding-left:10px;">I agree to receive text and email promotions</label>
+                                <input type="checkbox" name="subscribed" value="1" style="float:left;">
                             </div>
 
                             <div class="form-group">
