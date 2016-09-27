@@ -64,11 +64,6 @@
                         <a href="{{route('current-order')}}"> Current Order</a>
                     </li>
                     @endif
-<!--
-                    <li>
-                        <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                    </li>
--->
                     <li>
                         <a href="{{route('buy')}}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
                     </li>
@@ -98,11 +93,6 @@
                     <a href="{{route('current-order')}}"> Current Order</a>
                 </li>
                 @endif
-<!--
-                <li>
-                    <a href="{{route('locations')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a>
-                </li>
--->
                 <li class="no-border">
                     <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px;"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
                 </li>
