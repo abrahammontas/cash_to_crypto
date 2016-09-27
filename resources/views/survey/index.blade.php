@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            {{ Form::open(['method' => 'put']) }}
+                            {{Form::open(['method' => 'post', 'route' =>'survey.save'])}}
 
                             <div class="form-group{{ $errors->has('used_us') ? ' has-error' : '' }}">
                                 {{ Form::label('question-1', 'Have you used cashtocrypto.com before?') }}<br />
@@ -50,15 +50,15 @@
 
                             <div class="form-group{{ $errors->has('hear_about') ? ' has-error' : '' }}">
                                 {{ Form::label('question-2', 'How did you hear about us?') }}<br />
-                                {{ Form::radio('hear_about', 'google') }} Google<br />
-                                {{ Form::radio('hear_about', 'localbitcoins') }} Localbitcoins<br />
-                                {{ Form::radio('hear_about', 'paxful') }} Paxful<br />
-                                {{ Form::radio('hear_about', 'facebook') }} Facebook<br />
-                                {{ Form::radio('hear_about', 'twitter') }} Twitter<br />
-                                {{ Form::radio('hear_about', 'instagram') }} Instagram<br />
-                                {{ Form::radio('hear_about', 'linkedin') }} LinkedIn<br />
-                                {{ Form::radio('hear_about', 'friend') }} Friend<br />
-                                {{ Form::radio('hear_about', 'other', '', ['id' => 'hear_about_response']) }} Other<br />
+                                {{ Form::radio('hear_about', 'google', '', ['id' => 'google', 'class' => 'h_about'])  }} Google<br />
+                                {{ Form::radio('hear_about', 'localbitcoins', '', ['id' => 'bitcoins', 'class' => 'h_about'])  }} Localbitcoins<br />
+                                {{ Form::radio('hear_about', 'paxful', '', ['id' => 'paxful', 'class' => 'h_about'])  }} Paxful<br />
+                                {{ Form::radio('hear_about', 'facebook', '', ['id' => 'facebook', 'class' => 'h_about'])  }} Facebook<br />
+                                {{ Form::radio('hear_about', 'twitter', '', ['id' => 'twitter', 'class' => 'h_about'])  }} Twitter<br />
+                                {{ Form::radio('hear_about', 'instagram', '', ['id' => 'instagram', 'class' => 'h_about'])  }} Instagram<br />
+                                {{ Form::radio('hear_about', 'linkedin',' ', ['id' => 'linkedin', 'class' => 'h_about'])  }} LinkedIn<br />
+                                {{ Form::radio('hear_about', 'friend', '', ['id' => 'friend', 'class' => 'h_about']) }} Friend<br />
+                                {{ Form::radio('hear_about', 'other', '', ['id' => 'other', 'class' => 'h_about']) }} Other<br />
                             </div>
 
                             @if ($errors->has('hear_about'))
@@ -149,12 +149,17 @@
 
 @section('scripts')
     <script>
+        $('#other-box').fadeOut();
         $(document).ready(function(){
-            if (document.getElementById('hear_about_response').checked) {
-                $('#other-box').fadeIn('slow');
-            } else {
-                $('#other-box').fadeOut('slow');
-            }
+
+            $('.h_about').on('click', function(){
+                if($(this).val() == 'other') {
+                    $('#other-box').fadeIn('slow');
+                } else {
+                    $('#other-box').fadeOut('slow');
+                }
+            });
+
         });
     </script>
 @endsection

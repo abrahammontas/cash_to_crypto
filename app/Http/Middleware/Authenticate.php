@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Survey;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate
@@ -25,6 +26,9 @@ class Authenticate
             return redirect()->guest('login');
         }
 
+        if (!Survey::where('user_id','=',Auth::user()->id)->first()) {
+            return redirect('survey');
+        }
         return $next($request);
     }
 }

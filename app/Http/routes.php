@@ -76,6 +76,12 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::put('profile/{id}', ['as' => 'user.update', 'uses' => 'AdminController@userUpdate']);
 });
 
+Route::get('/survey', ['as' => 'survey', function() {
+	return view('survey.index');
+}]);
+
+Route::post('survey', ['as' => 'survey.save', 'uses' => 'SurveyController@save']);
+
 Route::get('activation/{token}', ['as' => 'activation', 'uses' => 'Auth\AuthController@userActivation']);
 Route::get('/contact', ['as' => 'contact', function() {
     return view('contact.index');
