@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 		Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
 	//});
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
-    Route::get('current-order', ['as' => 'current-order', 'uses' => 'UserController@currentOrder']);
+//    Route::get('current-order', ['as' => 'current-order', 'uses' => 'UserController@currentOrder']);
 	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
 	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);

@@ -34,7 +34,7 @@ class BitcoinPrice extends Command
 
             $result = json_decode($result);
             $price = $result->last;
-            $ourprice = $price * 1.065;
+            $ourprice = $price * 1.07;
 
             \App\Settings::setParam('bitcoinPrice', $price);
             \App\Settings::setParam('ourprice', $ourprice);
