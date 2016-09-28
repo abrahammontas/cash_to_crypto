@@ -21,6 +21,12 @@ class SurveyController extends Controller
 
         $user = Auth::user();
 
+        if($request['state'] == 'NY') {
+            $showMsg = true;
+
+            return view('survey.index', ['showMsg' => $showMsg]);
+        }
+
         Survey::create([
             'user_id' => $user->id,
             'used_us' => $request['used_us'] ? $request['used_us'] : '',
