@@ -68,16 +68,6 @@
         </div>
     </section> -->
 
-    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
-                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <div class="inner-bg" style="padding-bottom:100px;">
         <div class="container">
             <div class="row">
@@ -166,7 +156,7 @@
 
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label for="phone" class="sr-only">Phone</label>
-                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-country="US" value="{{ old('phone') }}"  required>
+                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-format="+1 (ddd) ddd-dddd" value="0000000000" data-country="US" value="{{ old('phone') }}"  required>
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
