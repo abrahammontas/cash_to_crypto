@@ -166,7 +166,7 @@
 
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label for="phone" class="sr-only">Phone</label>
-                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-country="US" value="{{ old('phone') }}"  required>
+                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-format="+1 (ddd) ddd-dddd" value="0000000000" data-country="US" value="{{ old('phone') }}"  required>
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">

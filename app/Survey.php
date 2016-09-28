@@ -12,7 +12,7 @@ class Survey extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'used_us', 'hear_about', 'state'
+        'user_id', 'used_us', 'hear_about', 'state', 'other'
     ];
 
     public $timestamps = true;
