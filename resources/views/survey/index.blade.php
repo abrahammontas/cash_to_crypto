@@ -10,6 +10,23 @@
     <!-- Top content -->
     <div class="top-content">
 
+        @if (!empty($showMsg))
+                <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
+                                <p style="color:whitesmoke; font-size:14px;">
+                                    <strong>
+                                        Sorry, we are no longer able to do business with any person that resides, is
+                                        located in, has a place of business, or is conducting business in New York.
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
         <!--     <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
                 <div class="container">
                     <div class="row">
@@ -48,7 +65,7 @@
                                 </span>
                             @endif
 
-                            <div class="form-group{{ $errors->has('hear_about') ? ' has-error' : '' }}  required">
+                            <div class="form-group{{ $errors->has('hear_about') ? ' has-error' : '' }}">
                                 {{ Form::label('question-2', 'How did you hear about us?') }}<br />
                                 {{ Form::radio('hear_about', 'google', '', ['id' => 'google', 'class' => 'h_about', 'required' => 'required'])  }} Google<br />
                                 {{ Form::radio('hear_about', 'localbitcoins', '', ['id' => 'bitcoins', 'class' => 'h_about'])  }} Localbitcoins<br />
