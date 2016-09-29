@@ -27,6 +27,7 @@
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/" style="color:white !important;">Home</a></li>
+                    <li><a href="{{ url('/directions') }}" style="color:white !important;">Directions</a></li>
                     <li><a href="/contact" style="color:white !important;">Contact</a></li>
                     @if (Auth::guest())
                         <li><a class="btn btn-link-2" href="{{ url('/login') }}">Login</a></li>

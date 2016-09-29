@@ -88,3 +88,7 @@ Route::get('/contact', ['as' => 'contact', function() {
 }]);
 Route::post('contact', ['as' => 'contact', 'uses' => 'UserController@contact']);
 
+Route::get('directions', ['as' => 'directions', function() {
+    return view('directions.index');
+}]);
+

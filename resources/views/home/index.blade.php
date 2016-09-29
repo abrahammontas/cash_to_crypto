@@ -46,10 +46,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li><a class="scroll-link" href="#features">Home</a></li>
-                    <li><a class="scroll-link" href="#how-it-works">How It Works</a></li>
-                    <li><a class="scroll-link" href="#about-us">About</a></li>
-                    <li><a class="scroll-link" href="#testimonials">Testimonials</a></li> -->
+                    <li><a href="{{ url('/directions') }}" style="color:white !important;">Directions</a></li>
                     <li><a href="{{ url('/atm-locations') }}" style="color:white !important;">Bitcoin ATMs</a></li>
                     <li><a href="{{ url('/contact') }}" style="color:white !important">Contact</a></li>
                     @if (Auth::guest())
