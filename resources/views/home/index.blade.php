@@ -25,6 +25,24 @@
                 </button>
                 <a class="navbar-brand" href="/">Cash To Crypto</a>
             </div>
+            
+            @if (Auth::guest())
+                <div class="scroll-link exchange-rate hidden-md hidden-lg pull-left" style="color:white; padding-left:0px; margin-top:-50px;"><span style="font-weight:400;">Exchange Rate: 1BTC</span> = <span style="font-weight:400; color:gold">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></div>
+            @else
+                <div class="dropdown hidden-md hidden-lg pull-left" style="margin-top:-50px;">
+                    <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
+                        <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+                <div class="scroll-link exchange-rate hidden-md hidden-lg pull-left" style="color:white; padding-left:0px"><span style="font-weight:400;">Exchange Rate: 1BTC</span> = <span style="font-weight:400; color:gold">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></div>
+            @endif
+            
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -39,7 +57,7 @@
                         <li><a class="btn btn-link-2" style="background-color:#707070; color:white !important" href="{{ url('/register') }}" style="color:white">Register</a></li>
                     @else
                         <li>
-                            <div class="dropdown">
+                            <div class="dropdown hidden-xs hidden-sm">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
                                     <span class="caret"></span>
@@ -52,7 +70,7 @@
                             </div>
                         </li>
                     @endif
-                    <li class="scroll-link exchange-rate"><span style="font-weight:400;">Exchange Rate: 1BTC</span> = <span style="font-weight:400; color:gold">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
+                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400;">Exchange Rate: 1BTC</span> = <span style="font-weight:400; color:gold">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
                 </ul>
             </div>
         </div>

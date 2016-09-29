@@ -33,42 +33,42 @@
 
                     <div class="form-border" style="margin-top:30px; background-color: #f2f2f2">
                     	<div class="row font-main">
-                    		<div class="col-xs-2">
+                    		<div class="col-md-2">
                     			<strong>First Name:</strong>
                     		</div>
-                    		<div class="col-xs-4 text-left">
+                    		<div class="col-md-4 text-left">
                     			{{Auth::user()->firstName}}
                     		</div>
-                    		<div class="col-xs-2">
+                    		<div class="col-md-2">
                     			<strong>Last Name:</strong>
                     		</div>
-                    		<div class="col-xs-4 text-left">
+                    		<div class="col-md-4 text-left">
                     			{{Auth::user()->lastName}}
                     		</div>
                     	</div>
                         <hr />
                         <div style="margin-top:30px;"></div>
                         <div class="row font-main">
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <strong>Email:</strong>
                             </div>
-                            <div class="col-xs-4 text-left">
+                            <div class="col-md-4 text-left">
                                 {{Auth::user()->email}}
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <strong>Phone:</strong>
                             </div>
-                            <div class="col-xs-4 text-left">
+                            <div class="col-md-4 text-left">
                                 {{Auth::user()->phone}}
                             </div>
                         </div>
                         <hr />
                         <div style="margin-top:30px;"></div>
                         <div class="row font-main">
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <strong>Photo ID:</strong>
                             </div>
-                            <div class="col-xs-10 col-sm-6 text-left">
+                            <div class="col-md-10 col-md-6 text-left">
                                 {{ Form::open(['method'=> 'post', 'enctype' => 'multipart/form-data']) }}
                                     <div class="form-group">
                                         @if (Auth::user()->photoid)
@@ -114,10 +114,10 @@
                         <div style="margin-top:30px;"></div>
                         
                         <div class="row font-main">
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <strong>Bitcoin Wallets:</strong>
                             </div>
-                         	<div class="col-xs-10">
+                         	<div class="col-md-10">
                               	<div class="table-responsive">
 	                               	<table class='table table-stripped table-hover'>
 	                               		<thead>
@@ -193,23 +193,25 @@
                         <hr/>
 
                         <div class="row font-main">
-                            <div class="col-xs-6 col-sm-2">
+                            <div class="col-md-6 col-md-2">
                                 <strong>Transaction Limits:</strong>
                             </div>
-                            <div class="col-xs-6 col-sm-4 text-left">
+                            <div class="col-md-6 col-md-4 text-left">
                                 <div class="row">
-                                    <div class="col-xs-6 col-sm-3 text-left">Daily:</div>
-                                    <div class="col-xs-6 col-sm-9">${{number_format(Auth::user()->dailyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->dailyLimit : App\Settings::getParam('dailyLimit'), 0, '.', ',')}}</div>
+                                    <div class="col-md-6 col-md-3 text-left">Daily:</div>
+                                    <div class="col-md-6 col-md-9">${{number_format(Auth::user()->dailyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->dailyLimit : App\Settings::getParam('dailyLimit'), 0, '.', ',')}}</div>
                                 </div>
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-xs-6 col-sm-3 text-left">Monthly:</div>--}}
-                                    {{--<div class="col-xs-6 col-sm-9">${{number_format(Auth::user()->monthlyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->monthlyLimit : App\Settings::getParam('monthlyLimit'), 0, '.', ',')}}</div>--}}
-                                {{--</div>--}}
+<!--
+                                <div class="row">
+                                    <div class="col-md-6 col-md-3 text-left">Monthly:</div>
+                                    <div class="col-md-6 col-md-9">${{number_format(Auth::user()->monthlyLimitUsed(), 0, '.', ',')}} of ${{number_format(Auth::user()->personalLimits ? Auth::user()->monthlyLimit : App\Settings::getParam('monthlyLimit'), 0, '.', ',')}}</div>
+                                </div>
+-->
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <!-- Title.... -->
                             </div>
-                            <div class="col-xs-4 text-left">
+                            <div class="col-md-4 text-left">
                                 <!-- Content.... -->
                             </div>
                         </div>

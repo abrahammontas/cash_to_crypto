@@ -9,9 +9,9 @@
         <!-- Bootstrap -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/user/sb-admin.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
-        <link href="/css/user/style.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
         <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/css/user/style.css" rel="stylesheet"> 
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
