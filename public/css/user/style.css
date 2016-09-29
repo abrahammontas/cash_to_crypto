@@ -21,3 +21,11 @@ strong {
 	border: 4px solid #d1d1d1 !important;
 	border-radius: 2px !important;
 }
+.btn-upload {
+	background-color: #d1d1d1;
+}
+.btn-upload:hover {
+	background-color: #b2b2b2;
+	border-color: #919191;
+	color: white;
+}

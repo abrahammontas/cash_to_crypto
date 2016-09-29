@@ -21,10 +21,16 @@ class SurveyController extends Controller
 
         $user = Auth::user();
 
-        if($request['state'] == 'NY') {
+        if($request['state'] == 'New York') {
             $showMsg = true;
 
             return view('survey.index', ['showMsg' => $showMsg]);
+        }
+
+        if($request['state'] == 'Select') {
+            $selectState = true;
+
+            return view('survey.index', ['selectState' => $selectState]);
         }
 
         Survey::create([
@@ -35,6 +41,8 @@ class SurveyController extends Controller
             'other' => $request['other'] ? $request['other'] : '',
         ]);
 
-        return redirect()->route($user->admin ? 'admin.dashboard' : 'dashboard');
+
+
+        return redirect()->route($user->admin ? 'admin.dashboard' : 'dashboard')->with('survey', 'Thank you for completing the survey! You can now place an order!');
     }
 }

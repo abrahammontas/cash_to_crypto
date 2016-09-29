@@ -41,6 +41,11 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
                                     <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                    @if (auth()->user()->hasPending())
+                                        <li>
+                                            <a href="{{route('current-order')}}"> Current Order</a>
+                                        </li>
+                                    @endif
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                                 </ul>
                             </div>

@@ -41,6 +41,11 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
                                         <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                        @if (auth()->user()->hasPending())
+                                            <li>
+                                                <a href="{{route('current-order')}}"> Current Order</a>
+                                            </li>
+                                        @endif
                                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                                     </ul>
                                 </div>
@@ -51,15 +56,6 @@
                 </div>
             </div>
         </nav>
-        <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
-                        <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <div class="wrapper" style="background-color:#f2f2f2;">
