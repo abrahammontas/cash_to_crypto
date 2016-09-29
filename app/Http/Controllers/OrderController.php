@@ -191,7 +191,7 @@ class OrderController extends Controller
         if ($selfieUploaded && $receiptUploaded && $request->hasFile('receipt') && $request->hasFile('selfie')) {
             $order->img_updated_at = $this->current_time;
             $order->save();
-            return back()->with('success', 'Receipt and selfie uploaded successfully.');
+            return back()->with('success', 'Receipt and selfie uploaded successfully. We will review your photos and you will be notified when bitcoins have been sent.');
         } else if ($selfieUploaded && $request->hasFile('selfie')) {
             $order->img_updated_at = $this->current_time;
             $order->save();

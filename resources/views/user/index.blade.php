@@ -20,6 +20,12 @@
 	                <p>{!! $message !!}</p>
 	            </div>
 	        @endif
+
+			@if ($message = session('survey'))
+				<div class="alert alert-success">
+					<p>{!! $message !!}</p>
+				</div>
+			@endif
 	        <div class="row">
 	        	<div class="col-md-12">
 	        		<div class='table-responsive'>
@@ -46,9 +52,9 @@
 							<td>
 								<div class="row form-group">
 									<div class='col-xs-12'>
-									Receipt: 
+									<b><u>Receipt:</u></b><br />
 								@if ($order->receipt)
-								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span> View Receipt</button>
+								<button type="button" style="margin-top:10px;" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#receipt-{{$order->hash}}"><span class='fa fa-eye'></span> View Receipt</button>
 
 									<div id="receipt-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog modal-lg">
@@ -61,31 +67,31 @@
 									</div>
 
 									@if ($order->status != 'completed' && $order->status != 'cancelled')
-									<div style="margin-top:10px;">
-										<p>Update image below:</p>
+									<div style="margin-top:15px;">
+										<p><b><u>Update receipt image:</u></b></p>
 									</div>
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
-									{{Form::file('receipt', ['class' => 'pull-left'])}}
-									{{Form::hidden('order', $order->hash)}}
-									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+										{{Form::file('receipt', ['class' => 'pull-left', 'id' => 'upload-receipt'])}}<br /><br />
+										{{Form::hidden('order', $order->hash)}}
+										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-upload pull-left', 'id' => 'submit-receipt'])}}
 									{{Form::close()}}
 									@endif
 								@else
 									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									{{Form::open(["route" =>'receipt', 'enctype' => 'multipart/form-data'])}}
-										{{Form::file('receipt', ['class' => 'pull-left'])}}
+										{{Form::file('receipt', ['class' => 'pull-left', 'id' => 'upload-receipt'])}}<br /><br />
 										{{Form::hidden('order', $order->hash)}}
-										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-upload pull-left', 'id' => 'submit-receipt'])}}
 									{{Form::close()}}
 									@endif
 								@endif
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" style="margin-top:15px;">
 									<div class='col-xs-12'>
-									Selfie:
+									<b><u>Selfie:</u></b><br />
 								@if ($order->selfie)
-								<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#selfie-{{$order->hash}}"><span class='fa fa-eye'></span> View Selfie</button>
+								<button type="button" style="margin-top:10px;" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#selfie-{{$order->hash}}"><span class='fa fa-eye'></span> View Selfie</button>
 
 									<div id="selfie-{{$order->hash}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									  <div class="modal-dialog modal-lg">
@@ -98,21 +104,21 @@
 									</div>
 
 									@if ($order->status != 'completed' && $order->status != 'cancelled')
-									<div style="margin-top:10px;">
-										<p>Update image below:</p>
+									<div style="margin-top:15px;">
+										<p><b><u>Update selfie image:</u></b></p>
 									</div>
 									{{Form::open(["route" =>'selfie', 'enctype' => 'multipart/form-data'])}}
-									{{Form::file('selfie', ['class' => 'pull-left'])}}
-									{{Form::hidden('order', $order->hash)}}
-									{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+										{{Form::file('selfie', ['class' => 'pull-left', 'id' => 'upload-selfie'])}}<br /><br />
+										{{Form::hidden('order', $order->hash)}}
+										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-upload pull-left', 'id' => 'submit-selfie'])}}
 									{{Form::close()}}
 									@endif
 								@else
 									@if ($order->status != 'completed' && $order->status != 'cancelled')
 									{{Form::open(["route" =>'selfie', 'enctype' => 'multipart/form-data'])}}
-										{{Form::file('selfie', ['class' => 'pull-left'])}}
+										{{Form::file('selfie', ['class' => 'pull-left', 'id' => 'upload-selfie'])}}<br /><br />
 										{{Form::hidden('order', $order->hash)}}
-										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-default pull-left'])}}
+										{{Form::button('Upload', ['type' => 'submit', 'class' => 'btn btn-upload pull-left', 'id' => 'submit-selfie'])}}
 									{{Form::close()}}
 									@endif
 								@endif
@@ -157,4 +163,21 @@
 		       	</div>
 	        </div>
 	    </div>
+@endsection
+
+@section('scripts')
+	<script>
+		$(document).ready( function() {
+
+			$('#submit-receipt').hide();
+			$('#submit-selfie').hide();
+
+			$('#upload-receipt').on('change', function() {
+				$('#submit-receipt').show();
+			});
+			$('#upload-selfie').on('change', function() {
+				$('#submit-selfie').show();
+			});
+		});
+	</script>
 @endsection

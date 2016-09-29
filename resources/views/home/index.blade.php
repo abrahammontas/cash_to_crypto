@@ -65,6 +65,11 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
                                     <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                    @if (auth()->user()->hasPending())
+                                        <li>
+                                            <a href="{{route('current-order')}}"> Current Order</a>
+                                        </li>
+                                    @endif
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                                 </ul>
                             </div>
@@ -85,16 +90,6 @@
             </div>
         </div>
     </section> -->
-
-    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
-                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <div class="inner-bg" style="padding-bottom:100px;">
         <div class="container">
@@ -184,7 +179,7 @@
 
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                 <label for="phone" class="sr-only">Phone</label>
-                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-country="US" value="{{ old('phone') }}"  required>
+                                <input type="text" data-minlength="10" name="phone" id="input-phone" class="form-control input-medium bfh-phone" data-format="+1 (ddd) ddd-dddd" value="0000000000" data-country="US" value="{{ old('phone') }}"  required>
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
@@ -214,6 +209,11 @@
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
                                 </span>
                                 @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subscribed" style="padding-left:10px;">I agree to receive text and email promotions</label>
+                                <input type="checkbox" name="subscribed" value="1" style="float:left;">
                             </div>
 
                             <div class="form-group">

@@ -24,3 +24,11 @@ strong {
 .navbar-inverse .navbar-toggle {
     background-color: #333 !important;
 }
+.btn-upload {
+	background-color: #d1d1d1;
+}
+.btn-upload:hover {
+	background-color: #b2b2b2;
+	border-color: #919191;
+	color: white;
+}

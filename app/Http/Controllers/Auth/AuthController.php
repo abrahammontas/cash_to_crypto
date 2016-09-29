@@ -69,12 +69,19 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        if(empty($data['subscribed'])){
+            $subscribed = 0;
+        } else {
+            $subscribed = $data['subscribed'];
+        }
+
         return User::create([
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
             'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'subscribed' => $subscribed,
             'hash'     => uniqid()
         ]);
     }
