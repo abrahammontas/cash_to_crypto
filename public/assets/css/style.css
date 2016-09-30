@@ -238,7 +238,7 @@ ul.navbar-nav {
 }
 
 .navbar-inverse ul.navbar-nav li a { color: #565656; opacity: 1; border-bottom: 1px solid transparent; }
-.navbar-inverse ul.navbar-nav li a:hover { color: #565656; opacity: 1; border-bottom: 1px solid #fff; }
+.navbar-inverse ul.navbar-nav li a:hover { color: #565656; opacity: 1; border-bottom: 1px solid #CCA75C; }
 .navbar-inverse ul.navbar-nav li a:focus { color: #565656; outline: 0; opacity: 1; border-bottom: 1px solid #fff; }
 
 .navbar-inverse ul.navbar-nav li a.btn-link-2 {
@@ -285,6 +285,8 @@ ul.navbar-nav {
 	background: #fff;
 	border-bottom: 1px solid #ddd;
 	text-align: left;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
 }
 
 .form-top-left {
@@ -309,6 +311,8 @@ ul.navbar-nav {
 	padding: 25px 25px 30px 25px;
 	background: #eee;
 	text-align: left;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
 }
 
 .form-bottom form textarea {
@@ -734,6 +738,7 @@ html, body {
 	padding: 5% 7%;
 	margin-top: 5%;
 	margin-bottom: 2%;
+	overflow: hidden;
 }
 
 div.input-group.pull-right {
@@ -743,5 +748,35 @@ div.input-group.pull-right {
 .navbar-inverse .navbar-toggle {
 	background-color: #333 !important;
 }
-
+.btn-login {
+	color: white !important;
+	background-color: #5FB06F !important;
+}
+.btn-login:hover {
+	background-color: #6fd682 !important;
+}
+.btn-register {
+	color: white !important;
+	background-color: #53A8AC !important;
+}
+.btn-register:hover {
+	background-color: #64cdd1 !important;
+}
+.btn-menu-buy {
+	color: white;
+	background-color: #59B163;
+	border: none;
+	border-radius: 2px;
+	padding: 5px 15px;
+}
+.btn-menu-buy:hover {
+	background-color: #479259;
+}
+.top-nav>.open>.dropdown-menu {
+	min-width:168px !important;
+}
+.dropdown-menu {
+	min-width: 180px;
+	overflow: visible;
+}
 

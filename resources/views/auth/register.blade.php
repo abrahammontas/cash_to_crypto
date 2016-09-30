@@ -10,57 +10,101 @@
 <!-- Top content -->
 <div class="top-content">
     <!-- Top menu -->
-    <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom:0px;">
+    <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom:0px; background-color:white;">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Cash To Crypto</a>
+                @if(Auth::guest())
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                @endif
+                <a href="/"><img src="images/c2clogo.png" style="max-width:230px; margin-top:10px;" class="hidden-xs hidden-sm" alt="Cash-To-Crypto-logo"></a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+
+            @if(Auth::guest())
+                <div class="scroll-link exchange-rate hidden-md hidden-lg pull-left" style="color:white; padding-left:0px; margin-top:-50px;">
+                    <img src="images/c2clogo.png" class="pull-left" style="max-width:200px" alt="c2c-logo"><br />
+                    <span style="font-weight:400; color:#5FB06F;" class="text-left">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span>
+                </div>
+            @else
+                <div class="scroll-link exchange-rate hidden-md hidden-lg" style="color:white; padding-left:0px;">
+                    <img src="images/c2clogo.png" style="max-width:200px" alt="c2c-logo"><br />
+                    <span style="font-weight:400; color:#5FB06F;">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span>
+                </div>
+            @endif
+
+
+            @if(!Auth::guest())
+                <div class="dropdown hidden-md hidden-lg">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-center" style="left:30.5%;" role="menu">
+                        @if (auth()->user()->hasPending() == 0)
+                            <li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>
+                        @endif
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
+                        @if (auth()->user()->hasPending())
+                            <li>
+                                <a href="{{route('current-order')}}"> Current Order</a>
+                            </li>
+                        @endif
+                        <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                        <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
+                        <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
+                        <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+        @endif
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/" style="color:white !important;">Home</a></li>
-                    <li><a href="{{ url('/directions') }}" style="color:white !important;">Directions</a></li>
-                    <li><a href="{{ url('/atm-locations') }}" style="color:white !important;">Bitcoin ATMs</a></li>
-                    <li><a href="{{ url('/contact') }}" style="color:white !important;">Contact</a></li>
                     @if (Auth::guest())
-                        <li><a class="btn btn-link-2" href="{{ url('/login') }}" style="color:white !important;">Login</a></li>
-                        <li><a class="btn btn-link-2" href="{{ url('/register') }}" style="background-color:#707070; color:white !important">Register</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
+                        <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
+                        <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
+                        <li><a class="btn btn-link-2 btn-login" href="{{ url('/login') }}">Login</a></li>
+                        <li><a class="btn btn-link-2 btn-register" href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li>
-                            <div class="dropdown">
+                            <div class="dropdown hidden-xs hidden-sm">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
+                                    @if (auth()->user()->hasPending() == 0)
+                                        <li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>
+                                    @endif
+                                    <li><a href="/">Home</a></li>
                                     <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
+                                    @if (auth()->user()->hasPending())
+                                        <li>
+                                            <a href="{{route('current-order')}}"> Current Order</a>
+                                        </li>
+                                    @endif
                                     <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                    <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
+                                    <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
+                                    <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
                     @endif
-                    <li class="scroll-link exchange-rate"><span style="font-weight:400;">Exchange Rate: 1BTC</span> = <span style="font-weight:400; color:gold">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
+                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F;">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-<!--     <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
-                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
-                </div>
-            </div>
-        </div>
-    </section> -->
 
     <div class="inner-bg">
         <div class="container">
@@ -146,10 +190,13 @@
                             </span>
                                 @endif
                             </div>
-                            
+
                             <div class="form-group">
-                                <label for="subscribed" style="padding-left:10px;">I agree to receive text and email promotions</label>
-                                <input type="checkbox" name="subscribed" value="1" style="float:left;">
+                                <div class="checkbox">
+                                    <label for="subscribed">
+                                        <input type="checkbox" name="subscribed" value="1" style="margin-top:7px;" checked>  I agree to receive important text and email notifications.
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -163,7 +210,7 @@
 
                         </form>
                         <hr />
-                        <p style="font-size:16px; font-weight:300; color:#c6c4c4;">Already have an account? - <a href="{{ url('/login') }}"><button class="btn btn-primary">
+                        <p style="font-size:16px; font-weight:300; color:#888;">Already have an account? - <a href="{{ url('/login') }}"><button class="btn btn-primary">
                                 Login</button></a></p>
                     </div>
                 </div>

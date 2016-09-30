@@ -51,9 +51,6 @@
             <div class='hidden-sm hidden-md hidden-lg'>
                 <ul class='nav navbar-collapse collapse'>
                     <li>
-                        <a href="{{ url('/') }}"> Homepage</a>
-                    </li>
-                    <li>
                         <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
@@ -80,13 +77,7 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
                 <li>
-                    <a href="{{ url('/') }}"> Homepage</a>
-                </li>
-                <li>
                     <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="{{ url('/contact') }}"><i class="fa fa-fw fa-envelope-o"></i> Contact</a>
                 </li>
                 @if (auth()->user()->hasPending())
                 <li>
@@ -99,27 +90,18 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="{{url('logout')}}" class="dropdown-font-size"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ route('profile') }}"> Profile</a></li>
+                        <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
+                        <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
+                        <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
+                        <li><a href="{{ url('/logout') }}"> Logout</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
 
         <div class="wrapper user">
-        	<!-- <section id="closed" style="background-color:#9cb8e2; border-bottom: 1px solid #147ae0;">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px;">
-                            <h3 style="color:white; margin-top:5px; font-weight: 400; text-align:center;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
-                        </div>
-                    </div>
-                </div>
-            </section> -->
         	@yield('content')
         </div>
 

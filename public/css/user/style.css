@@ -32,3 +32,9 @@ strong {
 	border-color: #919191;
 	color: white;
 }
+.top-nav>.open>a {
+	color: white !important;
+}
+.top-nav>.open>.dropdown-menu {
+	min-width: 168px;
+}
