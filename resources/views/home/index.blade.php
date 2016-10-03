@@ -65,7 +65,7 @@
                     </ul>
                 </div>
             @endif
-            
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" role="form" data-toggle="validator" method="POST" action="{{ url('/register') }}">
+                        <form role="form" role="form" data-toggle="validator" data-disable="false" method="POST" action="{{ url('/register') }}">
 
                             {{ csrf_field() }}
 
