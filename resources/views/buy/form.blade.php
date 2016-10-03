@@ -66,7 +66,7 @@
 <div class="wrapper" style="background-color:#f2f2f2;">
     <div class="container">
         <div class="row">
-        <form action="{{route('buy')}}" data-toggle="validator"  role="form"  method="post">
+        <form action="{{route('buy')}}" data-toggle="validator" data-disable="false" id="buy-form" name="buy-form" role="form"  method="post">
             {{ csrf_field() }}
         <div class="row" style="margin: 6% 7%; margin-bottom:7%;">
             <div class="col-sm-5 col-sm-offset-1">
@@ -104,12 +104,11 @@
                     <hr>
                     <div class="form-group form-inline{{ $errors->has('amount') ? ' has-error' : '' }}">
                         <label for="bitcoin-amount" style="font-weight:400;">USD Amount:</label>
-                        <input type="number" step="any" min=0 name="amount" style="width:200px" id="amount" class="form-control pull-right" required value='{{old('amount')}}'>
-                        @if ($errors->has('amount'))
-                            <span class="help-block">
+                        <input type="number" step="any" min="101"  name="amount" style="width:200px" id="amount" data-error="Please enter an an amount larger than $101" class="form-control pull-right" required value='{{old('amount')}}'>
+
+                            <div class="help-block with-errors">
                                 <strong>{{ $errors->first('amount') }}</strong>
-                            </span>
-                        @endif
+                            </div>
                     </div>
                     <hr>
                     <div class="form-group form-inline{{ $errors->has('wallet') ? ' has-error' : '' }}">
@@ -170,7 +169,7 @@
             </div>
         </div>
         <div class="row hidden-md hidden-lg" style="margin-bottom:10%; margin-left:9%; margin-right:9%;">
-            <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
+            <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" id="submit-order" value="GET BITCOINS!">
         </div>
         </form>
         </div>
@@ -199,6 +198,8 @@
             $($(this).attr('data-target')).val($(this).attr('data-address')).change();
         });
 
+
     })(jQuery);
+
 </script>
 @endsection

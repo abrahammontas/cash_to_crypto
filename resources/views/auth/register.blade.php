@@ -61,15 +61,15 @@
         </div>
     </section> -->
 
-    <section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">
-                    <p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--<section id="disclaimer" style="background-color:#ff5e5e; border-top: 1px solid #cc1616; border-bottom: 1px solid #cc1616;">--}}
+        {{--<div class="container">--}}
+            {{--<div class="row">--}}
+                {{--<div class="col-xs-12" style="padding-top:14px; padding-bottom:6px;">--}}
+                    {{--<p style="color:whitesmoke; font-size:14px;"><strong>WARNING: We will no longer be able to do business with any person that resides, is located, has a place of business, or is conducting business in New York.</strong></p>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</section>--}}
 
     <div class="inner-bg">
         <div class="container">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" role="form" data-toggle="validator" method="POST" action="{{ url('/register') }}">
+                        <form role="form" role="form" data-toggle="validator" data-disable="false" method="POST" action="{{ url('/register') }}">
 
                             {{ csrf_field() }}
 
