@@ -19,10 +19,10 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-12 col-md-5">
+            <div class="">
 
                 <div class='row'>
-                    <div class="col-xs-12 form-border" style="padding:5%;">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 form-border" style="padding:5%;">
                         <h2 class="text-center form-title-font">Current Order</h2>
                         <hr>
                         <div class="form-group form-inline">
@@ -92,9 +92,80 @@
                             </div>
                         </div>
                     </div>
-                
 
-                    <div class="col-xs-12 form-border uploads" style="padding:5%;">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 ">
+                        <div class='row'>
+                            <div class="col-xs-12 form-border" style="padding:5%">
+                                <h2 class="text-center form-title-font">Deposit Information</h2>
+                                <hr>
+                                <div class="form-group form-inline">
+                                    {!!nl2br($order->bank->directions_before)!!}
+                                </div>
+                                <div class="form-group form-inline">
+                                    <div class='row'>
+                                        <div class='col-xs-4'>
+                                            Account:
+                                        </div>
+                                        <div class='col-xs-8'>
+                                            {{$order->bank->account_type}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group form-inline">
+                                    <div class='row'>
+                                        <div class='col-xs-4'>
+                                            Name:
+                                        </div>
+                                        <div class='col-xs-8'>
+                                            {{$order->bank->company}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group form-inline">
+                                    <div class='row'>
+                                        <div class='col-xs-4'>
+                                            Address:
+                                        </div>
+                                        <div class='col-xs-8'>
+                                            {{$order->bank->account_address}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group form-inline">
+                                    <div class='row'>
+                                        <div class='col-xs-4'>
+                                            Account Number:
+                                        </div>
+                                        <div class='col-xs-8'>
+                                            {{$order->bank->account_number}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group form-inline">
+                                    <div class='row'>
+                                        <div class='col-xs-4'>
+                                            Amount:
+                                        </div>
+                                        <div class='col-xs-8'>
+                                            ${{number_format($order->total, 2, '.', ',')}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div>
+                                    {!!nl2br($order->bank->directions_after)!!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 form-border uploads" style="padding:5%;">
                         <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
                         <hr>
                         {{Form::open(["route" =>'both', 'enctype' => 'multipart/form-data'])}}
@@ -127,76 +198,6 @@
                     </div>
 
 
-                </div>
-            </div>
-
-            <div class="col-md-12 col-md-offset-1 col-md-6 text-left">
-                <div class='row'>
-                    <div class="col-xs-12 form-border" style="padding:5%">
-                        <h2 class="text-center form-title-font">Deposit Information</h2>
-                        <hr>
-                        <div class="form-group form-inline">
-                            {!!nl2br($order->bank->directions_before)!!}
-                        </div>
-                        <div class="form-group form-inline">
-                            <div class='row'>
-                                <div class='col-xs-4'>
-                                    Account:
-                                </div>
-                                <div class='col-xs-8'>
-                                    {{$order->bank->account_type}}
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group form-inline">
-                            <div class='row'>
-                                <div class='col-xs-4'>
-                                    Name:
-                                </div>
-                                <div class='col-xs-8'>
-                                    {{$order->bank->company}}
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group form-inline">
-                            <div class='row'>
-                                <div class='col-xs-4'>
-                                    Address:
-                                </div>
-                                <div class='col-xs-8'>
-                                    {{$order->bank->account_address}}
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group form-inline">
-                            <div class='row'>
-                                <div class='col-xs-4'>
-                                    Account Number:
-                                </div>
-                                <div class='col-xs-8'>
-                                    {{$order->bank->account_number}}
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group form-inline">
-                            <div class='row'>
-                                <div class='col-xs-4'>
-                                    Amount:
-                                </div>
-                                <div class='col-xs-8'>
-                                    ${{number_format($order->total, 2, '.', ',')}}
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div>
-                            {!!nl2br($order->bank->directions_after)!!}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

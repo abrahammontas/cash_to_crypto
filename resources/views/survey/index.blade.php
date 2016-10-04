@@ -68,7 +68,10 @@
                             @endif
 
                             <div id="other-box" class="form-group">
-                                {{ Form::textarea('other') }}
+                                <textarea name="other" id="other" class="form-control" placeholder="Please specify"></textarea>
+                                <div class="help-block with-errors">
+                                    <strong>{{ $errors->first('other') }}</strong>
+                                </div>
                             </div>
 
                             <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
