@@ -14,7 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{{ url('/password/email') }}">
+                    <form class="form-horizontal" role="form" data-toggle="validator" data-disable="false" method="POST" action="{{ url('/password/email') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

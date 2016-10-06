@@ -7,7 +7,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="form-border">
                     <h1 class="form-title-font">Reset Password</h1>
-                    <form class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{{ url('/password/reset') }}">
+                    <form class="form-horizontal" role="form" data-toggle="validator" data-disable="false" method="POST" action="{{ url('/password/reset') }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">

@@ -112,20 +112,18 @@
 <div class="wrapper" style="background-color:#f2f2f2;">
     <div class="container">
         <div class="row">
-            <form action="{{route('buy')}}" data-toggle="validator" data-disable="false" role="form"  method="post">
-
+            <form action="{{route('buy')}}" data-toggle="validator" data-disable="false" id="buy-form" name="buy-form" role="form"  method="post">
                 {{ csrf_field() }}
-
-                <div class="row hidden-md hidden-lg" style="margin: 10% 7%; margin-bottom:7%;">
+                <div class="row" style="margin: 6% 7%; margin-bottom:7%;">
                     <div class="col-sm-5 col-sm-offset-1">
                         <div class="buy-form" style="
-                                border: 1px solid black !important;
-                                border-radius: 4px;
-                                background-color: white;
-                                padding: 1% 7%;
-                                margin-bottom: 2%;
-                                min-height: 400px;
-                        ">
+                        border: 1px solid black !important;
+                        border-radius: 4px;
+                        background-color: white;
+                        padding: 5% 7%;
+                        margin-top: 5%;
+                        margin-bottom: 2%;
+                ">
                             <h2 class="text-center form-title-font">Buy Bitcoins</h2>
                             <hr>
                             @if ($message = session('success'))
@@ -140,165 +138,63 @@
                                 </div>
                             @endif
 
-
                             <div class="form-group form-inline{{ $errors->has('bank') ? ' has-error' : '' }}">
-                                <label for="order-bank" style="font-weight:400;" class="pull-left">Banks:</label><br />
-                                {{ Form::select('bank', $banks, old('bank'), ['class'=> 'form-control pull-left', 'style'=>'min-width:200px', 'required']) }}
+                                <label for="order-bank" style="pdding:0% 7%; font-weight:400;">Banks:</label>
+                                {{ Form::select('bank', $banks, old('bank'), ['class'=> 'form-control pull-right', 'style'=>'width:200px', 'required']) }}
                                 @if ($errors->has('bank'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('bank') }}</strong>
-                                    </span>
+                                <strong>{{ $errors->first('bank') }}</strong>
+                            </span>
                                 @endif
-                            </div><br />
+                            </div>
+                            <hr>
                             <div class="form-group form-inline{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="bitcoin-amount" class="pull-left" style="font-weight:400;">USD Amount:</label>
-                                <input type="number" step="any" min="101"  name="amount" style="min-width:200px" id="amount-mobile" data-error="Please enter an an amount larger than $101" class="form-control pull-left" required value='{{old('amount')}}'>
+                                <label for="bitcoin-amount" style="font-weight:400;">USD Amount:</label>
+                                <input type="number" step="any" min="101"  name="amount" style="width:200px" id="amount" data-error="Please enter an an amount larger than $101" class="form-control pull-right" required value='{{old('amount')}}'>
 
                                 <div class="help-block with-errors">
                                     <strong>{{ $errors->first('amount') }}</strong>
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-group form-inline{{ $errors->has('wallet') ? ' has-error' : '' }}">
-                                <label for="bitcoin-address" style="font-weight:400;" class="pull-left">Wallet Address:</label><br />
-                                <div class="input-group pull-left" style="width:40px">
-                                    <input type="text" style="min-width:200px; height:34px;" name="wallet" id='wallet-mobile' value='{{old('wallet')}}' class="form-control pull-left" required aria-label="Wallet">
+                                <label for="bitcoin-address" style="font-weight:400;">Wallet Address:</label>
+                                <div class="input-group pull-right" style="width:40px">
+                                    <input type="text" style="width:170px; height:34px;" name="wallet" id='wallet' value='{{old('wallet')}}' class="form-control" required aria-label="Wallet">
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-default dropdown-toggle" style="height:34px; width:30px; padding-right:10px; padding-left:10px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class='fa fa-btc'></span> <span class="caret" style="padding-bottom:20px;"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             @forelse (Auth::user()->wallets as $wallet)
-                                                <li><a href="" class='saved-wallet-mobile' data-target='#wallet-mobile' data-address="{{$wallet->address}}">{{$wallet->name}}</a></li>
+                                                <li><a href="" class='saved-wallet' data-target='#wallet' data-address="{{$wallet->address}}">{{$wallet->name}}</a></li>
                                             @empty
-                                                <li><a href="" onclick='return false'>You have no saved wallets</a></li>
+                                                <li><a href="#" onclick='return false'>You have no saved wallets</a></li>
                                             @endforelse
                                         </ul>
                                     </div>
                                 </div>
                                 @if ($errors->has('wallet'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('wallet') }}</strong>
-                                    </span>
+                                <strong>{{ $errors->first('wallet') }}</strong>
+                            </span>
                                 @endif
                             </div>
+                            <hr>
                             <div class="help-block with-errors"></div>
                         </div>
-                    </div>
-                    <div class="col-sm-5 col-sm-offset-1" style="">
-                        <div class="buy-form" style="
-                                border: 1px solid black !important;
-                                border-radius: 4px;
-                                background-color: white;
-                                padding: 5% 7%;
-                                margin-top: 5%;
-                                margin-bottom: 2%;
-                        ">
-                            <div class="form-border" style="margin-bottom:0px;">
-                                <h2 class="text-center form-title-font">Pricing Information</h2>
-                                <hr>
-                                <div class="form-group form-inline">
-                                    <label for="bitcoin-price"><span style="font-weight:400">Bitcoin Price:</span></label>
-                                    <input readonly="readonly" id='bitcoin_price' name="bitcoin_price" class="form-control pull-right" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:80px;" value="${{ number_format((float)$ourbitcoinprice, 2, '.', '')}}">
-                                </div>
-                                <div class="form-group form-inline">
-                                    <label for="estimated-bitcoins"><span style="font-weight:400">Estimated Bitcoins:</span></label>
-                                    <input readonly="readonly" name="bitcoins" class="form-control pull-right" id="estimated_bitcoins_mobile" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:80px;" value="0.00000">
-                                </div>
-                                <div class="form-group text-center" style="margin-top:20px;">
-                                    <span style="color:red">Note: Actual Bitcoin Amount will be calculated when your receipt is uploaded.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row hidden-md hidden-lg" style="margin-bottom:10%; margin-left:9%; margin-right:9%;">
-                    <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
-                </div>
-
-
-                <div class="row hidden-xs hidden-sm" style="margin: 6% 7%; margin-bottom:7%;">
-                    <div class="col-md-5 col-md-offset-1">
-                       <div class="buy-form" style="
-                                border: 1px solid black !important;
-                                border-radius: 4px;
-                                background-color: white;
-                                padding: 5% 7%;
-                                margin-top: 5%;
-                                margin-bottom: 2%;
-                        ">
-                           <h2 class="text-center form-title-font">Buy Bitcoins</h2>
-                           <hr>
-                            @if ($message = session('success'))
-                            <div class="alert alert-success" style="margin-top:5%;">
-                                <p>{!! $message !!}</p>
-                            </div>
-                            @endif
-
-                            @if ($message = session('warning'))
-                                <div class="alert alert-warning">
-                                    <p>{!! $message !!}</p>
-                                </div>
-                            @endif
-
-                            <div class="form-group form-inline{{ $errors->has('bank') ? ' has-error' : '' }}">
-                                <label for="order-bank" style="pdding:0% 7%; font-weight:400;">Banks:</label>
-                                {{ Form::select('bank', $banks, old('bank'), ['class'=> 'form-control pull-right', 'style'=>'min-width:200px', 'required']) }}
-                                @if ($errors->has('bank'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('bank') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <hr>
-                            <div class="form-group form-inline{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="bitcoin-amount" style="font-weight:400;">USD Amount:</label>
-                                <div class="input-group pull-right">
-                                    <span class="input-group-addon">$</span>
-                                    <input type="number" step="any" min="101" name="amount" style="min-width:166px" id="amount" data-error="Please enter an an amount larger than $101" class="form-control" required value='{{old('amount')}}'>
-                                </div>
-                                @if ($errors->has('amount'))
-                                    <span class="help-block">
-                                            <strong>{{ $errors->first('amount') }}</strong>
-                                        </span>
-                                @endif
-                            </div>
-                            <hr>
-                            <div class="form-group form-inline{{ $errors->has('wallet') ? ' has-error' : '' }}">
-                                <label for="bitcoin-address" class="text-left" style="font-weight:400; display:block;">Wallet Address:</label><br />
-                                <div class="input-group pull-right">
-                                    <input type="text" style="min-width:300px; height:34px; margin-top:-15px;" name="wallet" id='wallet' value='{{old('wallet')}}' class="form-control" required aria-label="Wallet">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" style="height:34px; width:35px; padding-right:10px; padding-left:10px; margin-top:-27px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class='fa fa-btc'></span> <span class="caret" style="padding-bottom:20px;"></span></button>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                          @forelse (Auth::user()->wallets as $wallet)
-                                          <li><a href="" class='saved-wallet' data-target='#wallet' data-address="{{$wallet->address}}">{{$wallet->name}}</a></li>
-                                          @empty
-                                          <li><a href="#" onclick='return false'>You have no saved wallets</a></li>
-                                          @endforelse
-                                        </ul>
-                                    </div>
-                                </div>
-                                @if ($errors->has('wallet'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('wallet') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                           <hr>
-                           <div class="help-block with-errors"></div>
-                       </div>
                         <div class="col-md-12 hidden-sm hidden-xs" style="margin-top:10px; padding-left:0px; padding-right:0px;">
                             <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" value="GET BITCOINS!">
                         </div>
 
                     </div>
-                    <div class="col-sm-5 col-sm-offset-1">
+                    <div class="col-sm-5 col-sm-offset-1" style="">
                         <div class="buy-form" style="
-                                border: 1px solid black !important;
-                                border-radius: 4px;
-                                background-color: white;
-                                padding: 5% 7%;
-                                margin-top: 5%;
-                                margin-bottom: 2%;
-                        ">
+                        border: 1px solid black !important;
+                        border-radius: 4px;
+                        background-color: white;
+                        padding: 5% 7%;
+                        margin-top: 5%;
+                        margin-bottom: 2%;
+                ">
                             <div class="form-border" style="margin-bottom:0px;">
                                 <h2 class="text-center form-title-font">Pricing Information</h2>
                                 <hr>
@@ -317,6 +213,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row hidden-md hidden-lg" style="margin-bottom:10%; margin-left:9%; margin-right:9%;">
+                    <input class="btn btn-success form-control" style="height:50px; font-size:20px; font-weight:300;" type="submit" name="submit-order" id="submit-order" value="GET BITCOINS!">
                 </div>
             </form>
         </div>
