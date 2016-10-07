@@ -115,7 +115,7 @@
             <form action="{{route('buy')}}" data-toggle="validator" data-disable="false" id="buy-form" name="buy-form" role="form"  method="post">
                 {{ csrf_field() }}
                 <div class="row" style="margin: 6% 7%; margin-bottom:7%;">
-                    <div class="col-sm-5 col-sm-offset-1">
+                    <div class="col-sm-5 col-sm-offset-1" style="position: inherit !important;">
                         <div class="buy-form" style="
                         border: 1px solid black !important;
                         border-radius: 4px;
