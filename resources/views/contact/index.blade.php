@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form id="contact" role="form" data-toggle="validator" method="POST" action="{{ route('contact') }}">
+                            <form id="contact" role="form" data-toggle="validator" method="POST" data-disable="false" action="{{ route('contact') }}">
 
                                 {{ csrf_field() }}
 

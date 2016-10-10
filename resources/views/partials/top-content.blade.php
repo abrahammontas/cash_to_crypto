@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" role="form" data-toggle="validator" method="POST" action="{{ url('/login') }}">
+                        <form role="form" role="form" data-toggle="validator" data-disable="false" method="POST" action="{{ url('/login') }}">
 
                             {{ csrf_field() }}
 

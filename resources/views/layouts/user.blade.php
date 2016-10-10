@@ -73,7 +73,6 @@
                     </li>
                 </ul>
             </div>
-
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
                 <li>
