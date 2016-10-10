@@ -186,7 +186,7 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-5 col-sm-offset-1" style="">
+                    <div class="col-sm-5 col-sm-offset-1" style="position: inherit !important;">
                         <div class="buy-form" style="
                         border: 1px solid black !important;
                         border-radius: 4px;
