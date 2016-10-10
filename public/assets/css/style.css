@@ -738,7 +738,6 @@ html, body {
 	padding: 5% 7%;
 	margin-top: 5%;
 	margin-bottom: 2%;
-	overflow: hidden;
 }
 
 div.input-group.pull-right {
@@ -774,9 +773,5 @@ div.input-group.pull-right {
 }
 .top-nav>.open>.dropdown-menu {
 	min-width:168px !important;
-}
-.dropdown-menu {
-	min-width: 180px;
-	overflow: visible;
 }
 

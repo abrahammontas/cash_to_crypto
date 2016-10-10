@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'FAQ')
+@section('title', 'ATM Locations')
 
 @section('content')
 
@@ -63,7 +63,7 @@
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </div>
-            @endif
+            @endif 
 
             <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="top-navbar-1">
@@ -218,16 +218,39 @@
                 <div class="col-md-12">
                     <div class="col-md-5 col-md-offset-1">
                         <ul class="list-unstyled text-left">
-                            <li><strong>Store Name:</strong> Shell Gas Station (Buy BTC Only)</li>
+                            <li><strong>Store Name:</strong> Island Takeaway</li>
                             <li><strong>Address:</strong> 3550 E Ponce DE Leon Blvd Scottdale, GA, 30079</li>
-                            <li><strong>Hours:</strong> Open 24/7</li>
+                            <li><strong>Hours (Monday-Thursday):</strong> 11am-10pm</li>
+                            <li><strong>Hours (Friday-Saturday):</strong> 11am-11pm</li>
+                            <li><strong>Hours (Sunday):</strong> Closed</li>
                         </ul>
                     </div>
                     <div class="col-md-5 col-md-offset-1">
                         <ul class="list-unstyled text-left">
                             <li><strong>Store Name:</strong> Valero Gas Station (Buy BTC Only)</li>
-                            <li><strong>Address:</strong> 1597 Holcomb Bridge Rd, Roswell, GA, 30076</li>
+                            <li><strong>Address:</strong> 5540 Old National Highway Suite 2 Atlanta, GA</li>
                             <li><strong>Hours:</strong> 8am-11pm every day</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:50px;">
+                <h2>Alabama Locations</h2>
+            </div>
+            <div class="row" style="margin-bottom:40px;">
+                <div class="col-md-12">
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-unstyled text-left">
+                            <li><strong>Store Name:</strong> Jetpep Gas Station</li>
+                            <li><strong>Address:</strong> 1608 Bessemer Rd Birmingham, AL</li>
+                            <li><strong>Hours:</strong> 24/7</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-unstyled text-left">
+                            <li><strong>Store Name:</strong> Petro Gas station</li>
+                            <li><strong>Address:</strong> 6400 1st Ave N Birmingham, AL</li>
+<!--                            <li><strong>Hours:</strong> 5:30am-12am every day</li>-->
                         </ul>
                     </div>
                 </div>
