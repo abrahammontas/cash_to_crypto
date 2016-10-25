@@ -147,7 +147,7 @@ class AdminController extends Controller
     }
 
     public function users() {
-        $users = User::orderBy('created_at', 'DESC')->paginate(50);
+        $users = User::orderBy('created_at', 'DESC')->paginate(1000);
         return view('admin.user.list', ['users' => $users]);
     }
 
@@ -225,11 +225,16 @@ class AdminController extends Controller
             if ($oldStatus != 'completed') {
                 $order->completed_at = $this->current_time;
                 $order->save();
+                $status = 'completed';
+                $amount = $order->amount;
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Bitcoins Sent!');
                 });
             }
+        } else {
+            $status = '';
+            $amount = '';
         }
 
         /*if ($newStatus == 'pending') {
@@ -241,8 +246,7 @@ class AdminController extends Controller
             }
         }*/
 
-        return back()->with(['success' => "Order successfully updated.", 'company' => $company]);
-    }
+        return back()->with(['success' => "Order successfully updated.", 'company' => $company, 'status' => $status, 'amount' => $amount]);    }
 
     public function settings(Request $request) {
         if ($request->isMethod('post')) {
@@ -268,7 +272,8 @@ class AdminController extends Controller
 
     public function profile(Request $request, $id) {
         $user = User::find($id);
-        return view('admin.user.profile', ['user' => $user]);
+        $orders = Order::whereUserId($id)->with('bank')->orderBy('created_at', 'DESC')->paginate(100);
+        return view('admin.user.profile', ['user' => $user, 'orders' => $orders]);
     }
 
     public function userUpdate(Request $request, $id)

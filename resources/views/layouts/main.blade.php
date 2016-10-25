@@ -51,11 +51,13 @@
 
         @yield('content')
 
-        @include('partials.footer')
+        @if(Request::url() !== url('/contact'))
+            @include('partials.footer')
+        @endif
 
         <div class="row" style="margin-bottom:30px; text-align:center">
             <div class="col-sm-12 footer-copyright">
-                Copyright 2016 &copy; Cash To Crypto LLC
+                Copyright 2016 &copy; Cash To Crypto
             </div>
         </div>
 
@@ -71,7 +73,6 @@
         <!--[if lt IE 10]>
         <script src="assets/js/placeholder.js"></script>
         <![endif]-->
-
 
         <!-- Register form validation -->
         <script src="/js/validator.min.js"></script>

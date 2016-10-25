@@ -102,11 +102,20 @@
                             </div>
                         </li>
                     @endif
-                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F;">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
+                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F; ">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed this weekend for maintenance. We will reopen Monday (10/17) at 9am EST. <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section> -->
 </div>
 
 <div class="wrapper" style="background-color:#f2f2f2;">

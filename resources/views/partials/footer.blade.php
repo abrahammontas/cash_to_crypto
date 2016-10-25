@@ -25,6 +25,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4" style="text-align:left;">
+                                <span><b>Address:</b></span>
+                            </div>
+                            <div class="col-md-8" style="text-align:left;">
+                                <div class="row" style="padding-left:15px;">
+                                    <span><p style="line-height:1.2em; margin-top:7px;">2870 Peachtree Rd #327<br />Atlanta, GA 30305</p></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4 col-md-offset-4">
                         <h2 style="padding-top:15px; text-align:left; color:gold;">Business Hours</h2>

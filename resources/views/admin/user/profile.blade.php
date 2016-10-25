@@ -128,4 +128,64 @@
         </div>
     </div>
 
+    <div class="row" style="margin-left: 2%; margin-right: 2%; padding-bottom: 60px">
+        <div class="col-md-12">
+            <h2 class="fw-300" style="margin-bottom: 40px;">Transaction History</h2>
+            <div class='table-responsive'>
+                <table class='table table-hover table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Created At</th>
+                            <th>Completed At</th>
+                            <th>Amount</th>
+                            <th>Bitcoins</th>
+                            <th>Photos</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    @forelse ($orders as $order)
+                    <tbody>
+                        <tr>
+                            <td>{{$order->hash}}</td>
+                            <td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td>
+                            <td>Date: {{ date('m/d/Y', strtotime($order->completed_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 4) }}</td>
+                            <td>${{$order->amount}}</td>
+                            <td>{{$order->bitcoins}}</td>
+                            <td>
+                                <button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#photos-{{$order->id}}"><span class='fa fa-eye'></span></button>
+
+                                <div id="photos-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" style="width:1200px">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class='row'>
+                                                    <div class='col-xs-4'>
+                                                        <a class="fancybox" href="{{Storage::url('photoid/'.$order->user->photoid)}}" target="_blank"><img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive" alt="" /></a>
+                                                    </div>
+                                                    <div class='col-xs-4'>
+                                                        <a class="fancybox" href="{{ Storage::url('receipts/'.$order->receipt)}}" target="_blank"><img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive"></a>
+                                                    </div>
+                                                    <div class='col-xs-4'>
+                                                        <a class="fancybox" href="{{Storage::url('selfie/'.$order->selfie)}}" target="_blank"><img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ucwords($order->status)}}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan=7>This user has not placed any orders.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 @endsection

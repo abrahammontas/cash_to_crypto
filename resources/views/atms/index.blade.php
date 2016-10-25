@@ -234,6 +234,43 @@
                     </div>
                 </div>
             </div>
+            <div class="row" style="margin-bottom:40px;">
+                <div class="col-md-12">
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-unstyled text-left">
+                            <li><strong>Store Name:</strong> Shell Gas Station</li>
+                            <li><strong>Address:</strong> 5700 Roswell Rd Atlanta, GA</li>
+                            <li><strong>Hours:</strong> Open 24/7</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-unstyled text-left">
+                            <li><strong>Store Name:</strong> MLK Groceries Plus</li>
+                            <li><strong>Address:</strong> 3665 MLK JR Dr Atlanta, GA</li>
+                            <li><strong>Hours:</strong> 7am-12am daily</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:40px;">
+                <div class="col-md-12">
+                    <div class="col-md-5 col-md-offset-1">
+                        <ul class="list-unstyled text-left">
+                            <li><strong>Store Name:</strong> Citgo Gas Station</li>
+                            <li><strong>Address:</strong> 1988 Flat Shoals Rd Atlanta, GA</li>
+                            <li><strong>Hours (Monday - Saturday):</strong> 7am-11pm</li>
+                            <li><strong>Hours (Sunday):</strong> 9am-9pm</li>
+                        </ul>
+                    </div>
+                    {{--<div class="col-md-5 col-md-offset-1">--}}
+                        {{--<ul class="list-unstyled text-left">--}}
+                            {{--<li><strong>Store Name:</strong> MLK Groceries Plus</li>--}}
+                            {{--<li><strong>Address:</strong> 3665 MLK JR Dr Atlanta, GA</li>--}}
+                            {{--<li><strong>Hours:</strong> 7am-12am daily</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
             <div class="row" style="margin-bottom:50px;">
                 <h2>Alabama Locations</h2>
             </div>

@@ -141,7 +141,7 @@ class AuthController extends Controller
             });
 
             return redirect()->to('login')->withInput()
-                ->with('success',"We sent activation code. Please check your mail.");
+                ->with(['success' => "We sent activation code. Please check your mail.", 'new_user' => 'Used for google analytics']);
         }
 
         return back()->with('errors', $validator->errors())->withInput();

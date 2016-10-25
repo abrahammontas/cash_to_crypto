@@ -101,15 +101,15 @@
             </div>
         </nav>
 
-        <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <!-- <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
-                        <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed today for Columbus Day. We will reopen tomorrow (10/11) at 9am EST. <span style="color:red">* * *</span></h3>
+                        <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed this weekend for maintenance. We will reopen Monday (10/17) at 9am EST. <span style="color:red">* * *</span></h3>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <div class="inner-bg" style="padding-bottom:100px;">
             <div class="container">
