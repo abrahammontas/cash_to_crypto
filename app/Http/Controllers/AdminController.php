@@ -151,6 +151,15 @@ class AdminController extends Controller
         return view('admin.user.list', ['users' => $users]);
     }
 
+    public function searchUsers(Request $request) {
+        $query = $request->input('search');
+        $users = DB::table('users')
+            ->where('firstName', 'LIKE', '%' . $query . '%')
+            ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+            ->orWhere('phone', 'LIKE', '%' . $query . '%')->paginate(50);
+        return view('admin.user.list', ['users' => $users]);
+    }
+
     public function ban(Request $request, $id) {
         $user = User::find($id);
         if (!$user) {

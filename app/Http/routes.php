@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
 	Route::get('users', ['as' => 'users', 'uses' => 'AdminController@users']);
+
+    Route::post('users', ['as' => 'users', 'uses' => 'AdminController@searchUsers']);
+
 	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 	Route::delete('order/{id}', ['as' => 'order.delete', 'uses' => 'AdminController@orderDelete']);

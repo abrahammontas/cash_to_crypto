@@ -5,9 +5,15 @@
 @section('content')
 	    <div class="container-fluid container-padding">
 	        <div class="row">
-	        	<div class="col-md-12">
+	        	<div class="col-md-8">
 	        		<h2 class="text-left fw-300">Users</h2>
 	        	</div>
+				<div class="col-md-4" style="margin-top:20px">
+					{{ Form::open(['route' => 'admin.users', 'class' => 'form navbar-form navbar-right']) }}
+						{{ Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Search users']) }}
+						{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
+					{{ Form::close() }}
+				</div>
 	        </div>
 	        @if ($message = session('success'))
 	            <div class="alert alert-success">
