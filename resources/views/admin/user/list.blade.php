@@ -28,7 +28,12 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-	        		<a href="#" class="export">Export</a>
+
+					{{ Form::open(['route' => 'admin.users']) }}
+						{{ Form::hidden('export', 'Export') }}
+						{{ Form::submit('Export') }}
+					{{ Form::close() }}
+
 	        		<div id="usersData" class="table-responsive" style="margin-top:20px;">
 					<table class='table table-stripped table-hover'>
 						<thead>

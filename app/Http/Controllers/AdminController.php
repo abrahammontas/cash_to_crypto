@@ -9,6 +9,7 @@ use App\Order;
 use App\Bank;
 use App\User;
 use App\Settings;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -151,13 +152,28 @@ class AdminController extends Controller
         return view('admin.user.list', ['users' => $users]);
     }
 
-    public function searchUsers(Request $request) {
-        $query = $request->input('search');
-        $users = DB::table('users')
-            ->where('firstName', 'LIKE', '%' . $query . '%')
-            ->orWhere('lastName', 'LIKE', '%' . $query . '%')
-            ->orWhere('phone', 'LIKE', '%' . $query . '%')->paginate(50);
-        return view('admin.user.list', ['users' => $users]);
+    public function postUsers(Request $request) {
+
+        if ($query = $request->input('search')) {
+            $users = DB::table('users')
+                ->where('firstName', 'LIKE', '%' . $query . '%')
+                ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+                ->orWhere('phone', 'LIKE', '%' . $query . '%')->paginate(50);
+            return view('admin.user.list', ['users' => $users]);
+        }
+
+        if ($request->input('export')) {
+
+            $users = User::all()->toArray();
+            $export = Excel::create('users', function($excel) use ($users) {
+                $excel->sheet('users_sheet', function($sheet) use ($users) {
+                    $sheet->fromArray($users);
+                })->export('xls');
+            });
+            return view('admin.users', ['export' => $export]);
+        }
+
+
     }
 
     public function ban(Request $request, $id) {
