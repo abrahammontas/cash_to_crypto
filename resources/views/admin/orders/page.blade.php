@@ -32,19 +32,32 @@
 	    <div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-12">
-	        		<h2 class="text-left fw-300 pull-left">{{ucwords($type).' Orders'}}</h2>
-	        		@if ($type == 'completed')
-	        		<div class="btn-group pull-right">
-					  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    <span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
-					  </button><br />
-					  <br />
-					  <a href="#" class="export">Export</a>
-					  <ul class="dropdown-menu">
-					  	@foreach ($companies as $c)
-					     <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
-					    @endforeach
-					  </ul>
+					<div class="col-md-8">
+						<h2 class="text-left fw-300">{{ucwords($type).' Orders'}}</h2>
+						{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
+							{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
+							{{ Form::hidden('type', $type) }}
+						    {{ Form::hidden('company', $company) }}
+							{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
+						{{ Form::close() }}
+						@if($query = session('query'))
+							<h2>{{ $query }}</h2>
+						@endif
+					</div>
+					@if ($type == 'completed')
+					<div class="col-md-4" style="padding:30px">
+						<div class="btn-group pull-right">
+						  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
+						  </button><br />
+						  <br />
+						  <a href="#" class="export">Export</a>
+						  <ul class="dropdown-menu">
+							@foreach ($companies as $c)
+							 <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
+							@endforeach
+						  </ul>
+						</div>
 					</div>
 					@endif
 	        	</div>
@@ -113,6 +126,12 @@
 
 	<script type="text/javascript" src="/assets/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
+	@if($query = session('query'))
+		<script>var query = '{{$query}}';</script>
+	@else
+		<script>var query = null;</script>
+	@endif
+
 <script>
 	$(document).ready(function () {
 
@@ -125,6 +144,7 @@
 
 		var page = 1;
 		var type = '{{$type}}';
+
 
 		$("#loader").show();
 		var loading = true;
@@ -154,11 +174,20 @@
 
 		 } else {
 		 	page = 1;
-			$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
-				$("#loader").hide();
-				$("#orders-table #loader").before(html);
-				loading = false;
-			});
+
+			if(query != null) {
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
+					$("#loader").hide();
+					$("#orders-table #loader").before(html);
+					loading = false;
+				});
+			} else {
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
+					$("#loader").hide();
+					$("#orders-table #loader").before(html);
+					loading = false;
+				});
+			}
 		}
         
         

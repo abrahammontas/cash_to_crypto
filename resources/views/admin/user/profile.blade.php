@@ -138,6 +138,8 @@
                             <th>Order #</th>
                             <th>Created At</th>
                             <th>Completed At</th>
+                            <th>Bank</th>
+                            <th>Wallet</th>
                             <th>Amount</th>
                             <th>Bitcoins</th>
                             <th>Photos</th>
@@ -150,6 +152,8 @@
                             <td>{{$order->hash}}</td>
                             <td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td>
                             <td>Date: {{ date('m/d/Y', strtotime($order->completed_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 4) }}</td>
+                            <td>{{$order->bank->name}}</td>
+                            <td>{{$order->wallet}}</td>
                             <td>${{$order->amount}}</td>
                             <td>{{$order->bitcoins}}</td>
                             <td>
