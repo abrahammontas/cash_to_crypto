@@ -34,18 +34,18 @@
 	        	<div class="col-md-12">
 					<div class="col-md-8">
 						<h2 class="text-left fw-300">{{ucwords($type).' Orders'}}</h2>
-						{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
-							{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
-							{{ Form::hidden('type', $type) }}
-						    {{ Form::hidden('company', $company) }}
-							{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
-						{{ Form::close() }}
+						{{--{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}--}}
+							{{--{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}--}}
+							{{--{{ Form::hidden('type', $type) }}--}}
+						    {{--{{ Form::hidden('company', $company) }}--}}
+							{{--{{ Form::submit('Search', ['class' => 'btn btn-default']) }}--}}
+						{{--{{ Form::close() }}--}}
 						@if($query = session('query'))
 							<h2>{{ $query }}</h2>
 						@endif
 					</div>
 					@if ($type == 'completed')
-					<div class="col-md-4" style="padding:30px">
+					<div class="col-md-4" style="padding:20px 30px">
 						<div class="btn-group pull-right">
 						  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>

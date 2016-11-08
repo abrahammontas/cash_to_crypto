@@ -42,9 +42,9 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
 	Route::get('banks', ['as' => 'banks', 'uses' => 'AdminController@banks']);
-	Route::get('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue');
+	Route::get('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
 
-    Route::post('orders', ['as' => 'orders.search', 'uses' => 'AdminController@searchOrders']);
+//    Route::post('orders', ['as' => 'orders.search', 'uses' => 'AdminController@searchOrders']);
 
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);

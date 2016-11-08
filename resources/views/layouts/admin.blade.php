@@ -9,7 +9,6 @@
         <!-- Bootstrap -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/user/sb-admin.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
         <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,6 +25,8 @@
         <link rel="stylesheet" href="/assets/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
 
         <link rel="stylesheet" href="/assets/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
 
 
     </head>
@@ -62,13 +63,16 @@
                         <a href="{{route('admin.orders', 'issue')}}">Issue Orders</a>
                     </li>
                     <li>
+                        <a href="{{route('admin.orders', 'cancelled')}}">Cancelled Orders</a>
+                    </li>
+                    <li>
                         <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
+                    {{--<li>--}}
+                        {{--<a href="{{route('profile')}}"><i class="fa fa-fw fa-list-ul"></i> Profile</a>--}}
+                    {{--</li>--}}
                     <li>
-                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
-                    </li>
-                    <li>
-                        <a href="{{route('profile')}}"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
+                        <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i> Homepage</a>
                     </li>
                     <li>
                         <a href="{{url('logout')}}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -96,26 +100,34 @@
                             <li>
                                 <a href="{{route('admin.orders', 'issue')}}" class="dropdown-font-size">Issue Orders</a>
                             </li>
+                            <li>
+                                <a href="{{route('admin.orders', 'cancelled')}}">Cancelled Orders</a>
+                            </li>
                         </ul>
                     </li>
                     <!--<li>
                         <a href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Survery Data</a>
                     </li>-->
                     <li>
-                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
+                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{route('admin.settings')}}" class="dropdown-font-size"><i class="fa fa-fw fa-cogs"></i> Settings</a>
-                            </li>
-                            <li>
-                                <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
-                            </li>
+                            @if(Auth::user()->id == 93)
+                                <li>
+                                    <a href="{{route('admin.settings')}}" class="dropdown-font-size"><i class="fa fa-fw fa-cogs"></i> Settings</a>
+                                </li>
+                            @endif
+                            {{--<li>--}}
+                                {{--<a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>--}}
+                            {{--</li>--}}
+                                <li>
+                                    <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i> Home</a>
+                                </li>
                             <li>
                                 <a href="{{url('logout')}}" class="dropdown-font-size"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>

@@ -782,4 +782,7 @@ div.input-group.pull-right {
 button.btn {
 	height: 48px;
 }
+.panel-min-height {
+	min-height:400px;
+}
 

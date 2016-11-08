@@ -516,7 +516,7 @@ html, body {
 #bl-input:focus {
     border-color: #4d90fe;
     /*margin-left: -1px;
-    padding-left: 14px;  /* Regular padding-left + 1. */*/
+    padding-left: 14px;  /* Regular padding-left + 1. */
 }
 
 @media only screen and (max-width: 500px) {
@@ -627,4 +627,18 @@ body.user-layout {
 
 .address-item .clear {
     clear: both;
+}
+.issue-link {
+    color:#ef3734;
+    font-weight: 500;
+}
+.issue-link:hover {
+    color: #bf2626;
+}
+.cancelled-link {
+    color: #969494;
+    font-weight: 500;
+}
+.cancelled-link:hover {
+    color: #6b6b6b;
 }
