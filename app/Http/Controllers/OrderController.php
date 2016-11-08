@@ -40,7 +40,7 @@ class OrderController extends Controller
 
         $this->validate($request, [
             'amount' => 'required|numeric',
-            'wallet' => 'required|btc_address',
+            'wallet' => 'required',
             'bank'   => 'required|integer|exists:banks,id'
         ]);
 
@@ -83,7 +83,7 @@ class OrderController extends Controller
 //            });
 //        });
 
-        return redirect()->route('current-order')->with('success', 'Order created successfully. Below you will find your order summary and deposit directions.');
+        return redirect()->route('current-order')->with(['success' => 'Order created successfully. Below you will find your order summary and deposit directions.', 'new_order' => 'used for google analytics']);
     }
 
     public function uploadReceipt(Request $request) {

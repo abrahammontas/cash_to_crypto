@@ -738,7 +738,6 @@ html, body {
 	padding: 5% 7%;
 	margin-top: 5%;
 	margin-bottom: 2%;
-	overflow: hidden;
 }
 
 div.input-group.pull-right {
@@ -766,8 +765,9 @@ div.input-group.pull-right {
 	color: white;
 	background-color: #59B163;
 	border: none;
-	border-radius: 2px;
-	padding: 5px 15px;
+	border-radius: 4px;
+	padding: 10px 15px;
+	padding-top: 8px;
 }
 .btn-menu-buy:hover {
 	background-color: #479259;
@@ -778,5 +778,8 @@ div.input-group.pull-right {
 .dropdown-menu {
 	min-width: 180px;
 	overflow: visible;
+}
+button.btn {
+	height: 48px;
 }
 

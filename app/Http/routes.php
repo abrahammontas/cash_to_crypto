@@ -19,22 +19,6 @@ Route::get('/atm-locations', ['as' => 'atm-locations', function(){
    return view('atms.index');
 }]);
 
-//Route::get('/how-to', ['as' => 'howto', function () {
-//    return view('help.index');
-//}]);
-//
-//Route::get('/contact-us', ['as' => 'contacts', function () {
-//    return view('contact.index');
-//}]);
-//
-//Route::get('/blog', ['as' => 'blog', function () {
-//    return view('blog.index');
-//}]);
-//
-//Route::get('/faq', ['as' => 'faq', function () {
-//    return view('faq.index');
-//}]);
-
 Route::auth();
 
 Route::group(['middleware' => ['auth', 'banned']], function () {
@@ -59,11 +43,15 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
 	Route::get('banks', ['as' => 'banks', 'uses' => 'AdminController@banks']);
 	Route::get('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue');
+
+    Route::post('orders', ['as' => 'orders.search', 'uses' => 'AdminController@searchOrders']);
+
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
 	Route::get('users', ['as' => 'users', 'uses' => 'AdminController@users']);
+    Route::post('users', ['as' => 'users', 'uses' => 'AdminController@postUsers']);
 	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 	Route::delete('order/{id}', ['as' => 'order.delete', 'uses' => 'AdminController@orderDelete']);

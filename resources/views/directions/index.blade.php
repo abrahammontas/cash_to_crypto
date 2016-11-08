@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'FAQ')
+@section('title', 'How To Buy Bitcoins!')
 
 @section('content')
 
@@ -46,9 +46,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu text-center" style="left:30.5%;" role="menu">
-                            @if (auth()->user()->hasPending() == 0)
-                                <li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>
-                            @endif
+                            <li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>
                             <li><a href="/">Home</a></li>
                             <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
                             @if (auth()->user()->hasPending())

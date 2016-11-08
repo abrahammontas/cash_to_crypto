@@ -102,11 +102,20 @@
                             </div>
                         </li>
                     @endif
-                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F;">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
+                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F; ">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <!-- <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed this weekend for maintenance. We will reopen Monday (10/17) at 9am EST. <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section> -->
 </div>
 
 <div class="wrapper" style="background-color:#f2f2f2;">
@@ -150,7 +159,7 @@
                             <hr>
                             <div class="form-group form-inline{{ $errors->has('amount') ? ' has-error' : '' }}">
                                 <label for="bitcoin-amount" style="font-weight:400;">USD Amount:</label>
-                                <input type="number" step="any" min="101"  name="amount" style="width:200px" id="amount" data-error="Please enter an an amount larger than $101" class="form-control pull-right" required value='{{old('amount')}}'>
+                                <input type="number" step="any" min="101"  name="amount" style="width:200px" id="amount" data-error="Please enter an an amount larger than $101" class="form-control pull-right" required value="{{old('amount')}}">
 
                                 <div class="help-block with-errors">
                                     <strong>{{ $errors->first('amount') }}</strong>
@@ -186,7 +195,7 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-5 col-sm-offset-1" style="">
+                    <div class="col-sm-5 col-sm-offset-1" style="position: inherit !important;">
                         <div class="buy-form" style="
                         border: 1px solid black !important;
                         border-radius: 4px;
@@ -195,6 +204,7 @@
                         margin-top: 5%;
                         margin-bottom: 2%;
                 ">
+                            <div class="form-border" style="margin-bottom:0px;">
                             <div class="form-border" style="margin-bottom:0px;">
                                 <h2 class="text-center form-title-font">Pricing Information</h2>
                                 <hr>

@@ -194,22 +194,32 @@
                     <div class="col-sm-4 col-sm-offset-2" >
                         <h2 style="padding-top:15px; text-align:left; color:gold;">Contact Info</h2>
                         <div class="row">
-                            <div class="col-xs-6" style="text-align:left;">
+                            <div class="col-md-6" style="text-align:left;">
                                 <span style="color:white;">Email:</span>
                             </div>
-                            <div class="col-xs-6" style="text-align:left;">
+                            <div class="col-md-6" style="text-align:left;">
                                 <div class="row">
                                     <span style="color:white;">support@cashtocrypto.com</span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6" style="text-align:left;">
+                            <div class="col-md-6" style="text-align:left;">
                                 <span style="color:white;">Phone:</span>
                             </div>
-                            <div class="col-xs-6" style="text-align:left;">
+                            <div class="col-md-6" style="text-align:left;">
                                 <div class="row">
                                     <span style="color:white;">(678) 435-9604</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" style="text-align:left;">
+                                <span style="color:white;">Address:</span>
+                            </div>
+                            <div class="col-md-6" style="text-align:left;">
+                                <div class="row">
+                                    <span><p style="color:white; line-height:1.2em; margin-top:7px;">2870 Peachtree Rd #327<br />Atlanta, GA 30305</p></span>
                                 </div>
                             </div>
                         </div>

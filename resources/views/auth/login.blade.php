@@ -2,8 +2,26 @@
 @section('title', 'Login')
 @section('content')
 
-@section('title', 'Registration')
-@section('content')
+    @if($new_user = Session::get('new_user'))
+        <!-- Google Code for Accounts Created Conversion Page -->
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 976131144;
+            var google_conversion_language = "en";
+            var google_conversion_format = "3";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "T0XzCLuOgmsQyKi60QM";
+            var google_remarketing_only = false;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+            <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/976131144/?label=T0XzCLuOgmsQyKi60QM&amp;guid=ON&amp;script=0"/>
+            </div>
+        </noscript>
+    @endif
 
 <!-- Loader -->
 <div class="loader">
@@ -107,7 +125,17 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> 
+
+    <!-- <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
+                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed this weekend for maintenance. We will reopen Monday (10/17) at 9am EST. <span style="color:red">* * *</span></h3>
+                </div>
+            </div>
+        </div>
+    </section> -->
 
     <div class="inner-bg">
         <div class="container">

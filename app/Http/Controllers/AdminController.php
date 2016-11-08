@@ -9,6 +9,8 @@ use App\Order;
 use App\Bank;
 use App\User;
 use App\Settings;
+use Illuminate\Pagination\Paginator;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -47,8 +49,25 @@ class AdminController extends Controller
         $company = session('company');
         $companies = ['All']+$companies;
         $company = in_array($company, $companies) ? $company : $companies[0];
+
         return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company]);
     }
+
+//    public function searchOrders(Request $request) {
+//        $companies = DB::table('banks')
+//            ->select(DB::raw("DISTINCT(company)"))
+//            ->orderBy('company')
+//            ->pluck('company');
+//        $company = $request->input('company');
+//        $companies = ['All']+$companies;
+//        $company = in_array($company, $companies) ? $company : $companies[0];
+//
+//        $query = $request->input('search');
+//        $type = $request->input('type');
+//
+//        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
+//    }
+
 
     public function getOrders(Request $request) {
 
@@ -57,14 +76,24 @@ class AdminController extends Controller
 
         if($type == 'completed' && $company !== 'All') {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->select(['orders.*','name','company'])
+                ->select(['orders.*', 'name', 'company'])
                 ->with('user')
                 ->where('company', '=', $company);
+
+//        } elseif($query = $request->input("query")) {
+//
+//            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+//                ->select(['orders.*', 'name', 'company'])
+//                ->with('user')
+//                ->where('firstName', 'LIKE', '%' . $query . '%')
+//                ->orWhere('lastName', 'LIKE', '%' . $query . '%');
+//
+//        } else {
+
         } else {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                 ->select(['orders.*','name','company'])
                 ->with('user');
-//                ->where('company', '=', $company);
         }
 
         if ($type !== 'all') {
@@ -73,7 +102,11 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-        $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+        $orders = $orders->orderBy('created_at', 'DESC')->paginate(50);
+
+        if($query = $request->input('query')) {
+            return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query]);
+        }
 
         return view('admin.orders.rows', ['orders' => $orders, 'type' => $type]);
     }
@@ -151,6 +184,32 @@ class AdminController extends Controller
         return view('admin.user.list', ['users' => $users]);
     }
 
+    public function postUsers(Request $request) {
+
+        if ($query = $request->input('search')) {
+
+            $users = DB::table('users')
+                ->where('firstName', 'LIKE', '%' . $query . '%')
+                ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+                ->orWhere('phone', 'LIKE', '%' . $query . '%')
+                ->paginate(50);
+            return view('admin.user.list', ['users' => $users]);
+        }
+
+        if ($request->input('export')) {
+
+            $users = User::all()->toArray();
+            $export = Excel::create('users', function($excel) use ($users) {
+                $excel->sheet('users_sheet', function($sheet) use ($users) {
+                    $sheet->fromArray($users);
+                })->export('xls');
+            });
+            return view('admin.users', ['export' => $export]);
+        }
+
+
+    }
+
     public function ban(Request $request, $id) {
         $user = User::find($id);
         if (!$user) {
@@ -225,11 +284,16 @@ class AdminController extends Controller
             if ($oldStatus != 'completed') {
                 $order->completed_at = $this->current_time;
                 $order->save();
+                $status = 'completed';
+                $amount = $order->amount;
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Bitcoins Sent!');
                 });
             }
+        } else {
+            $status = '';
+            $amount = '';
         }
 
         /*if ($newStatus == 'pending') {
@@ -241,8 +305,7 @@ class AdminController extends Controller
             }
         }*/
 
-        return back()->with(['success' => "Order successfully updated.", 'company' => $company]);
-    }
+        return back()->with(['success' => "Order successfully updated.", 'company' => $company, 'status' => $status, 'amount' => $amount]);    }
 
     public function settings(Request $request) {
         if ($request->isMethod('post')) {
@@ -268,7 +331,8 @@ class AdminController extends Controller
 
     public function profile(Request $request, $id) {
         $user = User::find($id);
-        return view('admin.user.profile', ['user' => $user]);
+        $orders = Order::whereUserId($id)->with('bank')->orderBy('created_at', 'DESC')->paginate(100);
+        return view('admin.user.profile', ['user' => $user, 'orders' => $orders]);
     }
 
     public function userUpdate(Request $request, $id)
