@@ -33,6 +33,9 @@
     @if(auth()->user()->id !== 93)
         {{ $admin_id = null }}
     @endif
+    @if(Request::url() == url('/admin/users'))
+        {{ $admin_id = null }}
+    @endif
     <body style="margin-top:0px;">
         <!-- Navigation -->
         <nav class="navbar navbar-inverse" style="padding-left:20px; padding-right:20px;" role="navigation">

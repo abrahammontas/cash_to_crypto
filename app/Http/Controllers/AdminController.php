@@ -345,10 +345,10 @@ class AdminController extends Controller
                 $order->save();
                 $status = 'completed';
                 $amount = $order->amount;
-//                Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
-//                    $message->to($order->user->email);
-//                    $message->subject('Bitcoins Sent!');
-//                });
+                Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
+                    $message->to($order->user->email);
+                    $message->subject('Bitcoins Sent!');
+                });
             }
         } else {
             $status = '';
@@ -404,50 +404,5 @@ class AdminController extends Controller
 
         return back()->with('success', 'User notes updated successfully');
     }
-
-
-    public function sellerDashboard(Request $request) {
-        $admin_id = $request->input('seller');
-
-        return view(
-            'admin.seller.dashboard',
-            [
-                'banks' => Bank::where('user_id', '=', $admin_id)
-                    ->count(),
-                'pendingOrders'   => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                    ->select(['orders.*','name','company'])
-                    ->with('user')
-                    ->whereStatus('pending')
-                    ->whereNotNull('selfie')->where('selfie', '!=', '')
-                    ->whereNotNull('receipt')->where('receipt', '!=', '')
-                    ->where('banks.user_id', '=', $admin_id)
-                    ->count(),
-                'issueOrders' 	  => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                    ->select(['orders.*','name','company'])
-                    ->with('user')
-                    ->whereStatus('issue')
-                    ->where('banks.user_id', '=', $admin_id)
-                    ->count(),
-                'completedOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                    ->select(['orders.*','name','company'])
-                    ->with('user')
-                    ->whereStatus('completed')
-                    ->where('banks.user_id', '=', $admin_id)
-                    ->count(),
-                'cancelledOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                    ->select(['orders.*', 'name', 'company'])
-                    ->with('user')
-                    ->whereStatus('cancelled')
-                    ->where('banks.user_id', '=', $admin_id)
-                    ->count(),
-                'users'           => User::count(),
-                'sellers' => User::where('admin', '=', 1)->get()
-            ]
-
-        );
-
-    }
-
-
 
 }
