@@ -28,7 +28,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-					@if(Auth::user()->admin == 93)
+					@if(Auth::user()->id === 93)
 						{{ Form::open(['route' => 'admin.users']) }}
 							{{ Form::hidden('export', 'Export') }}
 							{{ Form::submit('Export') }}
@@ -100,7 +100,7 @@
 									</div>
 				            	@endif
 				            </td>
-				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 4) }}</td>
+				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 5) }}</td>
 							@if(auth()->user()->id == 93)
 				            <td>
 				            	@if(!$user->banned)
