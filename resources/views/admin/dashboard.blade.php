@@ -7,15 +7,47 @@
 
                 <!-- Page Heading -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="page-header">
-                            Welcome, {{Auth::user()->firstName}} {{Auth::user()->lastName}}!
-                        </h1>
+                    <div class="col-md-12 page-header">
+                        <h1 style="display:inline-block">Welcome, {{Auth::user()->firstName}} {{Auth::user()->lastName}}!</h1>
+                        @if(auth()->user()->id === 93)
+                            <button type="button" class="btn btn-primary" style="margin:0px 20px 15px" data-toggle="modal" data-target="#viewAs">
+                                View As Seller
+                            </button>
+                        @endif
                     </div>
                 </div>
                 <!-- /.row -->
 
-                
+                @if(auth()->user()->id === 93)
+                <!-- Modal -->
+                <div class="modal fade" id="viewAs" tabindex="-1" role="dialog" aria-labelledby="viewAsLabel">
+                  <div class="modal-dialog" role="document">
+                    {{ Form::open(['method' => 'post', 'route' => 'admin.dashboard']) }}
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="viewAsLabel">Select Seller</h4>
+                          </div>
+                          <div class="modal-body">
+                              <div class="form-group">
+                                  <select class="form-control" name="seller" id="">
+                                      <option value="">Select</option>
+                                      @foreach($sellers as $seller)
+                                          <option value="{{ $seller->id }}">{{ $seller->firstName . ' ' . $seller->lastName }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
+                          </div>
+                        </div>
+                    {{ Form::close() }}
+                  </div>
+                </div>
+                @endif
+
                 <div class="row">
                     <div class="col-md-2">
                         <div class="panel panel-default" style="border: 1px solid #c9302c">
@@ -30,7 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{route('admin.orders', 'issue')}}" class="issue-link">
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'issue') : route('admin.orders', ['type' => 'issue', 'admin_id' => $admin_id]) }}" class="issue-link">
                                     <div class="panel-footer">
                                         <span class="pull-left">View Details</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:#ef3734"></i></span>
@@ -54,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('admin.orders', 'pending')}}" style="font-weight:500;">
+                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'pending') : route('admin.orders', ['type' => 'pending', 'admin_id' => $admin_id]) }}" style="font-weight:500;">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -77,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('admin.orders', 'completed')}}" style="font-weight:500">
+                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'completed') : route('admin.orders', ['type' => 'completed', 'admin_id' => $admin_id]) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -100,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('admin.orders', 'cancelled')}}" class="cancelled-link">
+                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'cancelled') : route('admin.orders', ['type' => 'cancelled', 'admin_id' => $admin_id]) }}" class="cancelled-link">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -123,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('admin.banks')}}" style="font-weight:500">
+                            <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -146,7 +178,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{route('admin.users')}}" style="font-weight:500">
+                            <a href="{{ route('admin.users') }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

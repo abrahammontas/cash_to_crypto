@@ -109,6 +109,10 @@
 				</div>
 			</div>
 	    </div>
+
+			{{--@if($admin_id = session('admin_id'))--}}
+				{{--{{ $admin_id = session('admin_id') }}--}}
+			{{--@endif--}}
 @endsection
 
 @section('scripts')
@@ -144,6 +148,7 @@
 
 		var page = 1;
 		var type = '{{$type}}';
+		var admin_id = '{{$admin_id}}';
 
 
 		$("#loader").show();
@@ -153,7 +158,7 @@
 
 			var company = '{{$company}}';
 
-			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page}, function(html){
+			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
 				$("#loader").hide();
 				$("#orders-table #loader").before(html);
 				loading = false;
@@ -166,7 +171,7 @@
 				$("#company-switch-selected").text(company);
 				$("#orders-table tbody tr:not(#loader)").remove();
 				$("#loader").show();
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 				});
@@ -176,13 +181,13 @@
 		 	page = 1;
 
 			if(query != null) {
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;
 				});
 			} else {
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "admin_id": admin_id}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;

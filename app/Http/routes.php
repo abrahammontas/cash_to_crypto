@@ -41,16 +41,20 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
-	Route::get('banks', ['as' => 'banks', 'uses' => 'AdminController@banks']);
-	Route::get('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
+    Route::get('dashboard/{user_id}', ['as' => 'dashboardTwo', 'uses' => 'AdminController@indexTwo']);
+
+
+    Route::post('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
+	Route::get('banks/{user_id?}', ['as' => 'banks', 'uses' => 'AdminController@banks']);
+	Route::get('orders/{type}/{admin_id?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
 
 //    Route::post('orders', ['as' => 'orders.search', 'uses' => 'AdminController@searchOrders']);
 
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
-	Route::post('bank', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
+	Route::post('bank/{admin_id?}', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
-	Route::get('users', ['as' => 'users', 'uses' => 'AdminController@users']);
+	Route::get('users/{admin_id?}', ['as' => 'users', 'uses' => 'AdminController@users']);
     Route::post('users', ['as' => 'users', 'uses' => 'AdminController@postUsers']);
 	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
@@ -62,6 +66,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
 	Route::get('profile/{id}', ['as' => 'users.profile', 'uses' => 'AdminController@profile']);
 	Route::get('orders', ['as' => 'orders.ajax', 'uses' => 'AdminController@getOrders']);
 	Route::put('profile/{id}', ['as' => 'user.update', 'uses' => 'AdminController@userUpdate']);
+
 });
 
 Route::get('/survey', ['as' => 'survey', function() {
