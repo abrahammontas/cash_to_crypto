@@ -150,12 +150,12 @@
                     <tbody>
                         <tr>
                             <td>{{$order->hash}}</td>
-                            <td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
-                            @if ($order->img_updated_at == '')
-                                <td></td>
-                            @else
-                                <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->img_updated_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 5) }}</td>
-                            @endif
+                            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
+                            @if ($order->completed_at == '')
+								<td></td>
+							@else
+								<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 5) }}</td>
+				            @endif
                             <td>{{$order->bank->name}}</td>
                             <td>{{$order->wallet}}</td>
                             <td>${{$order->amount}}</td>

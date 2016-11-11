@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="form-border hidden-xs hidden-sm">
-                        <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
+                        <h2 class="text-center form-title-font">Upload Receipt and Selfie</h2>
                         <hr>
                         {{Form::open(["route" =>'both', 'enctype' => 'multipart/form-data'])}}
                         {{Form::hidden('order', $order->hash)}}
