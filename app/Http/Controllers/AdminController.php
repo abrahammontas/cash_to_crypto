@@ -46,69 +46,55 @@ class AdminController extends Controller
                         ->select(DB::raw("DISTINCT(company)"))
                         ->orderBy('company')
                         ->pluck('company');
-        $company = session('company');
-        $companies = ['All']+$companies;
-        $company = in_array($company, $companies) ? $company : $companies[0];
 
-        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company]);
+        return view('admin.orders.page', [ 'type' => $type, 'companies' => $companies]);
     }
 
-//    public function searchOrders(Request $request) {
-//        $companies = DB::table('banks')
-//            ->select(DB::raw("DISTINCT(company)"))
-//            ->orderBy('company')
-//            ->pluck('company');
-//        $company = $request->input('company');
-//        $companies = ['All']+$companies;
-//        $company = in_array($company, $companies) ? $company : $companies[0];
-//
-//        $query = $request->input('search');
-//        $type = $request->input('type');
-//
-//        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
-//    }
+    public function searchOrders(Request $request) {
+        $companies = DB::table('banks')
+            ->select(DB::raw("DISTINCT(company)"))
+            ->orderBy('company')
+            ->pluck('company');
+
+        $company = $request->input('company');
+        $query = $request->input('search');
+        $type = $request->input('type');
+
+        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
+    }
 
 
     public function getOrders(Request $request) {
 
         $type = $request->input("type");
         $company = $request->input("company");
+        $query = $request->input("query");
+        $company = $request->input("company");
 
-        if($type == 'completed' && $company !== 'All') {
-            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->select(['orders.*', 'name', 'company'])
-                ->with('user')
-                ->where('company', '=', $company);
+        $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+            ->leftJoin('users', 'user_id', '=', 'users.id');
 
-//        } elseif($query = $request->input("query")) {
-//
-//            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-//                ->select(['orders.*', 'name', 'company'])
-//                ->with('user')
-//                ->where('firstName', 'LIKE', '%' . $query . '%')
-//                ->orWhere('lastName', 'LIKE', '%' . $query . '%');
-//
-//        } else {
-
-        } else {
-            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->select(['orders.*','name','company'])
-                ->with('user');
+        if(null != $query && $query != ""){
+            $orders->where('users.firstName', 'LIKE', '%' . $query . '%')
+                ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
+                ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
+                ->orWhere('wallet', 'LIKE', '%' . $query . '%');
         }
 
+        if(isset($company) && $company !== 'All'){
+            $orders->where('banks.company', '=', $company);
+        }
         if ($type !== 'all') {
             $orders->whereStatus($type);
         }
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-        $orders = $orders->orderBy('created_at', 'DESC')->paginate(50);
 
-        if($query = $request->input('query')) {
-            return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query]);
-        }
+        $orders = $orders->paginate(50);
 
-        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type]);
+        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query, 'company' => $company]);
+
     }
 
 	public function banks() {

@@ -37,10 +37,11 @@
 						{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
 							{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
 							{{ Form::hidden('type', $type) }}
-						    {{ Form::hidden('company', $company) }}
+                        <?php if(!isset($company)){$company = "All";}?>
+						    {{ Form::hidden('company', $company,array('id' => 'companyId')) }}
 							{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
 						{{ Form::close() }}
-						@if($query = session('query'))
+						@if( isset($query) )
 							<h2>{{ $query }}</h2>
 						@endif
 					</div>
@@ -49,15 +50,16 @@
 						<div class="btn-group pull-right">
 						  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
-						  </button><br />
-						  <br />
-						  <a href="#" class="export">Export</a>
-						  <ul class="dropdown-menu">
+						  </button>
+						  <ul class="dropdown-menu" id="companiesDropdown">
+                              <li><a href="#" class="company-switch" data-company="All">All</a></li>
 							@foreach ($companies as $c)
-							 <li><a href="" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
+							 <li><a href="#" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 							@endforeach
 						  </ul>
-						</div>
+
+                            <a href="#" class="export">Export</a>
+                        </div>
 					</div>
 					@endif
 	        	</div>
@@ -126,14 +128,14 @@
 
 	<script type="text/javascript" src="/assets/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
-	@if($query = session('query'))
-		<script>var query = '{{$query}}';</script>
-	@else
-		<script>var query = null;</script>
+	@if(!isset($query))
+		<?php $query = "" ?>
 	@endif
 
 <script>
 	$(document).ready(function () {
+
+        var query = '{{$query}}';
 
 		$(".order-edit select[name='status']").each(function () {
 			var instance = $(this);
@@ -153,7 +155,7 @@
 
 			var company = '{{$company}}';
 
-			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page}, function(html){
+			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "query" : query}, function(html){
 				$("#loader").hide();
 				$("#orders-table #loader").before(html);
 				loading = false;
@@ -164,6 +166,7 @@
 				company = $(this).attr("data-company");
 				e.preventDefault();
 				$("#company-switch-selected").text(company);
+                $("#companyId").val(company);
 				$("#orders-table tbody tr:not(#loader)").remove();
 				$("#loader").show();
 				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page}, function(html){
@@ -182,7 +185,7 @@
 					loading = false;
 				});
 			} else {
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;
