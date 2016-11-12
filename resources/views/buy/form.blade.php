@@ -41,22 +41,22 @@
 
             @if(!Auth::guest())
                 <div class="dropdown hidden-md hidden-lg">
+                    {{--<a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a>--}}
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu text-center" style="left:30.5%;" role="menu">
-                        {{--@if (auth()->user()->hasPending() == 0)--}}
-                            {{--<li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>--}}
-                        {{--@endif--}}
-                        <li><a href="/">Home</a></li>
+                    <ul class="dropdown-menu text-center" style="left:24.5%;" role="menu">
                         <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
+                        <li><a href="{{ url('/') }}" style="color:#5b5b5b;">Home</a></li>
                         @if (auth()->user()->hasPending())
                             <li>
                                 <a href="{{route('current-order')}}"> Current Order</a>
                             </li>
                         @endif
-                        <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                        @if(auth()->user()->admin !== 1)
+                            <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                        @endif
                         <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
                         <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
                         <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
@@ -69,7 +69,7 @@
             <div class="collapse navbar-collapse" id="top-navbar-1">
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
-                        <li><a href="/">Home</a></li>
+                        <li><a href="{{ url('/') }}" style="color:#5b5b5b;">Home</a></li>
                         <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
                         <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
                         <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
@@ -78,31 +78,31 @@
                     @else
                         <li>
                             <div class="dropdown hidden-xs hidden-sm">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{--<a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a>--}}
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    {{--@if (auth()->user()->hasPending() == 0)--}}
-                                        {{--<li><a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a></li>--}}
-                                    {{--@endif--}}
-                                    <li><a href="/">Home</a></li>
                                     <li><a href="{{ Auth::user()->admin ? route('admin.dashboard') : route('dashboard') }}"><i class="fa fa-btn fa-dashboard"></i> Dashboard</a></li>
+                                    <li><a href="{{ url('/') }}" style="color:#5b5b5b;">Home</a></li>
                                     @if (auth()->user()->hasPending())
                                         <li>
                                             <a href="{{route('current-order')}}"> Current Order</a>
                                         </li>
                                     @endif
-                                    <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                    @if(auth()->user()->admin !== 1)
+                                        <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                    @endif
                                     <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
-                                    {{--<li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>--}}
+                                    <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
                                     <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
                                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
                     @endif
-                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F; ">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
+                    <li class="scroll-link exchange-rate hidden-xs hidden-sm"><span style="font-weight:400; color:#5FB06F;">Exchange Rate: 1BTC</span> <span style="color:#9F9F9F">=</span> <span style="font-weight:400; color:#CCA75C">${{number_format(\App\Settings::getParam('ourprice'),2)}}</span></li>
                 </ul>
             </div>
         </div>

@@ -11,17 +11,17 @@
     	<td>
 			<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
     	</td>
-		<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 4) }}</td>
+		<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
 		@if ($order->img_updated_at == '')
             <td></td>
         @else
-            <td>Date: {{ date('m/d/Y', strtotime($order->img_updated_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 4) }}</td>
+            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->img_updated_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 5) }}</td>
         @endif
 		@if ($type == 'completed'))
 			@if ($order->completed_at == '')
 				<td></td>
 			@else
-				<td>Date: {{ date('m/d/Y', strtotime($order->completed_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 4) }}</td>
+				<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 5) }}</td>
             @endif
 		@endif
 		<td>{{$order->bank->name}}</td>
@@ -55,7 +55,7 @@
 				</div>	
 		</td>
 		<td>
-			<button type='button' class='btn btn-{{$statusClasses[$order->status]}} btn-xs'  data-toggle="modal" data-target="#order-edit-{{$order->id}}">
+			<button type='button' class='btn btn-{{$statusClasses[$order->status]}} btn-xs'  style="width:100%" data-toggle="modal" data-target="#order-edit-{{$order->id}}">
 				<i class='fa fa-pencil'></i> {{ucwords($order->status)}}
 			</button>
 
@@ -90,9 +90,11 @@
 			  </div>
 			</div>
 
+			<br />
 
-			<button type="button" title='Delete' class="btn btn-danger btn-xs" data-toggle="modal" data-target="#order-delete-{{$order->id}}">
-				<span class='fa fa-trash'></span>
+
+			<button type="button" title='Delete' class="btn btn-danger btn-xs" style="width:100%; margin-top:3px;" data-toggle="modal" data-target="#order-delete-{{$order->id}}">
+				<i class='fa fa-trash'></i> Delete
 			</button>
 			<div id="order-delete-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			  <div class="modal-dialog">

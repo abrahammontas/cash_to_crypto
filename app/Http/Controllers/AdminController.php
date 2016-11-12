@@ -24,29 +24,104 @@ class AdminController extends Controller
         $this->current_time = Carbon::now()->toDateTimeString();
     }
     
-    
-    public function index() {
+
+    public function index(Request $request) {
+
+        if($request->input('seller')) {
+            $admin_id = $request->input('seller');
+        } else {
+            $admin_id = Auth::user()->id;
+        }
+
         return view(
         	'admin.dashboard',
         	[
-        		'banks' => Bank::count(),
-        		'pendingOrders'   => Order::whereStatus('pending')
+        		'banks' => Bank::where('user_id', '=', $admin_id)
+                                ->count(),
+        		'pendingOrders'   => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                                        ->select(['orders.*','name','company'])
+                                        ->with('user')
+                                        ->whereStatus('pending')
                                         ->whereNotNull('selfie')->where('selfie', '!=', '')
                                         ->whereNotNull('receipt')->where('receipt', '!=', '')
-                                    ->count(),
-        		'issueOrders' 	  => Order::whereStatus('issue')->count(),
-        		'completedOrders' => Order::whereStatus('completed')->count(),
-                'users'           => User::count()
+                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->count(),
+        		'issueOrders' 	  => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                                        ->select(['orders.*','name','company'])
+                                        ->with('user')
+                                        ->whereStatus('issue')
+                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->count(),
+        		'completedOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                                        ->select(['orders.*','name','company'])
+                                        ->with('user')
+                                        ->whereStatus('completed')
+                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->count(),
+                'cancelledOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                                        ->select(['orders.*', 'name', 'company'])
+                                        ->with('user')
+                                        ->whereStatus('cancelled')
+                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->count(),
+                'users'           => User::count(),
+                'sellers' => User::where('admin', '=', 1)->get(),
+                'admin_id' => $admin_id
         	]
+
         );
     }
 
-    public function orders($type) {
+    public function indexTwo($admin_id) {
+        return view(
+            'admin.dashboard',
+            [
+                'banks' => Bank::where('user_id', '=', $admin_id)
+                    ->count(),
+                'pendingOrders'   => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                    ->select(['orders.*','name','company'])
+                    ->with('user')
+                    ->whereStatus('pending')
+                    ->whereNotNull('selfie')->where('selfie', '!=', '')
+                    ->whereNotNull('receipt')->where('receipt', '!=', '')
+                    ->where('banks.user_id', '=', $admin_id)
+                    ->count(),
+                'issueOrders' 	  => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                    ->select(['orders.*','name','company'])
+                    ->with('user')
+                    ->whereStatus('issue')
+                    ->where('banks.user_id', '=', $admin_id)
+                    ->count(),
+                'completedOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                    ->select(['orders.*','name','company'])
+                    ->with('user')
+                    ->whereStatus('completed')
+                    ->where('banks.user_id', '=', $admin_id)
+                    ->count(),
+                'cancelledOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                    ->select(['orders.*', 'name', 'company'])
+                    ->with('user')
+                    ->whereStatus('cancelled')
+                    ->where('banks.user_id', '=', $admin_id)
+                    ->count(),
+                'users'           => User::count(),
+                'sellers' => User::where('admin', '=', 1)->get(),
+                'admin_id' => $admin_id
+            ]
+        );
+    }
+
+    public function orders($type, $admin_id = null) {
+        if($admin_id == null) {
+            $admin_id = Auth::user()->id;
+        }
         $companies = DB::table('banks')
                         ->select(DB::raw("DISTINCT(company)"))
+                        ->where('user_id', '=', $admin_id)
                         ->orderBy('company')
                         ->pluck('company');
 
+<<<<<<< HEAD
         return view('admin.orders.page', [ 'type' => $type, 'companies' => $companies]);
     }
 
@@ -62,12 +137,18 @@ class AdminController extends Controller
 
         return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
     }
+=======
+        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'admin_id' => $admin_id]);
+    }
+
+>>>>>>> jboud17/master
 
 
     public function getOrders(Request $request) {
 
         $type = $request->input("type");
         $company = $request->input("company");
+<<<<<<< HEAD
         $query = $request->input("query");
         $company = $request->input("company");
 
@@ -79,6 +160,21 @@ class AdminController extends Controller
                 ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
                 ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
                 ->orWhere('wallet', 'LIKE', '%' . $query . '%');
+=======
+        $admin_id = $request->input("admin_id");
+
+        if($type == 'completed' && $company !== 'All') {
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->select(['orders.*', 'name', 'company'])
+                ->with('user')
+                ->where('company', '=', $company);
+
+        } else {
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->select(['orders.*','name','company'])
+                ->with('user')
+                ->where('banks.user_id', '=', $admin_id);
+>>>>>>> jboud17/master
         }
 
         if(isset($company) && $company !== 'All'){
@@ -90,16 +186,29 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
+<<<<<<< HEAD
 
         $orders = $orders->paginate(50);
 
         return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query, 'company' => $company]);
 
+=======
+        $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+
+
+        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'admin_id' => $admin_id]);
+>>>>>>> jboud17/master
     }
 
-	public function banks() {
-    	$banks = Bank::paginate(50);
-        return view('admin.bank.list', ['banks' => $banks]);
+	public function banks($admin_id = null) {
+
+	    if($admin_id == null) {
+	        $admin_id = Auth::user()->id;
+        }
+
+    	$banks = Bank::where('user_id', '=', $admin_id)
+                ->paginate(50);
+        return view('admin.bank.list', ['banks' => $banks, 'admin_id' => $admin_id ]);
     }
  
     public function bankDelete($id) {
@@ -131,9 +240,15 @@ class AdminController extends Controller
     	return back()->with('success', "Bank {$bank->name} successfully updated." );
     }
 
-    public function bankCreate(Request $request) {
+    public function bankCreate(Request $request, $admin_id = null) {
+
+        if($admin_id == null) {
+            $admin_id = Auth::user()->id;
+        }
+
     	$bank = new Bank();
 
+        $bank->user_id = $admin_id;
     	$bank->name = $request->input('name', $bank->name);
     	$bank->company = $request->input('company', $bank->company);
         $bank->account_type = $request->input('account_type', $bank->account_type);
@@ -145,7 +260,7 @@ class AdminController extends Controller
 
     	$bank->save();
     	
-    	return back()->with('success', "Bank {$bank->name} successfully created." );
+    	return back()->with(['success' => "Bank {$bank->name} successfully created.", 'admin_id' => $admin_id]);
     }
 
     public function ordersStatus(Request $request) {
@@ -173,7 +288,6 @@ class AdminController extends Controller
     public function postUsers(Request $request) {
 
         if ($query = $request->input('search')) {
-
             $users = DB::table('users')
                 ->where('firstName', 'LIKE', '%' . $query . '%')
                 ->orWhere('lastName', 'LIKE', '%' . $query . '%')
@@ -192,7 +306,6 @@ class AdminController extends Controller
             });
             return view('admin.users', ['export' => $export]);
         }
-
 
     }
 
@@ -331,4 +444,5 @@ class AdminController extends Controller
 
         return back()->with('success', 'User notes updated successfully');
     }
+
 }

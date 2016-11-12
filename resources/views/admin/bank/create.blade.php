@@ -4,7 +4,11 @@
 
 <div id="bank-create" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
-	{{Form::open(['method' => 'post', 'route' =>'admin.bank.create'])}}
+      @if($admin_id === 93)
+          {{Form::open(['method' => 'post', 'route' =>'admin.bank.create'])}}
+      @else
+          {{Form::open(['method' => 'post', 'route' => ['admin.bank.create', $admin_id]])}}
+      @endif
         <div class="panel panel-green">
             <div class="panel-heading">
                 Create bank <button class="close" data-dismiss="modal">×</button>

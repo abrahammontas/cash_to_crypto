@@ -28,12 +28,12 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-
-					{{ Form::open(['route' => 'admin.users']) }}
-						{{ Form::hidden('export', 'Export') }}
-						{{ Form::submit('Export') }}
-					{{ Form::close() }}
-
+					@if(Auth::user()->id === 93)
+						{{ Form::open(['route' => 'admin.users']) }}
+							{{ Form::hidden('export', 'Export') }}
+							{{ Form::submit('Export') }}
+						{{ Form::close() }}
+					@endif
 	        		<div id="usersData" class="table-responsive" style="margin-top:20px;">
 					<table class='table table-stripped table-hover'>
 						<thead>
@@ -44,10 +44,11 @@
 					            <th>Phone</th>
 					            <th>Email</th>
 					            <th>Status</th>
-					            <th>Selfie</th>
 					            <th>Photo ID</th>
 					            <th>Registered</th>
+								@if(auth()->user()->id == 93)
 					            <th>Actions</th>
+								@endif
 					        </tr>
 					    </thead>
 						@foreach ($users as $i => $user)
@@ -66,21 +67,21 @@
 				            		<span class="label label-default">Active</span>
 				            	@endif
 				            </td>
-				            <td>
-				            	@if($user->photo)
-				            		<button data-toggle="modal" data-target="#photo-{{$user->id}}" src="{{Storage::url('photo/'.$user->photo)}}" class='btn btn-primary btn-xs'><i class='fa fa-eye'></i></button>
+				            {{--<td>--}}
+				            	{{--@if($user->photo)--}}
+				            		{{--<button data-toggle="modal" data-target="#photo-{{$user->id}}" src="{{Storage::url('photo/'.$user->photo)}}" class='btn btn-primary btn-xs'><i class='fa fa-eye'></i></button>--}}
 
-									<div id="photo-{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
-									  <div class="modal-dialog modal-lg">
-									    <div class="modal-content">
-									        <div class="modal-body">
-									            <img src="{{Storage::url('photo/'.$user->photo)}}" class="img-responsive">
-									        </div>
-									    </div>
-									  </div>
-									</div>
-				            	@endif
-				            </td>
+									{{--<div id="photo-{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">--}}
+									  {{--<div class="modal-dialog modal-lg">--}}
+									    {{--<div class="modal-content">--}}
+									        {{--<div class="modal-body">--}}
+									            {{--<img src="{{Storage::url('photo/'.$user->photo)}}" class="img-responsive">--}}
+									        {{--</div>--}}
+									    {{--</div>--}}
+									  {{--</div>--}}
+									{{--</div>--}}
+				            	{{--@endif--}}
+				            {{--</td>--}}
 				            <td>
 				            	@if($user->photoid)
 				            		<button data-toggle="modal" data-target="#photoid-{{$user->id}}" src="{{Storage::url('photoid/'.$user->photoid)}}" class='btn btn-primary btn-xs'><i class='fa fa-eye'></i></button>
@@ -99,7 +100,8 @@
 									</div>
 				            	@endif
 				            </td>
-				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 4) }}</td>
+				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 5) }}</td>
+							@if(auth()->user()->id == 93)
 				            <td>
 				            	@if(!$user->banned)
 				            		{{Form::open(['method' => 'post', 'route' => ['admin.users.ban', $user->id] ]) }}
@@ -139,6 +141,7 @@
 								  </div>
 								</div>
 				            </td>
+							@endif
 						</tr>
 						@endforeach
 					</table>

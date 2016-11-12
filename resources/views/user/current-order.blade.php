@@ -25,10 +25,9 @@
         </noscript>
     @endif
 
-<div class='wrapper current-order-page' style='margin-top:-20px;'>
-    <div class='container'>
-        <div class="row">
-            <div class="col-xs-12">
+    <div class='wrapper current-order-page' style='margin-top:-20px;'>
+        <div class='container'>
+            <div class="col-md-12">
                 @if ($message = session('success'))
                     <div class="alert alert-success" style="margin-top:6%; margin-bottom:0px;">
                         <p>{!! $message !!}</p>
@@ -41,10 +40,10 @@
                     </div>
                 @endif
             </div>
-            <div class="">
 
-                <div class='row'>
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 form-border" style="padding:5%;">
+            <div class='row'>
+                <div class="col-md-6">
+                    <div class="form-border">
                         <h2 class="text-center form-title-font">Current Order</h2>
                         <hr>
                         <div class="form-group form-inline">
@@ -52,7 +51,7 @@
                                 <div class='col-xs-4'>
                                     Bank:
                                 </div>
-                                <div class='col-xs-8'>
+                                <div class='col-sm-8'>
                                     {{$order->bank->name}}
                                 </div>
                             </div>
@@ -63,7 +62,7 @@
                                 <div class='col-xs-4'>
                                     Order ID:
                                 </div>
-                                <div class='col-xs-8'>
+                                <div class='col-sm-8'>
                                     {{$order->hash}}
                                 </div>
                             </div>
@@ -74,7 +73,7 @@
                                 <div class='col-xs-4'>
                                     Your wallet:
                                 </div>
-                                <div class='col-xs-8'>
+                                <div class='col-sm-8'>
                                     {{$order->wallet}}
                                 </div>
                             </div>
@@ -85,7 +84,7 @@
                                 <div class='col-xs-4'>
                                     Deposit Amount:
                                 </div>
-                                <div class='col-xs-8'>
+                                <div class='col-sm-8'>
                                     ${{number_format($order->total, 2, '.', ',')}}
                                 </div>
                             </div>
@@ -114,81 +113,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 ">
-                        <div class='row'>
-                            <div class="col-xs-12 form-border" style="padding:5%">
-                                <h2 class="text-center form-title-font">Deposit Information</h2>
-                                <hr>
-                                <div class="form-group form-inline">
-                                    {!!nl2br($order->bank->directions_before)!!}
-                                </div>
-                                <div class="form-group form-inline">
-                                    <div class='row'>
-                                        <div class='col-xs-4'>
-                                            Account:
-                                        </div>
-                                        <div class='col-xs-8'>
-                                            {{$order->bank->account_type}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group form-inline">
-                                    <div class='row'>
-                                        <div class='col-xs-4'>
-                                            Name:
-                                        </div>
-                                        <div class='col-xs-8'>
-                                            {{$order->bank->company}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group form-inline">
-                                    <div class='row'>
-                                        <div class='col-xs-4'>
-                                            Address:
-                                        </div>
-                                        <div class='col-xs-8'>
-                                            {{$order->bank->account_address}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group form-inline">
-                                    <div class='row'>
-                                        <div class='col-xs-4'>
-                                            Account Number:
-                                        </div>
-                                        <div class='col-xs-8'>
-                                            {{$order->bank->account_number}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group form-inline">
-                                    <div class='row'>
-                                        <div class='col-xs-4'>
-                                            Amount:
-                                        </div>
-                                        <div class='col-xs-8'>
-                                            ${{number_format($order->total, 2, '.', ',')}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div>
-                                    {!!nl2br($order->bank->directions_after)!!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1 form-border uploads" style="padding:5%;">
-                        <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
+                    <div class="form-border hidden-xs hidden-sm">
+                        <h2 class="text-center form-title-font">Upload Receipt and Selfie</h2>
                         <hr>
                         {{Form::open(["route" =>'both', 'enctype' => 'multipart/form-data'])}}
                         {{Form::hidden('order', $order->hash)}}
@@ -197,8 +123,8 @@
                             <input type='file' name='receipt'/>
                             @if ($errors->has('receipt'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('receipt') }}</strong>
-                                </span>
+                                <strong>{{ $errors->first('receipt') }}</strong>
+                            </span>
                             @endif
                         </div>
                         <br />
@@ -207,8 +133,8 @@
                             <input type='file' name='selfie'/>
                             @if ($errors->has('selfie'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('selfie') }}</strong>
-                                </span>
+                                <strong>{{ $errors->first('selfie') }}</strong>
+                            </span>
                             @endif
                         </div>
                         <br />
@@ -218,17 +144,115 @@
                         </div>
                         {{Form::close()}}
                     </div>
+                </div>
 
+                <div class="col-md-6">
+                    <div class="form-border">
+                        <h2 class="text-center form-title-font">Deposit Information</h2>
+                        <hr>
+                        <div class="form-group form-inline">
+                            {!!nl2br($order->bank->directions_before)!!}
+                        </div>
+                        <div class="form-group form-inline">
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Account:
+                                </div>
+                                <div class='col-sm-8'>
+                                    {{$order->bank->account_type}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group form-inline">
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Name:
+                                </div>
+                                <div class='col-sm-8'>
+                                    {{$order->bank->company}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group form-inline">
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Address:
+                                </div>
+                                <div class='col-sm-8'>
+                                    {{$order->bank->account_address}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group form-inline">
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Account Number:
+                                </div>
+                                <div class='col-sm-8'>
+                                    {{$order->bank->account_number}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group form-inline">
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Amount:
+                                </div>
+                                <div class='col-sm-8'>
+                                    ${{number_format($order->total, 2, '.', ',')}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div>
+                            {!!nl2br($order->bank->directions_after)!!}
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-6 hidden-md hidden-lg">
+                    <div class="form-border">
+                        <h2 class="text-center form-title-font">Upload Receipt or Selfie</h2>
+                        <hr>
+                        {{Form::open(["route" =>'both', 'enctype' => 'multipart/form-data'])}}
+                        {{Form::hidden('order', $order->hash)}}
+                        <div class="form-group form-inline {{ $errors->has('receipt') ? ' has-error' : '' }}">
+                            <strong>Receipt</strong>
+                            <input type='file' name='receipt'/>
+                            @if ($errors->has('receipt'))
+                                <span class="help-block">
+                                <strong>{{ $errors->first('receipt') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <br />
+                        <div class="form-group form-inline {{ $errors->has('selfie') ? ' has-error' : '' }}">
+                            <strong style="padding-bottom:5px;">Selfie with Receipt</strong>
+                            <input type='file' name='selfie'/>
+                            @if ($errors->has('selfie'))
+                                <span class="help-block">
+                                <strong>{{ $errors->first('selfie') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                        <br />
+                        <div class="form-group text-center">
+                            <input class="btn btn-success" style="padding:10px 20px;" type="submit" name="submit-order" value="Upload">
+                            <span class='help-block'>Make sure images are clear</span>
+                        </div>
+                        {{Form::close()}}
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin:5%;">
+                <div class="col-md-12 footer">
+                    <center><b>2016 &copy; Cash To Crypto</b></center>
                 </div>
             </div>
         </div>
-
-        <div class="row" style="margin:5%;">
-            <div class="col-md-12 footer">
-                <center><b>2016 &copy; Cash To Crypto</b></center>
-            </div>
-        </div>
     </div>
-</div>
 @endsection

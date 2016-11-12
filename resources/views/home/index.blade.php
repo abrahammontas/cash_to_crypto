@@ -53,7 +53,9 @@
                                     <a href="{{route('current-order')}}"> Current Order</a>
                                 </li>
                             @endif
-                            <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                            @if(auth()->user()->admin !== 1)
+                                <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                            @endif
                             <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
                             <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
                             <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
@@ -86,7 +88,9 @@
                                                 <a href="{{route('current-order')}}"> Current Order</a>
                                             </li>
                                         @endif
-                                        <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                        @if(auth()->user()->admin !== 1)
+                                            <li><a href="{{ route('profile') }}"><i class="fa fa-fw fa-list-ul"></i> Profile</a></li>
+                                        @endif
                                         <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
                                         <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
                                         <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>

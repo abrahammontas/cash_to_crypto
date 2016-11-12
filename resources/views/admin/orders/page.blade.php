@@ -34,6 +34,7 @@
 	        	<div class="col-md-12">
 					<div class="col-md-8">
 						<h2 class="text-left fw-300">{{ucwords($type).' Orders'}}</h2>
+<<<<<<< HEAD
 						{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
 							{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
 							{{ Form::hidden('type', $type) }}
@@ -42,11 +43,20 @@
 							{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
 						{{ Form::close() }}
 						@if( isset($query) )
+=======
+						{{--{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}--}}
+							{{--{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}--}}
+							{{--{{ Form::hidden('type', $type) }}--}}
+						    {{--{{ Form::hidden('company', $company) }}--}}
+							{{--{{ Form::submit('Search', ['class' => 'btn btn-default']) }}--}}
+						{{--{{ Form::close() }}--}}
+						@if($query = session('query'))
+>>>>>>> jboud17/master
 							<h2>{{ $query }}</h2>
 						@endif
 					</div>
 					@if ($type == 'completed')
-					<div class="col-md-4" style="padding:30px">
+					<div class="col-md-4" style="padding:20px 30px">
 						<div class="btn-group pull-right">
 						  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span id='company-switch-selected'>{{$company}}</span> <span class="caret"></span>
@@ -111,6 +121,10 @@
 				</div>
 			</div>
 	    </div>
+
+			{{--@if($admin_id = session('admin_id'))--}}
+				{{--{{ $admin_id = session('admin_id') }}--}}
+			{{--@endif--}}
 @endsection
 
 @section('scripts')
@@ -146,6 +160,7 @@
 
 		var page = 1;
 		var type = '{{$type}}';
+		var admin_id = '{{$admin_id}}';
 
 
 		$("#loader").show();
@@ -155,7 +170,11 @@
 
 			var company = '{{$company}}';
 
+<<<<<<< HEAD
 			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "query" : query}, function(html){
+=======
+			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
+>>>>>>> jboud17/master
 				$("#loader").hide();
 				$("#orders-table #loader").before(html);
 				loading = false;
@@ -169,7 +188,7 @@
                 $("#companyId").val(company);
 				$("#orders-table tbody tr:not(#loader)").remove();
 				$("#loader").show();
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 				});
@@ -179,13 +198,17 @@
 		 	page = 1;
 
 			if(query != null) {
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;
 				});
 			} else {
+<<<<<<< HEAD
 				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
+=======
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "admin_id": admin_id}, function(html){
+>>>>>>> jboud17/master
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;

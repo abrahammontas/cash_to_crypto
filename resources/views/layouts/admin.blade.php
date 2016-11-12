@@ -9,7 +9,6 @@
         <!-- Bootstrap -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/user/sb-admin.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
         <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,8 +26,16 @@
 
         <link rel="stylesheet" href="/assets/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
 
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
+
 
     </head>
+    @if(auth()->user()->id !== 93)
+        {{ $admin_id = null }}
+    @endif
+    @if(Request::url() == url('/admin/users'))
+        {{ $admin_id = null }}
+    @endif
     <body style="margin-top:0px;">
         <!-- Navigation -->
         <nav class="navbar navbar-inverse" style="padding-left:20px; padding-right:20px;" role="navigation">
@@ -40,35 +47,38 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{route('admin.dashboard')}}">Admin Panel</a>
+                <a class="navbar-brand" href="{{ $admin_id === 93 ? route('admin.dashboard') : route('admin.dashboardTwo', $admin_id) }}">Admin Panel</a>
             </div>
 
             <!-- Top Menu Items -->
             <div class='hidden-sm hidden-md hidden-lg'>
                 <ul class='nav navbar-collapse collapse'>
                     <li>
-                        <a href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.dashboard') : route('admin.dashboardTwo', $admin_id) }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders', 'all')}}">All Orders</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.orders', 'all') : route('admin.orders', ['type' => 'all', 'admin_id' => $admin_id]) }}">All Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders', 'pending')}}">Pending Orders</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.orders', 'pending') : route('admin.orders', ['type' => 'pending', 'admin_id' => $admin_id]) }}">Pending Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders', 'completed')}}">Completed Orders</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.orders', 'completed') : route('admin.orders', ['type' => 'completed', 'admin_id' => $admin_id]) }}">Completed Orders</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders', 'issue')}}">Issue Orders</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.orders', 'issue') : route('admin.orders', ['type' => 'issue', 'admin_id' => $admin_id]) }}">Issue Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{ $admin_id === 93 ? route('admin.orders', 'cancelled') : route('admin.orders', ['type' => 'cancelled', 'admin_id' => $admin_id]) }}">Cancelled Orders</a>
+                    </li>
+                    <li>
+                        <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li>
                         <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
-                    </li>
-                    <li>
-                        <a href="{{route('profile')}}"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
+                        <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i> Homepage</a>
                     </li>
                     <li>
                         <a href="{{url('logout')}}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -79,43 +89,45 @@
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
             <!-- Single button -->
                     <li>
-                        <a href="{{route('admin.dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.dashboard') : route('admin.dashboardTwo', $admin_id) }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="dropdown">
                         <a href="{{route('admin.dashboard')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-list"></i> Orders <i class="fa fa-fw fa-caret-down"></i> </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{route('admin.orders', 'all')}}" class="dropdown-font-size">All Orders</a>
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'all') : route('admin.orders', ['type' => 'all', 'admin_id' => $admin_id]) }}">All Orders</a>
                             </li>
                             <li>
-                                <a href="{{route('admin.orders', 'pending')}}" class="dropdown-font-size">Pending Orders</a>
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'pending') : route('admin.orders', ['type' => 'pending', 'admin_id' => $admin_id]) }}">Pending Orders</a>
                             </li>
                             <li>
-                                <a href="{{route('admin.orders', 'completed')}}" class="dropdown-font-size">Completed Orders</a>
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'completed') : route('admin.orders', ['type' => 'completed', 'admin_id' => $admin_id]) }}">Completed Orders</a>
                             </li>
                             <li>
-                                <a href="{{route('admin.orders', 'issue')}}" class="dropdown-font-size">Issue Orders</a>
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'issue') : route('admin.orders', ['type' => 'issue', 'admin_id' => $admin_id]) }}">Issue Orders</a>
+                            </li>
+                            <li>
+                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'cancelled') : route('admin.orders', ['type' => 'cancelled', 'admin_id' => $admin_id]) }}">Cancelled Orders</a>
                             </li>
                         </ul>
                     </li>
-                    <!--<li>
-                        <a href="#"><i class="fa fa-fw fa-pencil-square-o"></i> Survery Data</a>
-                    </li>-->
                     <li>
-                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.banks')}}"><i class="fa fa-fw fa-bank"></i> Banks</a>
+                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{route('admin.settings')}}" class="dropdown-font-size"><i class="fa fa-fw fa-cogs"></i> Settings</a>
-                            </li>
-                            <li>
-                                <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
-                            </li>
+                            @if(Auth::user()->id == 93)
+                                <li>
+                                    <a href="{{route('admin.settings')}}" class="dropdown-font-size"><i class="fa fa-fw fa-cogs"></i> Settings</a>
+                                </li>
+                            @endif
+                                <li>
+                                    <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i> Home</a>
+                                </li>
                             <li>
                                 <a href="{{url('logout')}}" class="dropdown-font-size"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>
