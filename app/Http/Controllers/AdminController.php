@@ -120,19 +120,47 @@ class AdminController extends Controller
                         ->where('user_id', '=', $admin_id)
                         ->orderBy('company')
                         ->pluck('company');
-        $company = session('company');
-        $companies = ['All']+$companies;
-        $company = in_array($company, $companies) ? $company : $companies[0];
 
+<<<<<<< HEAD
+        return view('admin.orders.page', [ 'type' => $type, 'companies' => $companies]);
+    }
+
+    public function searchOrders(Request $request) {
+        $companies = DB::table('banks')
+            ->select(DB::raw("DISTINCT(company)"))
+            ->orderBy('company')
+            ->pluck('company');
+
+        $company = $request->input('company');
+        $query = $request->input('search');
+        $type = $request->input('type');
+
+        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
+    }
+=======
         return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'admin_id' => $admin_id]);
     }
 
+>>>>>>> jboud17/master
 
 
     public function getOrders(Request $request) {
 
         $type = $request->input("type");
         $company = $request->input("company");
+<<<<<<< HEAD
+        $query = $request->input("query");
+        $company = $request->input("company");
+
+        $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+            ->leftJoin('users', 'user_id', '=', 'users.id');
+
+        if(null != $query && $query != ""){
+            $orders->where('users.firstName', 'LIKE', '%' . $query . '%')
+                ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
+                ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
+                ->orWhere('wallet', 'LIKE', '%' . $query . '%');
+=======
         $admin_id = $request->input("admin_id");
 
         if($type == 'completed' && $company !== 'All') {
@@ -146,18 +174,30 @@ class AdminController extends Controller
                 ->select(['orders.*','name','company'])
                 ->with('user')
                 ->where('banks.user_id', '=', $admin_id);
+>>>>>>> jboud17/master
         }
 
+        if(isset($company) && $company !== 'All'){
+            $orders->where('banks.company', '=', $company);
+        }
         if ($type !== 'all') {
             $orders->whereStatus($type);
         }
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
+<<<<<<< HEAD
+
+        $orders = $orders->paginate(50);
+
+        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query, 'company' => $company]);
+
+=======
         $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
 
 
         return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'admin_id' => $admin_id]);
+>>>>>>> jboud17/master
     }
 
 	public function banks($admin_id = null) {

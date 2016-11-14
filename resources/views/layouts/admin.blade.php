@@ -146,6 +146,11 @@
         <script src="/js/bootstrap.min.js"></script>
         <!-- custom JS -->
         <script src="/js/custom.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/af-2.1.2/b-1.2.2/r-2.1.0/datatables.min.css"/>
+
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/af-2.1.2/b-1.2.2/r-2.1.0/datatables.min.js"></script>
+
         @yield('scripts')
     </body>
 </html>

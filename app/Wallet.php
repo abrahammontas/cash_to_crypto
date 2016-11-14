@@ -9,4 +9,8 @@ class Wallet extends Authenticatable
     public function orders() {
         return $this->belongsTo('\App\Order', 'address', 'wallet');
     }
+
+    public function user() {
+        return $this->belongsTo('\App\User');
+    }
 }
