@@ -34,24 +34,14 @@
 	        	<div class="col-md-12">
 					<div class="col-md-8">
 						<h2 class="text-left fw-300">{{ucwords($type).' Orders'}}</h2>
-<<<<<<< HEAD
-						{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
-							{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
+						{{ Form::open(['class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}
+							{{ Form::text('search', '', ['id' => 'txtSearch', 'class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}
 							{{ Form::hidden('type', $type) }}
                         <?php if(!isset($company)){$company = "All";}?>
 						    {{ Form::hidden('company', $company,array('id' => 'companyId')) }}
-							{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
+						<input type="button" id="searchOrders" class="btn btn-default" value="Search"/>
 						{{ Form::close() }}
 						@if( isset($query) )
-=======
-						{{--{{ Form::open(['route' => 'admin.orders.search', 'class' => 'form navbar-form pull-left', 'style' => 'padding-left:0px;']) }}--}}
-							{{--{{ Form::text('search', '', ['class' => 'form-control', 'placeholder' => 'Search ' . $type . ' orders', 'style' => 'min-width:200px']) }}--}}
-							{{--{{ Form::hidden('type', $type) }}--}}
-						    {{--{{ Form::hidden('company', $company) }}--}}
-							{{--{{ Form::submit('Search', ['class' => 'btn btn-default']) }}--}}
-						{{--{{ Form::close() }}--}}
-						@if($query = session('query'))
->>>>>>> jboud17/master
 							<h2>{{ $query }}</h2>
 						@endif
 					</div>
@@ -121,10 +111,6 @@
 				</div>
 			</div>
 	    </div>
-
-			{{--@if($admin_id = session('admin_id'))--}}
-				{{--{{ $admin_id = session('admin_id') }}--}}
-			{{--@endif--}}
 @endsection
 
 @section('scripts')
@@ -158,7 +144,7 @@
 			}).change();
 		});
 
-		var page = 1;
+		var page = '{{$page}}';
 		var type = '{{$type}}';
 		var admin_id = '{{$admin_id}}';
 
@@ -166,36 +152,58 @@
 		$("#loader").show();
 		var loading = true;
 
+		$( "#searchOrders" ).click(function() {
+
+			var company = "All";
+            page = "1";
+			query = $("#txtSearch").val();
+
+			if (type == 'completed') {
+				company = '{{$company}}';
+			}
+
+			$("#company-switch-selected").text(company);
+			$("#companyId").val(company);
+			$("#orders-table tbody tr:not(#loader)").remove();
+
+			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id, "query" : query}, function(html){
+
+				$("#loader").hide();
+				$("#orders-table #loader").before(html);
+				loading = false;
+			});
+
+		});
+
+
 		if (type == 'completed') {
 
 			var company = '{{$company}}';
 
-<<<<<<< HEAD
-			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "query" : query}, function(html){
-=======
-			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
->>>>>>> jboud17/master
+			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "query" : query, "admin_id": admin_id}, function(html){
+
 				$("#loader").hide();
 				$("#orders-table #loader").before(html);
 				loading = false;
 			});
 
 			$( ".dropdown-menu" ).on("click", ".company-switch", function(e) {
-				page = 1;
+
 				company = $(this).attr("data-company");
 				e.preventDefault();
 				$("#company-switch-selected").text(company);
                 $("#companyId").val(company);
 				$("#orders-table tbody tr:not(#loader)").remove();
 				$("#loader").show();
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id}, function(html){
+                page = "1";
+
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "query" : query, "page": page, "admin_id": admin_id}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 				});
 			});
 
 		 } else {
-		 	page = 1;
 
 			if(query != null) {
 				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
@@ -204,11 +212,9 @@
 					loading = false;
 				});
 			} else {
-<<<<<<< HEAD
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query" : query}, function(html){
-=======
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "admin_id": admin_id}, function(html){
->>>>>>> jboud17/master
+
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "admin_id": admin_id, "query" : query}, function(html){
+
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;
