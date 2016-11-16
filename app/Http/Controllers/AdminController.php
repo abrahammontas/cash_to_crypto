@@ -145,7 +145,7 @@ class AdminController extends Controller
         $admin_id = $request->input("admin_id");
 
         $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-            ->leftJoin('users', 'banks.user_id', '=', 'users.id');
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id');
 
         if(null != $query && $query != "") {
             $orders->where('users.firstName', 'LIKE', '%' . $query . '%')
