@@ -111,70 +111,51 @@ class AdminController extends Controller
         );
     }
 
-    public function orders($type, $admin_id = null) {
+    public function orders(Request $request = null, $type, $admin_id = null) {
+
+        $page = "1";
+        $query = "";
+        $company = "All";
+
+        if($request != null){
+            $page = $request->input("page");
+            $query = $request->input("query");
+            $company = $request->input("company");
+        }
+
         if($admin_id == null) {
             $admin_id = Auth::user()->id;
         }
+
         $companies = DB::table('banks')
                         ->select(DB::raw("DISTINCT(company)"))
                         ->where('user_id', '=', $admin_id)
                         ->orderBy('company')
                         ->pluck('company');
 
-<<<<<<< HEAD
-        return view('admin.orders.page', [ 'type' => $type, 'companies' => $companies]);
+        return view('admin.orders.page', ['type' => $type, 'company' => $company , 'query' => $query, 'companies' => $companies, 'admin_id' => $admin_id, 'page' => $page]);
     }
-
-    public function searchOrders(Request $request) {
-        $companies = DB::table('banks')
-            ->select(DB::raw("DISTINCT(company)"))
-            ->orderBy('company')
-            ->pluck('company');
-
-        $company = $request->input('company');
-        $query = $request->input('search');
-        $type = $request->input('type');
-
-        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'query' => $query]);
-    }
-=======
-        return view('admin.orders.page', ['type' => $type, 'companies' => $companies, 'company' => $company, 'admin_id' => $admin_id]);
-    }
-
->>>>>>> jboud17/master
-
 
     public function getOrders(Request $request) {
 
         $type = $request->input("type");
-        $company = $request->input("company");
-<<<<<<< HEAD
+        $page = $request->input("page");
         $query = $request->input("query");
         $company = $request->input("company");
+        $admin_id = $request->input("admin_id");
 
         $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-            ->leftJoin('users', 'user_id', '=', 'users.id');
+            ->leftJoin('users', 'banks.user_id', '=', 'users.id');
 
-        if(null != $query && $query != ""){
+        if(null != $query && $query != "") {
             $orders->where('users.firstName', 'LIKE', '%' . $query . '%')
                 ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
                 ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
                 ->orWhere('wallet', 'LIKE', '%' . $query . '%');
-=======
-        $admin_id = $request->input("admin_id");
+        }
 
-        if($type == 'completed' && $company !== 'All') {
-            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->select(['orders.*', 'name', 'company'])
-                ->with('user')
-                ->where('company', '=', $company);
-
-        } else {
-            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->select(['orders.*','name','company'])
-                ->with('user')
-                ->where('banks.user_id', '=', $admin_id);
->>>>>>> jboud17/master
+        if($type != 'completed' && $company === 'All') {
+            $orders->where('banks.user_id', '=', $admin_id);
         }
 
         if(isset($company) && $company !== 'All'){
@@ -186,18 +167,14 @@ class AdminController extends Controller
         if ($type == 'pending') {
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
-<<<<<<< HEAD
 
-        $orders = $orders->paginate(50);
+        $orders = $orders->orderBy('orders.created_at', 'DESC')->paginate(10);
 
-        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'query' => $query, 'company' => $company]);
+        $links = $orders->appends(['type' => $type, 'company' => $company, 'query' => $query]);
 
-=======
-        $orders = $orders->orderBy('created_at', 'DESC')->paginate(1000);
+        $links->setPath($links->resolveCurrentPath()."/".$type);
 
-
-        return view('admin.orders.rows', ['orders' => $orders, 'type' => $type, 'admin_id' => $admin_id]);
->>>>>>> jboud17/master
+        return view('admin.orders.rows', ['links' => $links, 'orders' => $orders, 'type' => $type, 'admin_id' => $admin_id, 'query' => $query, 'company' => $company, 'page' => $page]);
     }
 
 	public function banks($admin_id = null) {

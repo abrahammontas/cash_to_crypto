@@ -119,3 +119,8 @@
 	</tr>
 	@empty
 	@endforelse
+	<tr>
+        <td colspan="12" style="text-align: center;">
+		{{$links}}
+        </td>
+	</tr>
