@@ -168,7 +168,7 @@ class AdminController extends Controller
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
 
-        $orders = $orders->orderBy('orders.created_at', 'DESC')->paginate(10);
+        $orders = $orders->orderBy('orders.created_at', 'DESC')->paginate(50);
 
         $links = $orders->appends(['type' => $type, 'company' => $company, 'query' => $query]);
 
@@ -372,15 +372,6 @@ class AdminController extends Controller
             $amount = '';
         }
 
-        /*if ($newStatus == 'pending') {
-            if ($oldStatus == 'issue') {
-                Mail::send('admin.emails.resolved', ['order' => $order], function($message) use ($order) {
-                    $message->to($order->user->email);
-                    $message->subject('Resolved order #'.$order->hash);
-                });
-            }
-        }*/
-
         return back()->with(['success' => "Order successfully updated.", 'company' => $company, 'status' => $status, 'amount' => $amount]);    }
 
     public function settings(Request $request) {
@@ -388,7 +379,8 @@ class AdminController extends Controller
             Settings::updateParams($request->all());
             return back()->with(['success' => "Settings saved"]);
         }
-        return view('admin.settings', ['settings' => Settings::getParams()]);
+        $admin_id = null;
+        return view('admin.settings', ['settings' => Settings::getParams(), 'admin_id' => $admin_id]);
     }
 
     public function limits(Request $request, $id) {
@@ -408,7 +400,8 @@ class AdminController extends Controller
     public function profile(Request $request, $id) {
         $user = User::find($id);
         $orders = Order::whereUserId($id)->with('bank')->orderBy('created_at', 'DESC')->paginate(100);
-        return view('admin.user.profile', ['user' => $user, 'orders' => $orders]);
+        $admin_id = null;
+        return view('admin.user.profile', ['user' => $user, 'orders' => $orders, 'admin_id' => $admin_id]);
     }
 
     public function userUpdate(Request $request, $id)
