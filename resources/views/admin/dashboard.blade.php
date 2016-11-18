@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'User Panel')
+@section('title', 'Admin Panel')
 
 @section('content')
             <div class="container-fluid container-padding">
