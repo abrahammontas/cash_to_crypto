@@ -57,7 +57,7 @@
 							 <li><a href="#" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 							@endforeach
 						  </ul>
-
+							<br />
                             <a href="#" class="export">Export</a>
                         </div>
 					</div>

@@ -55,10 +55,10 @@
 				</div>	
 		</td>
 		<td>
-			<button type='button' class='btn btn-{{$statusClasses[$order->status]}} btn-xs'  style="width:100%" data-toggle="modal" data-target="#order-edit-{{$order->id}}">
-				<i class='fa fa-pencil'></i> {{ucwords($order->status)}}
-			</button>
 
+			<button type='button' class='btn {{ ($order->status == 'pending' && ($order->receipt == '' || $order->selfie == '')) ? 'btn-created' : 'btn-' . $statusClasses[$order->status] }} btn-xs'  style="width:100%;" data-toggle="modal" data-target="#order-edit-{{$order->id}}">
+				<i class='fa fa-pencil'></i> {{ ($order->status == 'pending' && ($order->receipt == '' || $order->selfie == '')) ? 'Created' : ucwords($order->status) }}
+			</button>
 			<div id="order-edit-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			  <div class="modal-dialog order-edit">
 				{{Form::open(['method' => 'put', 'route' =>['admin.order.update', $order->id]])}}

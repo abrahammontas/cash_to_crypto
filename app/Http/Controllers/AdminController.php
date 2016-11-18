@@ -168,7 +168,7 @@ class AdminController extends Controller
             $orders->whereNotNull('selfie')->where('selfie', '!=', '')->whereNotNull('receipt')->where('receipt', '!=', '');
         }
 
-        $orders = $orders->orderBy('orders.created_at', 'DESC')->paginate(10);
+        $orders = $orders->orderBy('orders.created_at', 'DESC')->paginate(50);
 
         $links = $orders->appends(['type' => $type, 'company' => $company, 'query' => $query]);
 

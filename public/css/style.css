@@ -642,3 +642,12 @@ body.user-layout {
 .cancelled-link:hover {
     color: #6b6b6b;
 }
+.btn-created {
+    background-color: #20a8d6;
+    border: 1px solid #20a8d6;
+    color:white;
+}
+.btn-created:hover {
+    color:white;
+    background-color: #177a9b;
+}
