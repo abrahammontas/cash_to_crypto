@@ -144,19 +144,24 @@ class AdminController extends Controller
         $company = $request->input("company");
         $admin_id = $request->input("admin_id");
 
-        $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-            ->leftJoin('users', 'orders.user_id', '=', 'users.id');
+        if(null == $admin_id) {
+            $admin_id = Auth::user()->id;
+        }
 
         if(null != $query && $query != "") {
-            $orders->where('users.firstName', 'LIKE', '%' . $query . '%')
-                ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
-                ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
-                ->orWhere('wallet', 'LIKE', '%' . $query . '%');
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->whereRaw("banks.user_id = ".$admin_id."
+                AND (users.firstName LIKE '%". $query . "%'
+                OR users.lastName LIKE '%". $query . "%'
+                OR banks.name LIKE '%". $query . "%'
+                OR orders.wallet LIKE '%". $query . "%')");
+        } else {
+            $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->where('banks.user_id', '=', $admin_id);
         }
 
-        if($type != 'completed' && $company === 'All') {
-            $orders->where('banks.user_id', '=', $admin_id);
-        }
 
         if(isset($company) && $company !== 'All'){
             $orders->where('banks.company', '=', $company);
@@ -258,7 +263,17 @@ class AdminController extends Controller
     }
 
     public function users() {
-        $users = User::orderBy('created_at', 'DESC')->paginate(50);
+
+            $admin_id = Auth::user()->id;
+
+        $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->select('users.*')
+            ->where('banks.user_id', '=', $admin_id)
+            ->orderBy('orders.created_at', 'DESC')
+            ->groupBy('users.id')
+            ->paginate(50);
+
         return view('admin.user.list', ['users' => $users]);
     }
 
