@@ -33,9 +33,6 @@
     @if(auth()->user()->id !== 93)
         {{ $admin_id = null }}
     @endif
-    @if(Request::url() == url('/admin/users'))
-        {{ $admin_id = null }}
-    @endif
     <body style="margin-top:0px;">
         <!-- Navigation -->
         <nav class="navbar navbar-inverse" style="padding-left:20px; padding-right:20px;" role="navigation">
@@ -75,7 +72,7 @@
                         <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.users') : route('admin.users', $admin_id) }}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li>
                         <a href="{{ url('/') }}"><i class="fa fa-fw fa-home"></i> Homepage</a>
@@ -115,7 +112,7 @@
                         <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}"><i class="fa fa-fw fa-bank"></i> Banks</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.users')}}"><i class="fa fa-fw fa-group"></i> Users</a>
+                        <a href="{{ $admin_id === 93 ? route('admin.users') : route('admin.users', $admin_id) }}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>

@@ -27,10 +27,20 @@ class AdminController extends Controller
 
     public function index(Request $request) {
 
-        if($request->input('seller')) {
+        if($request->input('seller') && $request->input('seller') != 93) {
             $admin_id = $request->input('seller');
         } else {
             $admin_id = Auth::user()->id;
+        }
+
+        if($admin_id == 93) {
+            $users = User::count();
+        } else {
+            $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->select('users.*')
+                ->where('banks.user_id', '=', $admin_id)
+                ->count();
         }
 
         return view(
@@ -64,7 +74,7 @@ class AdminController extends Controller
                                         ->whereStatus('cancelled')
                                         ->where('banks.user_id', '=', $admin_id)
                                         ->count(),
-                'users'           => User::count(),
+                'users'           => $users,
                 'sellers' => User::where('admin', '=', 1)->get(),
                 'admin_id' => $admin_id
         	]
@@ -73,6 +83,17 @@ class AdminController extends Controller
     }
 
     public function indexTwo($admin_id) {
+
+        if($admin_id == null) {
+            $admin_id = Auth::user()->id;
+        }
+
+        $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+            ->select('users.*')
+            ->where('banks.user_id', '=', $admin_id)
+            ->count();
+
         return view(
             'admin.dashboard',
             [
@@ -104,8 +125,8 @@ class AdminController extends Controller
                     ->whereStatus('cancelled')
                     ->where('banks.user_id', '=', $admin_id)
                     ->count(),
-                'users'           => User::count(),
-                'sellers' => User::where('admin', '=', 1)->get(),
+                'users'    => $users,
+                'sellers'  => User::where('admin', '=', 1)->get(),
                 'admin_id' => $admin_id
             ]
         );
@@ -144,7 +165,7 @@ class AdminController extends Controller
         $company = $request->input("company");
         $admin_id = $request->input("admin_id");
 
-        if(null == $admin_id) {
+        if($admin_id == null) {
             $admin_id = Auth::user()->id;
         }
 
@@ -158,7 +179,8 @@ class AdminController extends Controller
                 OR orders.wallet LIKE '%". $query . "%')");
         } else {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->select(['orders.*','name','company'])
+                ->with('user')
                 ->where('banks.user_id', '=', $admin_id);
         }
 
@@ -262,30 +284,55 @@ class AdminController extends Controller
 		return back()->with(['success' => "Order(s) status successfully changed.", 'company' => $company]);
     }
 
-    public function users() {
+    public function users($admin_id = null) {
 
+        if($admin_id == null) {
             $admin_id = Auth::user()->id;
+        }
 
-        $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
-            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-            ->select('users.*')
-            ->where('banks.user_id', '=', $admin_id)
-            ->orderBy('orders.created_at', 'DESC')
-            ->groupBy('users.id')
-            ->paginate(50);
+        if($admin_id == 93) {
+            $users = User::orderBy('created_at', 'DESC')->paginate(50);
+        } else {
+            $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->select('users.*')
+                ->where('banks.user_id', '=', $admin_id)
+                ->orderBy('orders.created_at', 'DESC')
+                ->groupBy('users.id')
+                ->paginate(50);
+        }
 
-        return view('admin.user.list', ['users' => $users]);
+        return view('admin.user.list', ['users' => $users, 'admin_id' => $admin_id]);
     }
+
 
     public function postUsers(Request $request) {
 
-        if ($query = $request->input('search')) {
-            $users = DB::table('users')
-                ->where('firstName', 'LIKE', '%' . $query . '%')
-                ->orWhere('lastName', 'LIKE', '%' . $query . '%')
-                ->orWhere('phone', 'LIKE', '%' . $query . '%')
-                ->paginate(50);
-            return view('admin.user.list', ['users' => $users]);
+        $admin_id = $request->input('admin_id');
+        $query = $request->input('search');
+
+        if($admin_id == null) {
+            $admin_id = Auth::user()->id;
+        }
+
+        if ($query != '' && $query != null) {
+            if($admin_id == 93) {
+                $users = DB::table('users')
+                    ->where('firstName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $query . '%')
+                    ->paginate(50);
+            } else {
+                $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
+                    ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                    ->select('users.*')
+                    ->where('banks.user_id', '=', $admin_id)
+                    ->where('users.firstName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
+                    ->orWhere('users.phone', 'LIKE', '%' . $query . '%')
+                    ->paginate(50);
+            }
+            return view('admin.user.list', ['users' => $users, 'admin_id' => $admin_id]);
         }
 
         if ($request->input('export')) {
@@ -296,9 +343,10 @@ class AdminController extends Controller
                     $sheet->fromArray($users);
                 })->export('xls');
             });
-            return view('admin.users', ['export' => $export]);
+            return back()->with('export', $export);
         }
 
+        return back()->with('admin_id', $admin_id);
     }
 
     public function ban(Request $request, $id) {

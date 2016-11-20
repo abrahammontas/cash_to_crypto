@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('admin.users') }}" style="font-weight:500">
+                            <a href="{{ $admin_id === 93 ? route('admin.users') : route('admin.users', $admin_id) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

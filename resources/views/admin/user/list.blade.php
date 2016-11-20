@@ -3,6 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
+
 	    <div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-8">
@@ -11,6 +12,7 @@
 				<div class="col-md-4" style="margin-top:20px">
 					{{ Form::open(['route' => 'admin.users', 'class' => 'form navbar-form navbar-right']) }}
 						{{ Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Search users']) }}
+						{{ Form::hidden('admin_id', $admin_id) }}
 						{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
 					{{ Form::close() }}
 				</div>
@@ -35,7 +37,7 @@
 						{{ Form::close() }}
 					@endif
 	        		<div id="usersData" class="table-responsive" style="margin-top:20px;">
-					<table class='table table-stripped table-hover'>
+					<table class='table table-striped table-hover'>
 						<thead>
 					        <tr>
 					            <th>ID</th>
@@ -156,63 +158,63 @@
 
 	<script>
 
-		$(document).ready(function() {
-
-			function exportTableToCSV($table, filename) {
-
-				$table = $table.clone();
-				$table.find("td:nth-child(10)").remove();
-				$table.find("td:nth-child(11)").remove();
-
-				var $rows = $table.find('tr:has(td,th)'),
-
-						// Temporary delimiter characters unlikely to be typed by keyboard
-						// This is to avoid accidentally splitting the actual contents
-						tmpColDelim = String.fromCharCode(11), // vertical tab character
-						tmpRowDelim = String.fromCharCode(0), // null character
-
-						// actual delimiter characters for CSV format
-						colDelim = '","',
-						rowDelim = '"\r\n"',
-
-						// Grab text from table into CSV formatted string
-						csv = '"' + $rows.map(function (i, row) {
-									var $row = $(row),
-											$cols = $row.find('td,th');
-
-									return $cols.map(function (j, col) {
-										var $col = $(col),
-												text = $col.text();
-
-										return text.replace(/"/g, '""'); // escape double quotes
-
-									}).get().join(tmpColDelim);
-
-								}).get().join(tmpRowDelim)
-										.split(tmpRowDelim).join(rowDelim)
-										.split(tmpColDelim).join(colDelim) + '"',
-
-						// Data URI
-						csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
-
-				$(this)
-						.attr({
-							'download': filename,
-							'href': csvData,
-							'target': '_blank'
-						});
-			}
-
-			// This must be a hyperlink
-			$(".export").on('click', function (event) {
-				// CSV
-				exportTableToCSV.apply(this, [$('#usersData>table'), 'users.csv']);
-
-				// IF CSV, don't do event.preventDefault() or return false
-				// We actually need this to be a typical hyperlink
-			});
-
-		});
+//		$(document).ready(function() {
+//
+//			function exportTableToCSV($table, filename) {
+//
+//				$table = $table.clone();
+//				$table.find("td:nth-child(10)").remove();
+//				$table.find("td:nth-child(11)").remove();
+//
+//				var $rows = $table.find('tr:has(td,th)'),
+//
+//						// Temporary delimiter characters unlikely to be typed by keyboard
+//						// This is to avoid accidentally splitting the actual contents
+//						tmpColDelim = String.fromCharCode(11), // vertical tab character
+//						tmpRowDelim = String.fromCharCode(0), // null character
+//
+//						// actual delimiter characters for CSV format
+//						colDelim = '","',
+//						rowDelim = '"\r\n"',
+//
+//						// Grab text from table into CSV formatted string
+//						csv = '"' + $rows.map(function (i, row) {
+//									var $row = $(row),
+//											$cols = $row.find('td,th');
+//
+//									return $cols.map(function (j, col) {
+//										var $col = $(col),
+//												text = $col.text();
+//
+//										return text.replace(/"/g, '""'); // escape double quotes
+//
+//									}).get().join(tmpColDelim);
+//
+//								}).get().join(tmpRowDelim)
+//										.split(tmpRowDelim).join(rowDelim)
+//										.split(tmpColDelim).join(colDelim) + '"',
+//
+//						// Data URI
+//						csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+//
+//				$(this)
+//						.attr({
+//							'download': filename,
+//							'href': csvData,
+//							'target': '_blank'
+//						});
+//			}
+//
+//			// This must be a hyperlink
+//			$(".export").on('click', function (event) {
+//				// CSV
+//				exportTableToCSV.apply(this, [$('#usersData>table'), 'users.csv']);
+//
+//				// IF CSV, don't do event.preventDefault() or return false
+//				// We actually need this to be a typical hyperlink
+//			});
+//
+//		});
 
 	</script>
 
