@@ -84,7 +84,7 @@ class AdminController extends Controller
 
     public function indexTwo($admin_id) {
 
-        if($admin_id == null) {
+        if(auth()->user()->id !== 93) {
             $admin_id = Auth::user()->id;
         }
 
@@ -138,13 +138,15 @@ class AdminController extends Controller
         $query = "";
         $company = "All";
 
+
+
         if($request != null){
             $page = $request->input("page");
             $query = $request->input("query");
             $company = $request->input("company");
         }
 
-        if($admin_id == null) {
+        if($admin_id == null || auth()->user()->id !== 93) {
             $admin_id = Auth::user()->id;
         }
 
@@ -177,7 +179,7 @@ class AdminController extends Controller
         $company = $request->input("company");
         $admin_id = $request->input("admin_id");
 
-        if($admin_id == null) {
+        if($admin_id == null || auth()->user()->id !== 93) {
             $admin_id = Auth::user()->id;
         }
 
@@ -218,8 +220,8 @@ class AdminController extends Controller
 
 	public function banks($admin_id = null) {
 
-	    if($admin_id == null) {
-	        $admin_id = Auth::user()->id;
+        if($admin_id == null || auth()->user()->id !== 93) {
+            $admin_id = Auth::user()->id;
         }
 
     	$banks = Bank::where('user_id', '=', $admin_id)
@@ -298,7 +300,7 @@ class AdminController extends Controller
 
     public function users($admin_id = null) {
 
-        if($admin_id == null) {
+        if($admin_id == null || auth()->user()->id !== 93) {
             $admin_id = Auth::user()->id;
         }
 
@@ -450,6 +452,11 @@ class AdminController extends Controller
         return back()->with(['success' => "Order successfully updated.", 'company' => $company, 'status' => $status, 'amount' => $amount]);    }
 
     public function settings(Request $request) {
+
+        if(auth()->user()->id !== 93) {
+            return redirect('admin.index');
+        }
+
         if ($request->isMethod('post')) {
             Settings::updateParams($request->all());
             return back()->with(['success' => "Settings saved"]);
