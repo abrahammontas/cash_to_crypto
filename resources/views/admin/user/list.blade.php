@@ -10,9 +10,8 @@
 	        		<h2 class="text-left fw-300">Users</h2>
 	        	</div>
 				<div class="col-md-4" style="margin-top:20px">
-					{{ Form::open(['route' => 'admin.users', 'class' => 'form navbar-form navbar-right']) }}
+					{{ Form::open(['route' => ['admin.users.search', $admin_id], 'class' => 'form navbar-form navbar-right']) }}
 						{{ Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Search users']) }}
-						{{ Form::hidden('admin_id', $admin_id) }}
 						{{ Form::submit('Search', ['class' => 'btn btn-default']) }}
 					{{ Form::close() }}
 				</div>
@@ -30,7 +29,7 @@
 	        @endif
 	        <div class="row">
 	        	<div class="col-md-12">
-					@if(Auth::user()->id === 93)
+					@if(Auth::user()->id === 93 && $admin_id === 93)
 						{{ Form::open(['route' => 'admin.users']) }}
 							{{ Form::hidden('export', 'Export') }}
 							{{ Form::submit('Export') }}

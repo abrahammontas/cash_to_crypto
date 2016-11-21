@@ -42,13 +42,14 @@ Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => '
     Route::get('dashboard/{admin_id}', ['as' => 'dashboardTwo', 'uses' => 'AdminController@indexTwo']);
     Route::post('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
 	Route::get('banks/{admin_id?}', ['as' => 'banks', 'uses' => 'AdminController@banks']);
+    Route::post('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
 	Route::get('orders/{type}/{admin_id?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank/{admin_id?}', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
 	Route::get('users/{admin_id?}', ['as' => 'users', 'uses' => 'AdminController@users']);
-    Route::post('users', ['as' => 'users', 'uses' => 'AdminController@postUsers']);
+    Route::post('users/{admin_id?}', ['as' => 'users.search', 'uses' => 'AdminController@postUsers']);
 	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 	Route::delete('order/{id}', ['as' => 'order.delete', 'uses' => 'AdminController@orderDelete']);

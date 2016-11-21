@@ -154,6 +154,18 @@ class AdminController extends Controller
                         ->orderBy('company')
                         ->pluck('company');
 
+        if ($request->input('export')) {
+
+            $completed_orders = Order::whereStatus('completed')->get()->toArray();
+            $export = Excel::create('completed_orders', function($excel) use ($completed_orders) {
+                $excel->sheet('completed_orders_sheet', function($sheet) use ($completed_orders) {
+                    $sheet->fromArray($completed_orders);
+                })->export('xls');
+            });
+
+            return back()->with('export', $export);
+        }
+
         return view('admin.orders.page', ['type' => $type, 'company' => $company , 'query' => $query, 'companies' => $companies, 'admin_id' => $admin_id, 'page' => $page]);
     }
 
@@ -306,9 +318,8 @@ class AdminController extends Controller
     }
 
 
-    public function postUsers(Request $request) {
+    public function postUsers(Request $request, $admin_id = null) {
 
-        $admin_id = $request->input('admin_id');
         $query = $request->input('search');
 
         if($admin_id == null) {
@@ -332,6 +343,7 @@ class AdminController extends Controller
                     ->orWhere('users.phone', 'LIKE', '%' . $query . '%')
                     ->paginate(50);
             }
+
             return view('admin.user.list', ['users' => $users, 'admin_id' => $admin_id]);
         }
 

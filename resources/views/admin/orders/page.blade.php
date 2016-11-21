@@ -57,8 +57,13 @@
 							 <li><a href="#" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 							@endforeach
 						  </ul>
-							<br />
-                            <a href="#" class="export">Export</a>
+							@if(auth()->user()->id === 93 && $admin_id === 93)
+								<br />
+								{{ Form::open(['route' => ['admin.orders', $type]]) }} 
+									{{ Form::hidden('export', 'Export') }} 
+									{{ Form::submit('Export') }} 
+								{{ Form::close() }}
+							@endif
                         </div>
 					</div>
 					@endif

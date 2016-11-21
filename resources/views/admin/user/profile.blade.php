@@ -132,7 +132,7 @@
         <div class="col-md-12">
             <h2 class="fw-300" style="margin-bottom: 40px;">Transaction History</h2>
             <div class='table-responsive'>
-                <table class='table table-hover table-bordered'>
+                <table class='table table-hover table-striped table-bordered'>
                     <thead>
                         <tr>
                             <th>Order #</th>

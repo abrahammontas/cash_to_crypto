@@ -29,7 +29,7 @@
 	        <div class="row">
 	        	<div class="col-md-12">
 	        		<div class='table-responsive'>
-					<table class='table table-hover table-bordered'>
+					<table class='table table-hover table-striped table-bordered'>
 						<thead>
 							<tr>
 								<th>Order Number</th>
