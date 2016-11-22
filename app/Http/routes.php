@@ -22,13 +22,10 @@ Route::get('/atm-locations', ['as' => 'atm-locations', function(){
 Route::auth();
 
 Route::group(['middleware' => ['auth', 'banned']], function () {
-	//Route::group(['middleware' => 'photo'], function () {
-		Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
-		Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
-	//});
+    Route::get('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@index']);
+    Route::post('buy-bitcoins', ['as' => 'buy', 'uses' => 'OrderController@order']);
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'UserController@index']);
     Route::get('current-order', ['as' => 'current-order', 'uses' => 'UserController@currentOrder']);
-//	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 	Route::get('profile', ['as' => 'profile', 'uses' => 'UserController@profile']);
 	Route::post('receipt', ['as' => 'receipt', 'uses' => 'OrderController@uploadReceipt']);
 	Route::post('profile', ['as' => 'profile', 'uses' => 'UserController@profileUpdate']);
@@ -37,23 +34,22 @@ Route::group(['middleware' => ['auth', 'banned']], function () {
 	Route::post('selfie', ['as' => 'selfie', 'uses' => 'OrderController@uploadSelfie']);
 	Route::post('both', ['as' => 'both', 'uses' => 'OrderController@uploadImages']);
 	Route::post('order/cancel/{hash}', ['as' => 'order.cancel', 'uses' => 'OrderController@cancel']);
+    //	Route::get('locations', ['as' => 'locations', 'uses' => 'UserController@locations']);
 });
 
 Route::group(['middleware' => ['auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
-    Route::get('dashboard/{user_id}', ['as' => 'dashboardTwo', 'uses' => 'AdminController@indexTwo']);
-
-
+    Route::get('dashboard/{admin_id}', ['as' => 'dashboardTwo', 'uses' => 'AdminController@indexTwo']);
     Route::post('dashboard', ['as' => 'dashboard', 'uses' => 'AdminController@index']);
-	Route::get('banks/{user_id?}', ['as' => 'banks', 'uses' => 'AdminController@banks']);
+	Route::get('banks/{admin_id?}', ['as' => 'banks', 'uses' => 'AdminController@banks']);
+    Route::post('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
 	Route::get('orders/{type}/{admin_id?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
-
 	Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
 	Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
 	Route::post('bank/{admin_id?}', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
 	Route::post('orders/status', ['as' => 'orders.status', 'uses' => 'AdminController@ordersStatus']);
 	Route::get('users/{admin_id?}', ['as' => 'users', 'uses' => 'AdminController@users']);
-    Route::post('users', ['as' => 'users', 'uses' => 'AdminController@postUsers']);
+    Route::post('users/{admin_id?}', ['as' => 'users.search', 'uses' => 'AdminController@postUsers']);
 	Route::post('ban/{id}', ['as' => 'users.ban', 'uses' => 'AdminController@ban']);
 	Route::post('unban/{id}', ['as' => 'users.unban', 'uses' => 'AdminController@unban']);
 	Route::delete('order/{id}', ['as' => 'order.delete', 'uses' => 'AdminController@orderDelete']);

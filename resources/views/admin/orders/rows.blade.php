@@ -9,7 +9,11 @@
 	<tr class="{{($i & 1) ? 'odd' : 'even'}}">
     	<td>{{$order->hash}}</td>
     	<td>
-			<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->firstName) . ' ' . ($order->lastName) }}</a>
+			@if($query != '' && $query != null)
+				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->firstName) . ' ' . ($order->lastName) }}</a>
+			@else
+				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
+			@endif
     	</td>
 		<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
 		@if ($order->img_updated_at == '')

@@ -57,8 +57,13 @@
 							 <li><a href="#" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 							@endforeach
 						  </ul>
-							<br />
-                            <a href="#" class="export">Export</a>
+							@if(auth()->user()->id === 93 && $admin_id === 93)
+								<br />
+								{{ Form::open(['route' => ['admin.orders', $type]]) }} 
+									{{ Form::hidden('export', 'Export') }} 
+									{{ Form::submit('Export') }} 
+								{{ Form::close() }}
+							@endif
                         </div>
 					</div>
 					@endif
@@ -78,7 +83,7 @@
 	        <div class="row">
 	        	<div class="col-md-12">
         			<div id="dvData" class="table-responsive">
-						<table id="orders-table" class='table table-stripped table-hover'>
+						<table id="orders-table" class='table table-striped table-hover'>
 						<thead>
 					        <tr>
 					            <th>Order ID</th>
@@ -205,8 +210,8 @@
 
 		 } else {
 
-			if(query != null) {
-				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page}, function(html){
+			if(query != null && query != "") {
+				$.get("{{route('admin.orders.ajax')}}", {"type": type, "page": page, "query": query, "admin_id": admin_id}, function(html){
 					$("#loader").hide();
 					$("#orders-table #loader").before(html);
 					loading = false;
