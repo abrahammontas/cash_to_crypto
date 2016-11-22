@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ $admin_id === 93 ? route('admin.orders', 'issue') : route('admin.orders', ['type' => 'issue', 'admin_id' => $admin_id]) }}" class="issue-link">
+                                <a href="{{ $admin_id === $userAs ? route('admin.orders', 'issue') : route('admin.orders', ['type' => 'issue', 'admin_id' => $userAs]) }}" class="issue-link">
                                     <div class="panel-footer">
                                         <span class="pull-left">View Details</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right" style="color:#ef3734"></i></span>
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'pending') : route('admin.orders', ['type' => 'pending', 'admin_id' => $admin_id]) }}" style="font-weight:500;">
+                            <a href="{{ $admin_id === $userAs ? route('admin.orders', 'pending') : route('admin.orders', ['type' => 'pending', 'admin_id' => $userAs]) }}" style="font-weight:500;">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'completed') : route('admin.orders', ['type' => 'completed', 'admin_id' => $admin_id]) }}" style="font-weight:500">
+                            <a href="{{ $admin_id === $userAs ? route('admin.orders', 'completed') : route('admin.orders', ['type' => 'completed', 'admin_id' => $userAs]) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ $admin_id === 93 ? route('admin.orders', 'cancelled') : route('admin.orders', ['type' => 'cancelled', 'admin_id' => $admin_id]) }}" class="cancelled-link">
+                            <a href="{{ $admin_id === $userAs ? route('admin.orders', 'cancelled') : route('admin.orders', ['type' => 'cancelled', 'admin_id' => $userAs]) }}" class="cancelled-link">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ $admin_id === 93 ? route('admin.banks') : route('admin.banks', $admin_id) }}" style="font-weight:500">
+                            <a href="{{ $admin_id === $userAs ? route('admin.banks') : route('admin.banks', $userAs) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ $admin_id === 93 ? route('admin.users') : route('admin.users', $admin_id) }}" style="font-weight:500">
+                            <a href="{{ $admin_id === $userAs ? route('admin.users') : route('admin.users', $admin_id) }}" style="font-weight:500">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

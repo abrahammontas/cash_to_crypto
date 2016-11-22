@@ -27,26 +27,28 @@ class AdminController extends Controller
 
     public function index(Request $request) {
 
+        $admin_id = Auth::user()->id;
+
         if($request->input('seller') && $request->input('seller') != 93) {
-            $admin_id = $request->input('seller');
+            $userAs = $request->input('seller');
         } else {
-            $admin_id = Auth::user()->id;
+            $userAs = Auth::user()->id;
         }
 
-        if($admin_id == 93) {
+        if($userAs == 93) {
             $users = User::count();
         } else {
             $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                 ->leftJoin('users', 'orders.user_id', '=', 'users.id')
                 ->select('users.*')
-                ->where('banks.user_id', '=', $admin_id)
+                ->where('banks.user_id', '=', $userAs)
                 ->count();
         }
 
         return view(
         	'admin.dashboard',
         	[
-        		'banks' => Bank::where('user_id', '=', $admin_id)
+        		'banks' => Bank::where('user_id', '=', $userAs)
                                 ->count(),
         		'pendingOrders'   => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                                         ->select(['orders.*','name','company'])
@@ -54,29 +56,30 @@ class AdminController extends Controller
                                         ->whereStatus('pending')
                                         ->whereNotNull('selfie')->where('selfie', '!=', '')
                                         ->whereNotNull('receipt')->where('receipt', '!=', '')
-                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->where('banks.user_id', '=', $userAs)
                                         ->count(),
         		'issueOrders' 	  => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                                         ->select(['orders.*','name','company'])
                                         ->with('user')
                                         ->whereStatus('issue')
-                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->where('banks.user_id', '=', $userAs)
                                         ->count(),
         		'completedOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                                         ->select(['orders.*','name','company'])
                                         ->with('user')
                                         ->whereStatus('completed')
-                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->where('banks.user_id', '=', $userAs)
                                         ->count(),
                 'cancelledOrders' => Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                                         ->select(['orders.*', 'name', 'company'])
                                         ->with('user')
                                         ->whereStatus('cancelled')
-                                        ->where('banks.user_id', '=', $admin_id)
+                                        ->where('banks.user_id', '=', $userAs)
                                         ->count(),
                 'users'           => $users,
                 'sellers' => User::where('admin', '=', 1)->get(),
-                'admin_id' => $admin_id
+                'admin_id' => $admin_id,
+                'userAs'   => $userAs
         	]
 
         );
@@ -138,15 +141,14 @@ class AdminController extends Controller
         $query = "";
         $company = "All";
 
-
-
         if($request != null){
             $page = $request->input("page");
             $query = $request->input("query");
             $company = $request->input("company");
         }
 
-        if($admin_id == null || auth()->user()->id !== 93) {
+        if($admin_id == null || Auth()->user()->id !== 93) {
+
             $admin_id = Auth::user()->id;
         }
 
@@ -186,11 +188,14 @@ class AdminController extends Controller
         if(null != $query && $query != "") {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                 ->leftJoin('users', 'orders.user_id', '=', 'users.id')
-                ->whereRaw("banks.user_id = ".$admin_id."
-                AND (users.firstName LIKE '%". $query . "%'
-                OR users.lastName LIKE '%". $query . "%'
-                OR banks.name LIKE '%". $query . "%'
-                OR orders.wallet LIKE '%". $query . "%')");
+                ->where("banks.user_id", "=", $admin_id)
+                ->Where(function ($orderQuery) use ($query){
+                    $orderQuery->where('users.firstName', 'LIKE', '%' . $query . '%')
+                               ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
+                               ->orWhere('banks.name', 'LIKE', '%' . $query . '%')
+                               ->orWhere('orders.wallet', 'LIKE', '%' . $query . '%');
+                });
+
         } else {
             $orders = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                 ->select(['orders.*','name','company'])
@@ -332,17 +337,22 @@ class AdminController extends Controller
             if($admin_id == 93) {
                 $users = DB::table('users')
                     ->where('firstName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('lastName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('phone', 'LIKE', '%' . $query . '%')
+                    ->Where(function ($orderQuery) use ($query){
+                        $orderQuery->where('firstName', 'LIKE', '%' . $query . '%')
+                                   ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+                                   ->orWhere('phone', 'LIKE', '%' . $query . '%');
+                    })
                     ->paginate(50);
             } else {
                 $users = Order::leftJoin('banks', 'bank_id', '=', 'banks.id')
                     ->leftJoin('users', 'orders.user_id', '=', 'users.id')
                     ->select('users.*')
                     ->where('banks.user_id', '=', $admin_id)
-                    ->where('users.firstName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('users.lastName', 'LIKE', '%' . $query . '%')
-                    ->orWhere('users.phone', 'LIKE', '%' . $query . '%')
+                    ->Where(function ($orderQuery) use ($query){
+                        $orderQuery->where('firstName', 'LIKE', '%' . $query . '%')
+                                   ->orWhere('lastName', 'LIKE', '%' . $query . '%')
+                                   ->orWhere('phone', 'LIKE', '%' . $query . '%');
+                    })
                     ->paginate(50);
             }
 
