@@ -51,21 +51,21 @@
             <div class='hidden-sm hidden-md hidden-lg'>
                 <ul class='nav navbar-collapse collapse'>
                     <li>
-                        <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="{{route('dashboard')}}" style="{{ Request::is('dashboard') ? 'color:#CCA75C; font-weight:500;' : '' }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                    	<a href="{{ url('/contact') }}"><i class="fa fa-fw fa-envelope-o"></i> Contact</a>
+                    	<a href="{{ url('/contact') }}" style="{{ Request::is('contact') ? 'color:#CCA75C; font-weight:500;' : '' }}"><i class="fa fa-fw fa-envelope-o"></i> Contact</a>
                 	</li>
                     @if (auth()->user()->hasPending())
                     <li>
-                        <a href="{{route('current-order')}}"> Current Order</a>
+                        <a href="{{route('current-order')}}" style="{{ Request::is('current-order') ? 'color:#CCA75C; font-weight:500;' : '' }}"> Current Order</a>
                     </li>
                     @endif
                     <li>
-                        <a href="{{route('buy')}}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
+                        <a href="{{route('buy')}}" style="{{ Request::is('buy-bitcoins') ? 'color:#CCA75C; font-weight:500;' : '' }}"><i class="fa fa-fw fa-btc"></i>Buy Bitcoins!</a>
                     </li>
                     <li>
-                        <a href="{{route('profile')}}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
+                        <a href="{{route('profile')}}" style="{{ Request::is('profile') ? 'color:#CCA75C; font-weight:500;' : '' }}" class="dropdown-font-size"><i class="fa fa-fw fa-list-ul"></i> Profile</a>
                     </li>
                     <li>
                         <a href="{{url('logout')}}" class="dropdown-font-size"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -76,24 +76,31 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav hidden-xs navbar-collapse">
                 <li>
-                    <a href="{{route('dashboard')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <a href="{{route('dashboard')}}" style="{{ Request::is('dashboard') ? 'color:#CCA75C; font-weight:500;' : '' }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
                 @if (auth()->user()->hasPending())
                 <li>
-                    <a href="{{route('current-order')}}"> Current Order</a>
+                    <a href="{{route('current-order')}}" style="{{ Request::is('current-order') ? 'color:#CCA75C; font-weight:500;' : '' }}"> Current Order</a>
                 </li>
                 @endif
                 <li class="no-border">
-                    <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px;"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
+                    <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px; {{ Request::is('current-order') ? 'color:#CCA75C; font-weight:500;' : '' }}"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="{{ route('profile') }}"> Profile</a></li>
-                        <li><a href="{{ url('/directions') }}" style="color:#5b5b5b;">Directions</a></li>
-                        <li><a href="{{ url('/atm-locations') }}" style="color:#5b5b5b;">Bitcoin ATMs</a></li>
-                        <li><a href="{{ url('/contact') }}" style="color:#5b5b5b;">Contact</a></li>
+                        <li><a href="/" style="{{ Request::is('/') ? 'color:#CCA75C; font-weight:500;' : '' }}">Home</a></li>
+                        <li><a href="{{ route('profile') }}" style="{{ Request::is('profile') ? 'color:#CCA75C; font-weight:500;' : '' }}"> Profile</a></li>
+                        <li><a href="{{ url('/directions') }}" style="color:#5b5b5b; {{ Request::is('directions') ? 'color:#CCA75C; font-weight:500;' : '' }}">Directions</a></li>
+
+                        <li><a href="{{ route('atms.georgia') }}" style="{{ Request::is('atms-georgia') ? 'color:#CCA75C; font-weight:500;' : '' }}">Georgia ATMs</a></li>
+                        <li><a href="{{ route('atms.alabama') }}" style="{{ Request::is('atms-alabama') ? 'color:#CCA75C; font-weight:500;' : '' }}">Alabama ATMs</a></li>
+                        <li><a href="{{ route('atms.massachusetts') }}" style="{{ Request::is('atms-massachusetts') ? 'color:#CCA75C; font-weight:500;' : '' }}">Massachusetts ATMs</a></li>
+                        <li><a href="{{ route('atms.newjersey') }}" style="{{ Request::is('atms-newjersey') ? 'color:#CCA75C; font-weight:500;' : '' }}">New Jersey ATMs</a></li>
+                        <li><a href="{{ route('atms.texas') }}" style="{{ Request::is('atms-texas') ? 'color:#CCA75C; font-weight:500;' : '' }}">Texas ATMs</a></li>
+                        <li><a href="{{ route('atms.florida') }}" style="{{ Request::is('atms-florida') ? 'color:#CCA75C; font-weight:500;' : '' }}">Florida ATMs</a></li>
+
+                        <li><a href="{{ url('/contact') }}" style="color:#5b5b5b; {{ Request::is('contact') ? 'color:#CCA75C; font-weight:500;' : '' }}">Contact</a></li>
                         <li><a href="{{ url('/logout') }}"> Logout</a></li>
                     </ul>
                 </li>

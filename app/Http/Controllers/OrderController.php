@@ -75,13 +75,16 @@ class OrderController extends Controller
         $order->total    = $total;
         $order->save();
 
-//        $admins = User::whereAdmin(1)->whereBanned(0)->get();
-//        $admins->each(function($admin) use ($order){
-//            Mail::send('admin.emails.new', ['order' => $order, 'admin' => $admin], function($message) use ($admin) {
-//                $message->to($admin->email);
-//                $message->subject('New order');
-//            });
-//        });
+        $admins = User::where('id', '=', $order->bank->user_id);
+
+        $admins->each(function($admin) use ($order){
+            Mail::send('admin.emails.new', ['order' => $order, 'admin' => $admin], function($message) use ($admin) {
+                if($admin->id !== 93) {
+                    $message->to($admin->email);
+                    $message->subject('New order');
+                }
+            });
+        });
 
         return redirect()->route('current-order')->with(['success' => 'Order created successfully. Below you will find your order summary and deposit directions.', 'new_order' => 'used for google analytics']);
     }
@@ -95,18 +98,20 @@ class OrderController extends Controller
         $hash = md5(microtime().$order->id);
 
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
-        	$order->img_updated_at = $this->current_time;
+            $order->img_updated_at = $this->current_time;
             $order->receipt = $hash;
             $order->save();
 
-//            $admins = User::whereAdmin(1)->whereBanned(0)->get();
-//            $admins->each(function($admin) use ($order, $request){
-//                Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-//                    $message->to($admin->email);
-//                    $message->subject('Receipt upload');
-//                    $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
-//                });
-//            });
+            $admins = User::where('id', '=', $order->bank->user_id);
+            $admins->each(function($admin) use ($order, $request){
+                Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                    if($admin->id !== 93) {
+                        $message->to($admin->email);
+                        $message->subject('Receipt upload');
+                        $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+                    }
+                });
+            });
 
             return back()->with('success', 'Receipt uploaded successfully.');
         }
@@ -122,18 +127,20 @@ class OrderController extends Controller
         $hash = md5(microtime().$order->id);
 
         if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
-        	$order->img_updated_at = $this->current_time;
+            $order->img_updated_at = $this->current_time;
             $order->selfie = $hash;
             $order->save();
 
-//            $admins = User::whereAdmin(1)->whereBanned(0)->get();
-//            $admins->each(function($admin) use ($order, $request){
-//                Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-//                    $message->to($admin->email);
-//                    $message->subject('Selfie upload');
-//                    $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
-//                });
-//            });
+            $admins = User::where('id', '=', $order->bank->user_id);
+            $admins->each(function($admin) use ($order, $request){
+                Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                    if($admin->id !== 93) {
+                        $message->to($admin->email);
+                        $message->subject('Selfie upload');
+                        $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+                    }
+                });
+            });
 
             return back()->with('success', 'Selfie uploaded successfully.');
         }
@@ -156,14 +163,16 @@ class OrderController extends Controller
                 $order->receipt = $hash;
                 $order->save();
 
-//                $admins = User::whereAdmin(1)->whereBanned(0)->get();
-//                $admins->each(function($admin) use ($order, $request){
-//                    Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-//                        $message->to($admin->email);
-//                        $message->subject('Receipt upload');
-//                        $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
-//                    });
-//                });
+                $admins = User::where('id', '=', $order->bank->user_id);
+                $admins->each(function($admin) use ($order, $request){
+                    Mail::send('admin.emails.receipt', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                        if($admin->id !== 93) {
+                            $message->to($admin->email);
+                            $message->subject('Receipt upload');
+                            $message->attach($request->file('receipt'), ['as' => 'receipt.jpg']);
+                        }
+                    });
+                });
             } else {
                 $receiptUploaded = false;
             }
@@ -174,15 +183,16 @@ class OrderController extends Controller
                 $order->selfie = $hash;
                 $order->save();
 
-//                $admins = User::whereAdmin(1)->whereBanned(0)->get();
-//                $admins->each(function($admin) use ($order, $request){
-//                    Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
-//                        $message->to($admin->email);
-//                        $message->subject('Selfie upload');
-//                        $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
-//                    });
-//                });
-
+                $admins = User::where('id', '=', $order->bank->user_id);
+                $admins->each(function($admin) use ($order, $request){
+                    Mail::send('admin.emails.selfie', ['order' => $order, 'admin' => $admin], function($message) use ($admin, $request) {
+                        if($admin->id !== 93) {
+                            $message->to($admin->email);
+                            $message->subject('Selfie upload');
+                            $message->attach($request->file('selfie'), ['as' => 'selfie.jpg']);
+                        }
+                    });
+                });
             } else {
                 $selfieUploaded = false;
             }
@@ -201,7 +211,7 @@ class OrderController extends Controller
             $order->save();
             return back()->with(['success' => 'Receipt uploaded successfully.']);
         }
-        
+
         return back()->with('warning', 'Can\'t upload images. Try again later.');
     }
 

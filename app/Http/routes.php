@@ -15,8 +15,28 @@ Route::get('/', function () {
     return view('home.index');
 });
 
-Route::get('/atm-locations', ['as' => 'atm-locations', function(){
-   return view('atms.index');
+Route::get('atms-georgia', ['as' => 'atms.georgia', function() {
+    return view('atms.georgia');
+}]);
+
+Route::get('atms-alabama', ['as' => 'atms.alabama', function() {
+    return view('atms.alabama');
+}]);
+
+Route::get('atms-massachusetts', ['as' => 'atms.massachusetts', function() {
+    return view('atms.massachusetts');
+}]);
+
+Route::get('atms-newjersey', ['as' => 'atms.newjersey', function() {
+    return view('atms.newjersey');
+}]);
+
+Route::get('atms-texas', ['as' => 'atms.texas', function() {
+    return view('atms.texas');
+}]);
+
+Route::get('atms-florida', ['as' => 'atms.florida', function() {
+    return view('atms.florida');
 }]);
 
 Route::auth();
