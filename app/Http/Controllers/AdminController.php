@@ -462,16 +462,16 @@ class AdminController extends Controller
         return back()->with(['success' => "Order successfully updated.", 'company' => $company, 'status' => $status, 'amount' => $amount]);    }
 
     public function settings(Request $request) {
-
         if(auth()->user()->id !== 93) {
             return redirect('admin.index');
         }
 
         if ($request->isMethod('post')) {
             Settings::updateParams($request->all());
-            return back()->with(['success' => "Settings saved"]);
+            return back()->with(['success' => "Banner updated"]);
         }
         $admin_id = null;
+
         return view('admin.settings', ['settings' => Settings::getParams(), 'admin_id' => $admin_id]);
     }
 

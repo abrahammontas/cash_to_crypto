@@ -11,18 +11,10 @@
 
     <!-- Top content -->
     <div class="top-content">
-        <!-- Top menu -->
+
         @include('partials.navigation')
 
-    <!--         <section id="closed" style="background-color:#9cb8e2; border-top: 1px solid #147ae0; border-bottom: 1px solid #147ae0;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12" style="padding-top:14px; padding-bottom:8px;">
-                    <h3 style="color:white; margin-top:5px; font-weight: 400;"><span style="color:red">* * *</span> We are closed for Labor Day Weekend. We will reopen Tuesday at 9:00am EST <span style="color:red">* * *</span></h3>
-                </div>
-            </div>
-        </div>
-    </section> -->
+        @include ('partials.banner')
 
         @if ($message = session('success'))
             <div class="row">

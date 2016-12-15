@@ -109,15 +109,19 @@
 
         <div class="wrapper user">
 
-            <!-- <section id="closed" style="background-color:#9cb8e2; border-bottom: 1px solid #147ae0;">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px;">
-                            <h3 style="color:white; margin-top:5px; font-weight: 400; text-align:center;"><span style="color:red">* * *</span> We are closed this weekend for maintenance. We will reopen Monday (10/17) at 9am EST. <span style="color:red">* * *</span></h3>
+            @if(App\Settings::getParam('banner_on') == '1')
+
+                <section id="closed" style="background-color:#9cb8e2; border-bottom: 1px solid #147ae0;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:10px; padding-bottom:10px;">
+                                <h3 style="color:white; margin-top:5px; font-weight: 400; text-align:center;"><span style="color:red">* * *</span> {{ App\Settings::getParam('banner_text') }} <span style="color:red">* * *</span></h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section> -->
+                </section>
+
+            @endif
         
         	@yield('content')
         </div>
