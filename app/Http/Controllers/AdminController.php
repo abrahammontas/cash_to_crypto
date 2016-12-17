@@ -468,10 +468,14 @@ class AdminController extends Controller
 
         if ($request->isMethod('post')) {
             Settings::updateParams($request->all());
-            return back()->with(['success' => "Banner updated"]);
+            if($request->has('banner_on')) {
+                return back()->with(['success' => "Banner updated"]);
+            } else {
+                return back()->with(['success' => "Store status updated"]);
+            }
         }
-        $admin_id = null;
 
+        $admin_id = null;
         return view('admin.settings', ['settings' => Settings::getParams(), 'admin_id' => $admin_id]);
     }
 

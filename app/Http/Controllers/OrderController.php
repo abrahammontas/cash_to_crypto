@@ -54,6 +54,11 @@ class OrderController extends Controller
             return back()->with('warning', 'Daily limit reached. Try agin later or decrease ammount.')->withInput();
         }
 
+        if(Settings::getParam('open') == '0') {
+            return back()->with('warning', 'We are currently closed. Please place order when we are open');
+        }
+
+
 //        if (Auth::user()->monthlyLimitLeft() < $amount) {
 //            return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
 //        }

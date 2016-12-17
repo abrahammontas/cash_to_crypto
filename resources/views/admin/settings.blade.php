@@ -34,7 +34,7 @@
 								{{ Form::open(['method' => 'post', 'route' => 'admin.settings']) }}
 
 									<div class="form-group">
-										{{ Form::text('banner_text', $settings['banner_text'], ['class' => 'form-control']) }}
+										{{ Form::textarea('banner_text', $settings['banner_text'], ['class' => 'form-control', 'size' => '30x4']) }}
 									</div>
 
 									<div class="form-group">
@@ -46,6 +46,35 @@
 									</div>
 
 									{{ Form::submit('Update Banner', ['class' => 'btn btn-primary']) }}
+
+								{{ Form::close() }}
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="panel panel-yellow">
+						<div class="panel-heading">
+							Store Status
+						</div>
+						<div class="panel-body">
+							<div class='row' style="padding-right: 15px; padding-left: 15px">
+
+								{{ Form::open(['method' => 'post', 'route' => 'admin.settings']) }}
+
+									<div class="form-group">
+										@if($settings['open'] == '1')
+											{{ Form::select('open', ['1' => 'Open', '0' => 'Closed'], '', ['class' => 'form-control']) }}
+										@else
+											{{ Form::select('open', ['0' => 'Closed', '1' => 'Open'], '', ['class' => 'form-control']) }}
+										@endif
+									</div>
+
+									{{ Form::submit('Update Status', ['class' => 'btn btn-primary']) }}
 
 								{{ Form::close() }}
 
