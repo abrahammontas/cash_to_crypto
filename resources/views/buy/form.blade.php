@@ -105,17 +105,16 @@
                         margin-bottom: 2%;
                 ">
                             <div class="form-border" style="margin-bottom:0px;">
-                            <div class="form-border" style="margin-bottom:0px;">
                                 <h2 class="text-center form-title-font">Pricing Information</h2>
                                 <hr>
                                 <div class="form-group form-inline">
                                     <label for="bitcoin-price"><span style="font-weight:400">Bitcoin Price:</span></label>
-                                    <input readonly="readonly" id='bitcoin_price' name="bitcoin_price" class="form-control pull-right" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:80px;" value="${{ number_format((float)$ourbitcoinprice, 2, '.', '')}}">
+                                    <input readonly="readonly" id='bitcoin_price' name="bitcoin_price" class="form-control pull-right" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:85px;" value="${{ number_format((float)$ourbitcoinprice, 2, '.', '')}}">
                                 </div>
                                 <hr>
                                 <div class="form-group form-inline">
                                     <label for="estimated-bitcoins"><span style="font-weight:400">Estimated Bitcoins:</span></label>
-                                    <input readonly="readonly" name="bitcoins" class="form-control pull-right" id="estimated_bitcoins" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:80px;" value="0.00000">
+                                    <input readonly="readonly" name="bitcoins" class="form-control pull-right" id="estimated_bitcoins" style="border:none; background-color:transparent; box-shadow:none; text-align:right; width:85px;" value="0.00000">
                                 </div>
                                 <div class="form-group text-center" style="margin-top:20px;">
                                     <span style="color:red">Note: Actual Bitcoin Amount will be calculated when your receipt is uploaded.</span>

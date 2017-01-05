@@ -63,6 +63,7 @@ class OrderController extends Controller
 //            return back()->with('warning', 'Monthly limit reached. Try agin later or decrease ammount.')->withInput();
 //        }
 
+
         $faker = \Faker\Factory::create();
         do {
             $hash = $faker->unique()->randomNumber(7, true);
@@ -104,6 +105,7 @@ class OrderController extends Controller
 
         if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
             $order->img_updated_at = $this->current_time;
+            $order->bitcoins = round($order->amount/$this->price, 5);
             $order->receipt = $hash;
             $order->save();
 
@@ -133,6 +135,7 @@ class OrderController extends Controller
 
         if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
             $order->img_updated_at = $this->current_time;
+            $order->bitcoins = round($order->amount/$this->price, 5);
             $order->selfie = $hash;
             $order->save();
 
@@ -165,6 +168,7 @@ class OrderController extends Controller
 
         if ($request->hasFile('receipt')) {
             if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+                $order->bitcoins = round($order->amount/$this->price, 5);
                 $order->receipt = $hash;
                 $order->save();
 
@@ -185,6 +189,7 @@ class OrderController extends Controller
 
         if ($request->hasFile('selfie')) {
             if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+                $order->bitcoins = round($order->amount/$this->price, 5);
                 $order->selfie = $hash;
                 $order->save();
 
