@@ -134,11 +134,14 @@
 
 @section('scripts')
 <script>
+
+    var ourbitcounP = parseFloat({{$ourbitcoinprice}}).toFixed(2);
+
     (function($){
         $(document).on("change keyup mouseup blur", "#amount", function(){
             var amount = parseFloat($("#amount").val() ? $("#amount").val() : 0);
 
-            $("#estimated_bitcoins").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
+            $("#estimated_bitcoins").val((amount/ourbitcounP).toFixed(5));
         });
         $("#amount").change();
 
@@ -153,7 +156,7 @@
         $(document).on("change keyup mouseup blur", "#amount-mobile", function(){
             var amount = parseFloat($("#amount-mobile").val() ? $("#amount-mobile").val() : 0);
 
-            $("#estimated_bitcoins_mobile").val((amount/{{number_format($ourbitcoinprice, 2)}}).toFixed(5));
+            $("#estimated_bitcoins_mobile").val((amount/ourbitcounP).toFixed(5));
         });
         $("#amount-mobile").change();
 
