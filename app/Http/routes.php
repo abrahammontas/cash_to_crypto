@@ -66,6 +66,7 @@ Route::group(['middleware' => 'https'], function() {
         Route::get('banks/{admin_id?}', ['as' => 'banks', 'uses' => 'AdminController@banks']);
         Route::post('orders/{type}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
         Route::get('orders/{type}/{admin_id?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
+        Route::post('orders/{type}/{admin_id?}/{company?}', ['as' => 'orders', 'uses' => 'AdminController@orders'])->where('type', 'all|completed|pending|issue|cancelled');
         Route::delete('bank/{id}', ['as' => 'bank.delete', 'uses' => 'AdminController@bankDelete']);
         Route::put('bank/{id}', ['as' => 'bank.update', 'uses' => 'AdminController@bankUpdate']);
         Route::post('bank/{admin_id?}', ['as' => 'bank.create', 'uses' => 'AdminController@bankCreate']);
