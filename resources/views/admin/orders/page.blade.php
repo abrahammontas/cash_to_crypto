@@ -59,7 +59,8 @@
 						  </ul>
 							@if(auth()->user()->id === 93 && $admin_id === 93)
 								<br />
-								{{ Form::open(['route' => ['admin.orders', $type]]) }} 
+								{{ Form::open(['route' => ['admin.orders', $type, $admin_id, $company]]) }} 
+                                    {{ Form::hidden('companyExport', $company,array('id' => 'companyExport')) }}
 									{{ Form::hidden('export', 'Export') }} 
 									{{ Form::submit('Export') }} 
 								{{ Form::close() }}
@@ -169,6 +170,7 @@
 
 			$("#company-switch-selected").text(company);
 			$("#companyId").val(company);
+            $("#companyExport").val(company);
 			$("#orders-table tbody tr:not(#loader)").remove();
 
 			$.get("{{route('admin.orders.ajax')}}", {"type": type, "company": company, "page": page, "admin_id": admin_id, "query" : query}, function(html){
@@ -198,6 +200,7 @@
 				e.preventDefault();
 				$("#company-switch-selected").text(company);
                 $("#companyId").val(company);
+                $("#companyExport").val(company);
 				$("#orders-table tbody tr:not(#loader)").remove();
 				$("#loader").show();
                 page = "1";

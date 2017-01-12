@@ -135,11 +135,15 @@ class AdminController extends Controller
         );
     }
 
-    public function orders(Request $request = null, $type, $admin_id = null) {
+    public function orders(Request $request = null, $type, $admin_id = null, $company = null) {
 
         $page = "1";
         $query = "";
-        $company = "All";
+
+        if($company == null){
+            $company = "All";
+        }
+
 
         if($request != null){
             $page = $request->input("page");
@@ -160,7 +164,16 @@ class AdminController extends Controller
 
         if ($request->input('export')) {
 
-            $completed_orders = Order::whereStatus('completed')->get()->toArray();
+            if($request->input('companyExport') != null) {
+                $company = $request->input('companyExport');
+            }
+
+            if($company != "All") {
+                $banks = Bank::where('company', '=', $company)->select('id')->get()->toArray();
+                $completed_orders = Order::whereStatus('completed')->whereIn('bank_id', $banks)->get()->toArray();
+            } else {
+                $completed_orders = Order::whereStatus('completed')->get()->toArray();
+            }
             $export = Excel::create('completed_orders', function($excel) use ($completed_orders) {
                 $excel->sheet('completed_orders_sheet', function($sheet) use ($completed_orders) {
                     $sheet->fromArray($completed_orders);
