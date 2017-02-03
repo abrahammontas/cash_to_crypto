@@ -5,6 +5,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class AlterOrdersEmailAndNotes extends Migration
 {
+
+    public function __construct()
+    {
+        DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+    }
+
     /**
      * Run the migrations.
      *
@@ -13,9 +19,8 @@ class AlterOrdersEmailAndNotes extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            // must manually rename column because of doctrine issues with renameColumn function and enum columns
-            // $table->renameColumn('note', 'email');
-            $table->text('notes')->after('email')->nullable();
+            $table->renameColumn('note', 'email');
+            $table->text('notes')->after('note')->nullable();
         });
     }
 
@@ -27,7 +32,7 @@ class AlterOrdersEmailAndNotes extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            // $table->renameColumn('email', 'note');
+            $table->renameColumn('email', 'note');
             $table->dropColumn('notes');
         });
     }
