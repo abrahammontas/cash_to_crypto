@@ -4,32 +4,7 @@
 
 @section('content')
 
-	@if($status = session('status') && $amount = session('amount'))
-		@if($status == 'completed')
-			<!-- Google Code for Completed Orders -->
-			<script type="text/javascript">
-				/* <![CDATA[ */
-				var google_conversion_id = 976131144;
-				var google_conversion_language = "en";
-				var google_conversion_format = "3";
-				var google_conversion_color = "ffffff";
-				var google_conversion_label = "-MG0CPm16WoQyKi60QM";
-				var google_conversion_value = <? echo $amount*.05 ?>;
-				var google_conversion_currency = "USD";
-				var google_remarketing_only = false;
-				/* ]]> */
-			</script>
-			<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-			</script>
-			<noscript>
-				<div style="display:inline;">
-					<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/976131144/?value=<? echo $amount*.05 ?>&amp;currency_code=USD&amp;label=-MG0CPm16WoQyKi60QM&amp;guid=ON&amp;script=0"/>
-				</div>
-			</noscript>
-		@endif
-	@endif
-
-	    <div class="container-fluid container-padding">
+	<div class="container-fluid container-padding">
 	        <div class="row">
 	        	<div class="col-md-12">
 					<div class="col-md-8">

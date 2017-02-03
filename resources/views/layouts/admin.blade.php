@@ -149,5 +149,30 @@
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/af-2.1.2/b-1.2.2/r-2.1.0/datatables.min.js"></script>
 
         @yield('scripts')
+
+        @if($status = session('status') && $amount = session('amount'))
+            @if($status == 'completed')
+                <!-- Google Code for Orders Completed Conversion Page -->
+                <script type="text/javascript">
+                    /* <![CDATA[ */
+                    var google_conversion_id = 976131144;
+                    var google_conversion_language = "en";
+                    var google_conversion_format = "3";
+                    var google_conversion_color = "ffffff";
+                    var google_conversion_label = "-MG0CPm16WoQyKi60QM";
+                    var google_conversion_value = '{{$amount*.07}}';
+                    var google_conversion_currency = "USD";
+                    var google_remarketing_only = false;
+                    /* ]]> */
+                </script>
+                <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+                </script>
+                <noscript>
+                    <div style="display:inline;">
+                        <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/976131144/?value={{$amount*.07}}&amp;currency_code=USD&amp;label=-MG0CPm16WoQyKi60QM&amp;guid=ON&amp;script=0"/>
+                    </div>
+                </noscript>
+            @endif
+        @endif
     </body>
 </html>

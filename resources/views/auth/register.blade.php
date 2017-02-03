@@ -14,6 +14,12 @@
 
     @include ('partials.banner')
 
+    @if($failed = session('failed'))
+        <div class="alert alert-danger">
+            <p>{{ $failed }}</p>
+        </div>
+    @endif
+
     <div class="inner-bg">
         <div class="container">
             <div class="row">
