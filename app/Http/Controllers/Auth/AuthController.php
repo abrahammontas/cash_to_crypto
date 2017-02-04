@@ -131,8 +131,6 @@ class AuthController extends Controller
 
         if ($request->input('phone') == '+1 (000) 000-0000') {
             return back()->with('failed', 'Please enter a valid phone number')->withInput();
-        } elseif (User::where('phone', $request->input('phone'))) {
-            return back()->with('failed', 'That phone number is already being used. If you think this was an error please contact support@cashtocrypto.com')->withInput();
         }
 
         if ($validator->passes()) {
