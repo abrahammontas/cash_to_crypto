@@ -87,7 +87,7 @@
                     <a href="{{route('buy')}}" style="margin:8px 10px 0px 10px; padding:0px; {{ Request::is('current-order') ? 'color:#CCA75C; font-weight:500;' : '' }}"><button type="submit" class="btn btn-success">Buy Bitcoins!</button></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}} <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/" style="{{ Request::is('/') ? 'color:#CCA75C; font-weight:500;' : '' }}">Home</a></li>
                         <li><a href="{{ route('profile') }}" style="{{ Request::is('profile') ? 'color:#CCA75C; font-weight:500;' : '' }}"> Profile</a></li>

@@ -8,7 +8,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-md-12 page-header">
-                <h1 style="display:inline-block">Welcome, {{Auth::user()->firstName}} {{Auth::user()->lastName}}!</h1>
+                <h1 style="display:inline-block">Welcome, {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }}!</h1>
                 @if(auth()->user()->id === 93)
                     <button type="button" class="btn btn-primary" style="margin:0px 20px 15px" data-toggle="modal" data-target="#viewAs">
                         View As Seller

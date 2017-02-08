@@ -11,7 +11,7 @@
                 <div class="navbar navbar-right">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
+                            Hi, {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }}
                         <span class="caret"></span>
                         </button>
 

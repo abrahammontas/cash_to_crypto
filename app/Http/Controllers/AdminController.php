@@ -394,7 +394,7 @@ class AdminController extends Controller
         $user->banned = true;
         $user->save();
 
-        return back()->with('success', "User {$user->firstName} {$user->lastName} successfully banned." );
+        return back()->with('success', "User " . ucfirst(strtolower($user->firstName)) . " " . ucfirst(strtolower($user->lastName)) . " successfully banned." );
     }
 
     public function unban(Request $request, $id) {
@@ -405,7 +405,7 @@ class AdminController extends Controller
         $user->banned = false;
         $user->save();
 
-        return back()->with('success', "User {$user->firstName} {$user->lastName} successfully unbanned." );
+        return back()->with('success', "User " . ucfirst(strtolower($user->firstName)) . " " . ucfirst(strtolower($user->lastName)) . " successfully unbanned." );
     }
 
     public function orderDelete(Request $request, $id) {
@@ -530,15 +530,26 @@ class AdminController extends Controller
         return view('admin.user.profile', ['user' => $user, 'orders' => $orders, 'admin_id' => $admin_id]);
     }
 
-    public function userUpdate(Request $request, $id)
+    public function userUpdate(Request $request, $id, $type)
     {
         $user = User::find($id);
-        $notes = $request->input('notes');
 
-        $user->notes = $notes;
-        $user->save();
+        if ($type == 'notes')
+        {
+            $notes = $request->input('notes');
+            $user->notes = $notes;
+            $user->save();
 
-        return back()->with('success', 'User notes updated successfully');
+            return back()->with('success', 'User notes updated successfully');
+        }
+
+        if ($type == 'profile')
+        {
+            $input = $request->all();
+            $user->update($input);
+
+            return back()->with('success', 'User profile updated successfully');
+        }
     }
 
     public function downloadOrder($orderId) {
