@@ -33,30 +33,43 @@
 		<td>{{$order->bitcoins}}</td>
 		<td>${{$order->amount}}</td>
 		<td>
-				<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#photos-{{$order->id}}"><span class='fa fa-eye'></span></button>
+		<table>
+			<tr>
+				@if ($order->status == 'completed')
+				<td>
+					<a href="{{route('admin.downloadOrders',$order->id)}}" class="btn btn-primary btn-xs" ><span class='fa fa-download'></span></a>
+				</td>
+				@endif
+				<td>
+					<button type="button" title='View' class="btn btn-primary btn-xs" data-toggle="modal" data-target="#photos-{{$order->id}}"><span class='fa fa-eye'></span></button>
 
-				<div id="photos-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog modal-lg">
-				    <div class="modal-content">
-				        <div class="modal-body">
-				        	<div class='row' style="margin:10px; margin-top:-10px;">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+
+					<div id="photos-{{$order->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class='row' style="margin:10px; margin-top:-10px;">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class='row'>
+									<div class='col-md-4' style="margin-bottom:10px;">
+										<a class="fancybox" href="{{Storage::url('photoid/'.$order->user->photoid)}}" target="_blank"><img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive" alt="" /></a>
+									</div>
+									<div class='col-md-4' style="margin-bottom:10px;">
+										<a class="fancybox" href="{{ Storage::url('receipts/'.$order->receipt)}}" target="_blank"><img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive"></a>
+									</div>
+									<div class='col-md-4' style="margin-bottom:10px;">
+										<a class="fancybox" href="{{Storage::url('selfie/'.$order->selfie)}}" target="_blank"><img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive"></a>
+									</div>
+								</div>
 							</div>
-				        	<div class='row'>
-								<div class='col-md-4' style="margin-bottom:10px;">
-									<a class="fancybox" href="{{Storage::url('photoid/'.$order->user->photoid)}}" target="_blank"><img src="{{Storage::url('photoid/'.$order->user->photoid)}}" class="img-responsive" alt="" /></a>
-				        		</div>
-				        		<div class='col-md-4' style="margin-bottom:10px;">
-									<a class="fancybox" href="{{ Storage::url('receipts/'.$order->receipt)}}" target="_blank"><img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive"></a>
-				        		</div>
-				        		<div class='col-md-4' style="margin-bottom:10px;">
-									<a class="fancybox" href="{{Storage::url('selfie/'.$order->selfie)}}" target="_blank"><img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive"></a>
-				        		</div>
-				        	</div>	    
-				        </div>
-				    </div>
-				  </div>
-				</div>	
+						</div>
+					  </div>
+					</div>
+				</td>
+			</tr>
+		</table>
 		</td>
 		<td>
 

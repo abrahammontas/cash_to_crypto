@@ -9,11 +9,11 @@ use App\Order;
 use App\Bank;
 use App\User;
 use App\Settings;
-use Illuminate\Pagination\Paginator;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use ZipArchive;
+use Storage;
 use Mail;
 
 class AdminController extends Controller
@@ -462,10 +462,27 @@ class AdminController extends Controller
                 $order->save();
                 $status = 'completed';
                 $amount = $order->amount;
+
+                $userO = User::find($order->user_id);
+
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Bitcoins Sent!');
                 });
+
+
+                Storage::makeDirectory('/images/downloads/'.$userO->hash."_".$this->current_time);
+
+                if(!empty($order->receipt)){
+                    Storage::copy('/images/receipts/'.$order->receipt, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$order->receipt);
+                }
+                if(!empty($order->selfie)){
+                    Storage::copy('/images/selfie/'.$order->selfie, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$order->selfie);
+                }
+                if(!empty($userO->photoid)){
+                    Storage::copy('/images/photoid/'.$userO->photoid, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$userO->photoid);
+                }
+
             }
         } else {
             $status = '';
@@ -524,4 +541,44 @@ class AdminController extends Controller
         return back()->with('success', 'User notes updated successfully');
     }
 
+    public function downloadOrder($orderId) {
+        $order = Order::find($orderId);
+        $user = User::find($order->user_id);
+        $zipFileName = $user->hash.'_'.$order->completed_at.'.zip';
+        $public_dir = public_path() . '/images/downloads';
+
+        if(!file_exists($zipFileName)) {
+            $directory = 'images/downloads/' . $user->hash . '_' . $order->completed_at;
+            $files = Storage::files($directory);
+
+            foreach ($files as $file) {
+                $file = explode('/', $file);
+                $newFiles[] = $file[3];
+            }
+
+            $zip = new ZipArchive;
+
+            $zip->open($public_dir . '/' . $zipFileName, ZipArchive::CREATE);
+
+            foreach ($newFiles as $file) {
+                if (file_exists($directory . "/" . $file)) {
+                    $zip->addFile($directory . "/" . $file, $file);
+                }
+            }
+            $zip->close();
+
+
+            $headers = array(
+                'Content-Type' => 'application/octet-stream',
+            );
+        }
+
+        $filetopath=$public_dir.'/'.$zipFileName;
+
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
+
+        return ['status'=>'file does not exist'];
+    }
 }
