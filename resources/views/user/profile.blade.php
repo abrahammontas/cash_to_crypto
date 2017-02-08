@@ -37,13 +37,13 @@
                     			<strong>First Name:</strong>
                     		</div>
                     		<div class="col-md-4 text-left">
-                    			{{Auth::user()->firstName}}
+                    			{{ucfirst(strtolower(Auth::user()->firstName))}}
                     		</div>
                     		<div class="col-md-2">
                     			<strong>Last Name:</strong>
                     		</div>
                     		<div class="col-md-4 text-left">
-                    			{{Auth::user()->lastName}}
+                    			{{ucfirst(strtolower(Auth::user()->lastName))}}
                     		</div>
                     	</div>
                         <hr />
@@ -53,7 +53,7 @@
                                 <strong>Email:</strong>
                             </div>
                             <div class="col-md-4 text-left">
-                                {{Auth::user()->email}}
+                                {{strtolower(Auth::user()->email)}}
                             </div>
                             <div class="col-md-2">
                                 <strong>Phone:</strong>

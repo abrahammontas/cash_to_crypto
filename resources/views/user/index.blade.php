@@ -45,7 +45,7 @@
 						<tbody>
 						<tr>
 					    	<td>{{$order->hash}}</td>
-							<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
+							<td>Date: {{ date('m/d/Y', strtotime($order->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($order->created_at) ) }}</td>
 							<td>{{ucwords($order->status)}}</td>
 							<td>${{$order->amount}}</td>
 							<td>{{$order->bitcoins}}</td>

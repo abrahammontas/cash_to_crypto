@@ -55,10 +55,10 @@
 						@foreach ($users as $i => $user)
 						<tr class="{{($i & 1) ? 'odd' : 'even'}}">
 				            <td>{{$user->hash}}</td>
-				            <td><a href="{{route('admin.users.profile',['id' => $user->id])}}">{{$user->firstName}}</a></td>
-				            <td>{{$user->lastName}}</td>
+				            <td><a href="{{route('admin.users.profile',['id' => $user->id])}}">{{ucfirst(strtolower($user->firstName))}}</a></td>
+				            <td>{{ucfirst(strtolower($user->lastName))}}</td>
 				            <td>{{$user->phone}}</td>
-				            <td>{{$user->email}}</td>
+				            <td>{{strtolower($user->email)}}</td>
 				            <td>
 				            	@if ($user->banned)
 				            		<span class="label label-danger">Banned</span>
@@ -101,7 +101,7 @@
 									</div>
 				            	@endif
 				            </td>
-				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at) - 60 * 60 * 5) }}</td>
+				            <td>Date: {{ date('m/d/Y', strtotime($user->created_at)) }}<br /> Time: {{ date('h:i a', strtotime($user->created_at)) }}</td>
 							@if(auth()->user()->id == 93)
 				            <td>
 				            	@if(!$user->banned)

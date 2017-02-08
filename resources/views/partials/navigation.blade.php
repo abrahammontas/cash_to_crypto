@@ -28,7 +28,7 @@
             <div class="dropdown hidden-md hidden-lg">
                 <a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a>
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
+                    Hi, {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu text-center" style="left:24.5%;" role="menu">
@@ -86,7 +86,7 @@
                         <div class="dropdown hidden-xs hidden-sm">
                             <a href="/buy-bitcoins"><button class="btn-menu-buy">Buy Bitcoins!</button></a>
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Hi, {{ Auth::user()->firstName}} {{ Auth::user()->lastName}}
+                                Hi, {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">

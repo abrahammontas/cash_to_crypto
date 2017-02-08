@@ -13,7 +13,39 @@
         @endif
 
         <div class="col-md-8">
-            <h2 class="fw-300">Profile</h2>
+            <h2 class="fw-300">Profile</h2><a href="" data-toggle="modal" data-target="#editUserModal">Edit User</a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+                <div class="modal-dialog" role="document">
+                    {{ Form::open(['method' => 'put', 'route' => ['admin.user.update', $user->id, 'profile']]) }}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="modalLabel">Edit User</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    {{ Form::text('firstName', ucfirst(strtolower($user->firstName)), ['class' => 'form-control', 'placeholder' => 'First Name']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::text('lastName', ucfirst(strtolower($user->lastName)), ['class' => 'form-control', 'placeholder' => 'Last Name']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::email('email', strtolower($user->email), ['class' => 'form-control', 'placeholder' => 'Email']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'placeholder' => 'Phone']) }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    {{ Form::close() }}
+                </div>
+            </div>
 
             <div class="form-border" style="margin-top:30px; background-color: #f2f2f2">
                 <div class="row font-main">
@@ -21,13 +53,13 @@
                         <strong>First Name:</strong>
                     </div>
                     <div class="col-xs-4 text-left">
-                        {{$user->firstName}}
+                       {{ucfirst(strtolower($user->firstName))}}
                     </div>
                     <div class="col-xs-2">
                         <strong>Last Name:</strong>
                     </div>
                     <div class="col-xs-4 text-left">
-                        {{$user->lastName}}
+                        {{ ucfirst(strtolower($user->lastName)) }}
                     </div>
                 </div>
                 <hr />
@@ -37,7 +69,7 @@
                         <strong>Email:</strong>
                     </div>
                     <div class="col-xs-4 text-left">
-                        {{$user->email}}
+                        {{ strtolower($user->email) }}
                     </div>
                     <div class="col-xs-2">
                         <strong>Phone:</strong>
@@ -53,12 +85,12 @@
                         <strong>Photo ID:</strong>
                     </div>
                     <div class="col-xs-10 col-sm-6 text-left">
-                            <div class="form-group">
-                                @if ($user->photoid)
-                                    <img src="{{Storage::url('photoid/'.$user->photoid)}}" class="img-responsive">
-                                    <!-- <div class='thumbnail' style="height:250px; background-size: cover; background-image: url({{Storage::url('photoid/'.$user->photoid)}})"/></div> -->
-                                @endif
-                            </div>
+                        <div class="form-group">
+                            @if ($user->photoid)
+                                <img src="{{Storage::url('photoid/'.$user->photoid)}}" class="img-responsive">
+                                <!-- <div class='thumbnail' style="height:250px; background-size: cover; background-image: url({{Storage::url('photoid/'.$user->photoid)}})"/></div> -->
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <hr />
@@ -115,7 +147,7 @@
         <div class="col-md-4">
             <h2 class="fw-300">Notes</h2>
             <div class="form-border" style="margin-top:30px; background-color: #f2f2f2">
-                {{Form::open(['method' => 'put', 'route' =>['admin.user.update', $user->id]])}}
+                {{Form::open(['method' => 'put', 'route' =>['admin.user.update', $user->id, 'notes']])}}
 
                 <div class='form-group'>
                     {{Form::textarea('notes', $user->notes, ['class' => 'form-control', 'placeholder' => 'User Notes'])}}
@@ -150,11 +182,11 @@
                     <tbody>
                         <tr>
                             <td>{{$order->hash}}</td>
-                            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
+                            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at)) }}</td>
                             @if ($order->completed_at == '')
 								<td></td>
 							@else
-								<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 5) }}</td>
+								<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at)) }}</td>
 				            @endif
                             <td>{{$order->bank->name}}</td>
                             <td>{{$order->wallet}}</td>

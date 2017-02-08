@@ -115,7 +115,7 @@
                         <a href="{{ $admin_id === 93 ? route('admin.users') : route('admin.users', $admin_id) }}"><i class="fa fa-fw fa-group"></i> Users</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->firstName}} {{Auth::user()->lastName}}<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ ucfirst(strtolower(Auth::user()->firstName)) }} {{ ucfirst(strtolower(Auth::user()->lastName)) }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             @if(Auth::user()->id == 93)
                                 <li>

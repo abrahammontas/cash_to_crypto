@@ -10,16 +10,16 @@
     	<td>{{$order->hash}}</td>
     	<td>
 			@if($query != '' && $query != null)
-				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->firstName) . ' ' . ($order->lastName) }}</a>
+				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ucfirst(strtolower($order->firstName)) . " " . ucfirst(strtolower($order->lastName)) }}</a>
 			@else
-				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ($order->user->firstName) . ' ' . ($order->user->lastName) }}</a>
+				<a href="{{route('admin.users.profile',['id' => $order->user_id])}}">{{ ucfirst(strtolower($order->user->firstName)) . " " . ucfirst(strtolower($order->user->lastName)) }}</a>
 			@endif
     	</td>
-		<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at) - 60 * 60 * 5) }}</td>
+		<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->created_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->created_at)) }}</td>
 		@if ($order->img_updated_at == '')
             <td></td>
         @else
-            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->img_updated_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->img_updated_at) - 60 * 60 * 5) }}</td>
+            <td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->img_updated_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->img_updated_at)) }}</td>
         @endif
 		@if ($type == 'completed'))
 			@if ($order->completed_at == '')
