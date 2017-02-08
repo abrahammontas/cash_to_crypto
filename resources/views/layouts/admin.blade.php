@@ -31,8 +31,13 @@
 
     </head>
     @if(auth()->user()->id !== 93)
-        {{ $admin_id = null }}
+        <?php $admin_id = null; ?>
+    @else
+        <?php
+            $admin_id = auth()->user()->id;
+        ?>
     @endif
+
     <body style="margin-top:0px;">
         <!-- Navigation -->
         <nav class="navbar navbar-inverse" style="padding-left:20px; padding-right:20px;" role="navigation">
