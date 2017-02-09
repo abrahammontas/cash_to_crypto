@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('btc_address', 'App\Http\Validators\BTCValidator@validateAddress');
+        date_default_timezone_set('America/New_York');
     }
 
     /**
