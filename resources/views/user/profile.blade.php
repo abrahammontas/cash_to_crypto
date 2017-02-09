@@ -72,7 +72,7 @@
                                 {{ Form::open(['method'=> 'post', 'enctype' => 'multipart/form-data']) }}
                                     <div class="form-group">
                                         @if (Auth::user()->photoid)
-                                            <img class="img-responsive" src="/images/photoid/{{Auth::user()->photoid}}">
+                                            <img class="img-responsive" src="{{Storage::url('photoid/'.Auth::user()->photoid)}}">
                                         	<!-- <div class='thumbnail' style="height:300px; background-size: cover; background-image: url({{Storage::url('photoid/'.Auth::user()->photoid)}})"/></div> -->
                                         @endif
 
