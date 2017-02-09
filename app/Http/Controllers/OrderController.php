@@ -103,19 +103,10 @@ class OrderController extends Controller
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
 
-        $user = User::find($order->user_id);
-
-        if(Storage::put('/images/receipts/'.$hash.'.'.$request->receipt->extension(), file_get_contents($request->file('receipt')))) {
-            if(!empty($order->receipt)){
-                if(!Storage::exists("/images/deletedReceipts/".$user->hash)) {
-                    Storage::makeDirectory("/images/deletedReceipts/" . $user->hash);
-                }
-                Storage::move('/images/receipts/'.$order->receipt, '/images/deletedReceipts/'.$user->hash.'/'.$order->receipt);
-            }
-
+        if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
             $order->img_updated_at = $this->current_time;
             $order->bitcoins = round($order->amount/$this->price, 5);
-            $order->receipt = $hash.'.'.$request->receipt->extension();
+            $order->receipt = $hash;
             $order->save();
 
             $admins = User::where('id', '=', $order->bank->user_id);
@@ -142,20 +133,10 @@ class OrderController extends Controller
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
 
-        $user = User::find($order->user_id);
-
-        if(Storage::put('/images/selfie/'.$hash.'.'.$request->selfie->extension(), file_get_contents($request->file('selfie')))) {
-
-            if(!empty($order->selfie)){
-                if(!Storage::exists("/images/deletedSelfies/".$user->hash)) {
-                    Storage::makeDirectory("/images/deletedSelfies/" . $user->hash);
-                }
-                Storage::move('/images/selfie/'.$order->selfie, '/images/deletedSelfies/'.$user->hash.'/'.$order->selfie);
-            }
-
+        if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
             $order->img_updated_at = $this->current_time;
             $order->bitcoins = round($order->amount/$this->price, 5);
-            $order->selfie = $hash.'.'.$request->selfie->extension();
+            $order->selfie = $hash;
             $order->save();
 
             $admins = User::where('id', '=', $order->bank->user_id);
@@ -181,24 +162,14 @@ class OrderController extends Controller
             'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
         ]);
         $order = Order::whereHash($request->input('order'))->first();
+        $hash = md5(microtime().$order->id);
 
         $selfieUploaded = $receiptUploaded = true;
 
-        $user = User::find($order->user_id);
-
         if ($request->hasFile('receipt')) {
-            $hash = md5(microtime().$order->id);
-            if(Storage::put('/images/receipts/'.$hash.'.'.$request->receipt->extension(), file_get_contents($request->file('receipt')))) {
-
-                if(!empty($order->receipt)){
-                    if(!Storage::exists("/images/deletedReceipts/".$user->hash)) {
-                        Storage::makeDirectory("/images/deletedReceipts/" . $user->hash);
-                    }
-                    Storage::move('/images/receipts/'.$order->receipt, '/images/deletedReceipts/'.$user->hash.'/'.$order->receipt);
-                }
-
+            if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
                 $order->bitcoins = round($order->amount/$this->price, 5);
-                $order->receipt = $hash.'.'.$request->receipt->extension();
+                $order->receipt = $hash;
                 $order->save();
 
                 $admins = User::where('id', '=', $order->bank->user_id);
@@ -217,18 +188,9 @@ class OrderController extends Controller
         }
 
         if ($request->hasFile('selfie')) {
-            $hash = md5(microtime().$order->id);
-            if(Storage::put('/images/selfie/'.$hash.'.'.$request->selfie->extension(), file_get_contents($request->file('selfie')))) {
-
-                if(!empty($order->selfie)){
-                    if(!Storage::exists("/images/deletedSelfies/".$user->hash)) {
-                        Storage::makeDirectory("/images/deletedSelfies/" . $user->hash);
-                    }
-                    Storage::move('/images/selfie/'.$order->selfie, '/images/deletedSelfies/'.$user->hash.'/'.$order->selfie);
-                }
-
+            if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
                 $order->bitcoins = round($order->amount/$this->price, 5);
-                $order->selfie = $hash.'.'.$request->selfie->extension();
+                $order->selfie = $hash;
                 $order->save();
 
                 $admins = User::where('id', '=', $order->bank->user_id);

@@ -60,7 +60,7 @@
 									  <div class="modal-dialog modal-lg">
 									    <div class="modal-content">
 									        <div class="modal-body">
-									            <img src="/images/receipts/{{$order->receipt}}" class="img-responsive">
+									            <img src="{{Storage::url('receipts/'.$order->receipt)}}" class="img-responsive">
 									        </div>
 									    </div>
 									  </div>
@@ -97,7 +97,7 @@
 									  <div class="modal-dialog modal-lg">
 									    <div class="modal-content">
 									        <div class="modal-body">
-									            <img src="/images/selfie/{{$order->selfie}}" class="img-responsive">
+									            <img src="{{Storage::url('selfie/'.$order->selfie)}}" class="img-responsive">
 									        </div>
 									    </div>
 									  </div>

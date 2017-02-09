@@ -56,15 +56,12 @@ class UserController extends Controller
         foreach (['photoid', 'photo'] as $image) {
             if ($request->hasFile($image)) {
                 $hash = md5(microtime().$request->file($image));
-                if(Storage::put("/images/".$image."/".$hash.'.'.$request->$image->extension(), file_get_contents($request->file($image)))) {
-                    $oldImage = "/images/".$image."/".$user->$image;
+                if(Storage::put("/public/$image/$hash", file_get_contents($request->file($image)))) {
+                    $oldImage = "/public/$image/".$user->$image;
                     if ($user->$image && Storage::exists($oldImage)) {
-                        if(!Storage::exists("/images/deleted".$image."/".$user->hash)){
-                            Storage::makeDirectory("/images/deleted".$image."/".$user->hash);
-                        }
-                        Storage::move($oldImage, '/images/deleted'.$image.'/'.$user->hash.'/'.$user->$image);
+                        Storage::delete($oldImage);
                     }
-                    $user->$image = $hash.'.'.$request->$image->extension();
+                    $user->$image = $hash;
                     $updated = true;
                 }
             }
