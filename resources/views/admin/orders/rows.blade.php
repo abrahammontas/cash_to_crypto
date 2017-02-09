@@ -25,7 +25,7 @@
 			@if ($order->completed_at == '')
 				<td></td>
 			@else
-				<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at) - 60 * 60 * 5) }}</td>
+				<td><span style="font-weight:700">Date:</span> <br>{{ date('m/d/Y', strtotime($order->completed_at)) }} <br><span style="font-weight:700">Time:</span> <br>{{ date('h:i a', strtotime($order->completed_at)) }}</td>
             @endif
 		@endif
 		<td>{{$order->bank->name}}</td>
