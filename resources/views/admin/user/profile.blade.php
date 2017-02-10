@@ -13,7 +13,10 @@
         @endif
 
         <div class="col-md-8">
-            <h2 class="fw-300">Profile</h2><a href="" data-toggle="modal" data-target="#editUserModal">Edit User</a>
+            <h2 class="fw-300">Profile</h2>
+            @if(Auth::user()->id === 93)
+                <a href="" data-toggle="modal" data-target="#editUserModal">Edit User</a>
+            @endif
 
             <!-- Modal -->
             <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">

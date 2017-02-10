@@ -32,14 +32,12 @@
 							 <li><a href="#" class="company-switch" data-company="{{$c}}">{{$c}}</a></li>
 							@endforeach
 						  </ul>
-							@if(auth()->user()->id === 93 && $admin_id === 93)
-								<br />
-								{{ Form::open(['route' => ['admin.orders', $type, $admin_id, $company]]) }} 
-                                    {{ Form::hidden('companyExport', $company,array('id' => 'companyExport')) }}
-									{{ Form::hidden('export', 'Export') }} 
-									{{ Form::submit('Export') }} 
-								{{ Form::close() }}
-							@endif
+							<br />
+							{{ Form::open(['route' => ['admin.orders', $type, $admin_id, $company]]) }} 
+								{{ Form::hidden('companyExport', $company,array('id' => 'companyExport')) }}
+								{{ Form::hidden('export', 'Export') }} 
+								{{ Form::submit('Export', ['style' => 'float:right']) }} 
+							{{ Form::close() }}
                         </div>
 					</div>
 					@endif
@@ -64,10 +62,10 @@
 					        <tr>
 					            <th>Order ID</th>
 					            <th>Name</th>
-					            <th>Time Created At</th>
-					            <th>Images Updated At</th>
+					            <th>Time Created</th>
+					            <th>Images Updated</th>
 								@if ($type == 'completed')
-									<th>Completed At</th>
+									<th>Completed</th>
 								@endif
 					            <th>Bank</th>
 					            <th>Wallet Address</th>

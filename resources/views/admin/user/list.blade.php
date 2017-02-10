@@ -106,14 +106,14 @@
 				            <td>
 				            	@if(!$user->banned)
 				            		{{Form::open(['method' => 'post', 'route' => ['admin.users.ban', $user->id] ]) }}
-				            		<button type='submit' title='Ban' class='btn btn-danger btn-xs'><i class='fa fa-ban'></i></button>
+				            		<button type='submit' title='Ban' class='btn btn-danger btn-xs' style="width:100%"><i class='fa fa-ban'></i> Ban User</button>
 				            		{{Form::close()}}
 				            	@else
 				            		{{Form::open(['method' => 'post', 'route' => ['admin.users.unban', $user->id] ]) }}
-				            		<button type='submit' title='Unban' class='btn btn-success btn-xs' style="float:right;"><i class='fa fa-check-circle-o'></i></button>
+				            		<button type='submit' title='Unban' class='btn btn-success btn-xs' style="width:100%"><i class='fa fa-check-circle-o'></i> Unban User</button>
 				            		{{Form::close()}}
 				            	@endif
-				            	<button data-toggle="modal" data-target="#limits-{{$user->id}}" type='button' title='Limits' class='btn btn-default btn-xs'><i class='fa fa-lock'></i></button>
+				            	{{--<button data-toggle="modal" data-target="#limits-{{$user->id}}" type='button' title='Limits' class='btn btn-default btn-xs'><i class='fa fa-lock'></i></button>--}}
 
 								<div id="limits-{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"aria-hidden="true">
 								  <div class="modal-dialog modal-lg">
