@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Storage;
 use Mail;
+use App\DeletedPhotos;
 
 class UserController extends Controller
 {
@@ -53,17 +54,27 @@ class UserController extends Controller
         $updated = false;
         $user = Auth::user();
 
-        foreach (['photoid', 'photo'] as $image) {
-            if ($request->hasFile($image)) {
-                $hash = md5(microtime().$request->file($image));
-                if(Storage::put("/public/$image/$hash", file_get_contents($request->file($image)))) {
-                    $oldImage = "/public/$image/".$user->$image;
-                    if ($user->$image && Storage::exists($oldImage)) {
-                        Storage::delete($oldImage);
-                    }
-                    $user->$image = $hash;
-                    $updated = true;
+
+        if ($request->hasFile('photoid'))
+        {
+            $hash = md5(microtime() . $request->file('photoid'));
+
+            if (Storage::put("/public/photoid/".$hash, file_get_contents($request->file('photoid'))))
+            {
+                $oldImage = "/public/photoid/".$user->photoid;
+
+                if ($user->photoid && Storage::exists($oldImage))
+                {
+                    Storage::move($oldImage, '/public/photoid/deleted/'.$user->photoid);
+                    DeletedPhotos::create([
+                        'hash' => $user->photoid,
+                        'user_hash' => $user->hash,
+                        'type' => 'photoid'
+                    ]);
                 }
+
+                $user->photoid = $hash;
+                $updated = true;
             }
         }
 

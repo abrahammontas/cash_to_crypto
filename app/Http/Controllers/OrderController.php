@@ -13,6 +13,7 @@ use App\Settings;
 use Storage;
 use Mail;
 use Carbon\Carbon;
+use App\DeletedPhotos;
 
 class OrderController extends Controller
 {
@@ -95,15 +96,31 @@ class OrderController extends Controller
         return redirect()->route('current-order')->with(['success' => 'Order created successfully. Below you will find your order summary and deposit directions.', 'new_order' => 'used for google analytics']);
     }
 
-    public function uploadReceipt(Request $request) {
+    public function uploadReceipt(Request $request)
+    {
         $this->validate($request, [
             'receipt' => 'required|image',
             'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
         ]);
+
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
+        $user = Auth::user();
+        $old_receipt = '/public/receipts/'.$order->receipt;
 
-        if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+        if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt'))))
+        {
+            if ($order->receipt && Storage::exists($old_receipt))
+            {
+                DeletedPhotos::create([
+                    'hash' => $order->receipt,
+                    'order_id' => $order->id,
+                    'user_hash' => $user->hash,
+                    'type' => 'receipt'
+                ]);
+                Storage::move($old_receipt, '/public/receipts/deleted/'.$order->receipt);
+            }
+
             $order->img_updated_at = $this->current_time;
             $order->bitcoins = round($order->amount/$this->price, 5);
             $order->receipt = $hash;
@@ -130,10 +147,25 @@ class OrderController extends Controller
             'selfie' => 'required|image',
             'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
         ]);
+
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
+        $user = Auth::user();
+        $old_selfie = '/public/selfie/'.$order->selfie;
 
-        if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+        if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie'))))
+        {
+            if ($order->selfie && Storage::exists($old_selfie))
+            {
+                DeletedPhotos::create([
+                    'hash' => $order->selfie,
+                    'order_id' => $order->id,
+                    'user_hash' => $user->hash,
+                    'type' => 'selfie'
+                ]);
+                Storage::move($old_selfie, '/public/selfie/deleted/'.$order->selfie);
+            }
+
             $order->img_updated_at = $this->current_time;
             $order->bitcoins = round($order->amount/$this->price, 5);
             $order->selfie = $hash;
@@ -155,19 +187,37 @@ class OrderController extends Controller
         return back()->with('warning', 'Can\'t upload selfie. Try again later.');
     }
 
-    public function uploadImages(Request $request) {
+    public function uploadImages(Request $request)
+    {
         $this->validate($request, [
             'receipt' => 'required_without:selfie|image',
             'selfie' => 'required_without:receipt|image',
             'order'   => 'required|exists:orders,hash,user_id,'.Auth::id()
         ]);
+
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
+        $user = Auth::user();
+        $old_receipt = '/public/receipts/'.$order->receipt;
+        $old_selfie = '/public/selfie/'.$order->selfie;
 
         $selfieUploaded = $receiptUploaded = true;
 
-        if ($request->hasFile('receipt')) {
-            if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt')))) {
+        if ($request->hasFile('receipt'))
+        {
+            if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt'))))
+            {
+                if ($order->receipt && Storage::exists($old_receipt))
+                {
+                    DeletedPhotos::create([
+                        'hash' => $order->receipt,
+                        'order_id' => $order->id,
+                        'user_hash' => $user->hash,
+                        'type' => 'receipt'
+                    ]);
+                    Storage::move($old_receipt, '/public/receipts/deleted/'.$order->receipt);
+                }
+
                 $order->bitcoins = round($order->amount/$this->price, 5);
                 $order->receipt = $hash;
                 $order->save();
@@ -187,8 +237,21 @@ class OrderController extends Controller
             }
         }
 
-        if ($request->hasFile('selfie')) {
-            if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie')))) {
+        if ($request->hasFile('selfie'))
+        {
+            if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie'))))
+            {
+                if ($order->selfie && Storage::exists($old_selfie))
+                {
+                    DeletedPhotos::create([
+                        'hash' => $order->selfie,
+                        'order_id' => $order->id,
+                        'user_hash' => $user->hash,
+                        'type' => 'selfie'
+                    ]);
+                    Storage::move($old_receipt, '/public/selfie/deleted/'.$order->receipt);
+                }
+
                 $order->bitcoins = round($order->amount/$this->price, 5);
                 $order->selfie = $hash;
                 $order->save();
