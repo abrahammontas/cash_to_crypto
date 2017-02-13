@@ -170,7 +170,7 @@ class AdminController extends Controller
 
             if($company != "All") {
                 $banks = Bank::where('company', '=', $company)->select('id')->get()->toArray();
-                $completed_orders = Order::whereStatus('completed')->whereIn('bank_id', $banks)->get()->toArray();
+                $completed_orders = Order::whereStatus('completed')->whereIn('bank_id', $banks)->get();
             } else {
                 if(Auth::user()->id !== 93)
                 {
@@ -178,11 +178,18 @@ class AdminController extends Controller
                                     ->select('orders.*')
                                     ->whereStatus('completed')
                                     ->where('banks.user_id', '=', Auth::user()->id)
-                                    ->get()->toArray();
+                                    ->get();
                 } else {
-                    $completed_orders = Order::whereStatus('completed')->get()->toArray();
+                    $completed_orders = Order::whereStatus('completed')->get();
                 }
             }
+
+            foreach ($completed_orders as $order)
+            {
+                $order->user_id = ucfirst(strtolower($order->user->firstName)) . " " . ucfirst(strtolower($order->user->lastName));
+                $order->bank_id = $order->bank->name;
+            }
+
             $export = Excel::create('completed_orders', function($excel) use ($completed_orders) {
                 $excel->sheet('completed_orders_sheet', function($sheet) use ($completed_orders) {
                     $sheet->fromArray($completed_orders);
