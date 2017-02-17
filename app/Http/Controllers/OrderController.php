@@ -106,9 +106,9 @@ class OrderController extends Controller
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
         $user = Auth::user();
-        $old_receipt = '/public/receipts/'.$order->receipt;
+        $old_receipt = '/receipts/'.$order->receipt;
 
-        if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt'))))
+        if(Storage::put('/receipts/'.$hash, file_get_contents($request->file('receipt'))))
         {
             if ($order->receipt && Storage::exists($old_receipt))
             {
@@ -118,7 +118,7 @@ class OrderController extends Controller
                     'user_hash' => $user->hash,
                     'type' => 'receipt'
                 ]);
-                Storage::move($old_receipt, '/public/receipts/deleted/'.$order->receipt);
+                Storage::move($old_receipt, '/receipts/deleted/'.$order->receipt);
             }
 
             $order->img_updated_at = $this->current_time;
@@ -151,9 +151,9 @@ class OrderController extends Controller
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
         $user = Auth::user();
-        $old_selfie = '/public/selfie/'.$order->selfie;
+        $old_selfie = '/selfie/'.$order->selfie;
 
-        if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie'))))
+        if(Storage::put('/selfie/'.$hash, file_get_contents($request->file('selfie'))))
         {
             if ($order->selfie && Storage::exists($old_selfie))
             {
@@ -163,7 +163,7 @@ class OrderController extends Controller
                     'user_hash' => $user->hash,
                     'type' => 'selfie'
                 ]);
-                Storage::move($old_selfie, '/public/selfie/deleted/'.$order->selfie);
+                Storage::move($old_selfie, '/selfie/deleted/'.$order->selfie);
             }
 
             $order->img_updated_at = $this->current_time;
@@ -198,14 +198,14 @@ class OrderController extends Controller
         $order = Order::whereHash($request->input('order'))->first();
         $hash = md5(microtime().$order->id);
         $user = Auth::user();
-        $old_receipt = '/public/receipts/'.$order->receipt;
-        $old_selfie = '/public/selfie/'.$order->selfie;
+        $old_receipt = '/receipts/'.$order->receipt;
+        $old_selfie = '/selfie/'.$order->selfie;
 
         $selfieUploaded = $receiptUploaded = true;
 
         if ($request->hasFile('receipt'))
         {
-            if(Storage::put('/public/receipts/'.$hash, file_get_contents($request->file('receipt'))))
+            if(Storage::put('/receipts/'.$hash, file_get_contents($request->file('receipt'))))
             {
                 if ($order->receipt && Storage::exists($old_receipt))
                 {
@@ -215,7 +215,7 @@ class OrderController extends Controller
                         'user_hash' => $user->hash,
                         'type' => 'receipt'
                     ]);
-                    Storage::move($old_receipt, '/public/receipts/deleted/'.$order->receipt);
+                    Storage::move($old_receipt, '/receipts/deleted/'.$order->receipt);
                 }
 
                 $order->bitcoins = round($order->amount/$this->price, 5);
@@ -239,7 +239,7 @@ class OrderController extends Controller
 
         if ($request->hasFile('selfie'))
         {
-            if(Storage::put('/public/selfie/'.$hash, file_get_contents($request->file('selfie'))))
+            if(Storage::put('/selfie/'.$hash, file_get_contents($request->file('selfie'))))
             {
                 if ($order->selfie && Storage::exists($old_selfie))
                 {
@@ -249,7 +249,7 @@ class OrderController extends Controller
                         'user_hash' => $user->hash,
                         'type' => 'selfie'
                     ]);
-                    Storage::move($old_receipt, '/public/selfie/deleted/'.$order->receipt);
+                    Storage::move($old_selfie, '/selfie/deleted/'.$order->selfie);
                 }
 
                 $order->bitcoins = round($order->amount/$this->price, 5);

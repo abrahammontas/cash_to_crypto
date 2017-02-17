@@ -84,6 +84,7 @@ Route::group(['middleware' => 'https'], function() {
         Route::get('orders', ['as' => 'orders.ajax', 'uses' => 'AdminController@getOrders']);
 
         Route::put('profile/{id}/{type}', ['as' => 'user.update', 'uses' => 'AdminController@userUpdate']);
+        Route::post('downloadOrders', ['as' => 'downloadOrders', 'uses' => 'AdminController@downloadOrder']);
 
     });
 

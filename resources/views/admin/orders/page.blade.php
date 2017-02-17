@@ -38,7 +38,13 @@
 								{{ Form::hidden('export', 'Export') }} 
 								{{ Form::submit('Export', ['style' => 'float:right']) }} 
 							{{ Form::close() }}
-                        </div>
+
+						</div>
+							@if($type == "completed")
+								{{ Form::open(['route' => ['admin.downloadOrders', $type, $admin_id, $company]]) }} 
+									{{ Form::submit('Export all images', ['style' => 'float: right; margin-right: 10px;', 'class' => 'btn btn-primary']) }} 
+								{{ Form::close() }}
+							@endif
 					</div>
 					@endif
 	        	</div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DeletedPhotos;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -9,11 +10,11 @@ use App\Order;
 use App\Bank;
 use App\User;
 use App\Settings;
-use Illuminate\Pagination\Paginator;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use ZipArchive;
+use Storage;
 use Mail;
 
 class AdminController extends Controller
@@ -478,10 +479,26 @@ class AdminController extends Controller
                 $order->save();
                 $status = 'completed';
                 $amount = $order->amount;
+
+                $userO = User::find($order->user_id);
+
                 Mail::send('admin.emails.completed', ['order' => $order], function($message) use ($order) {
                     $message->to($order->user->email);
                     $message->subject('Bitcoins Sent!');
                 });
+
+                Storage::makeDirectory('/images/downloads/'.$userO->hash."_".$this->current_time);
+
+                if(!empty($order->receipt)){
+                    Storage::copy('/images/receipts/'.$order->receipt, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$order->receipt);
+                }
+                if(!empty($order->selfie)){
+                    Storage::copy('/images/selfie/'.$order->selfie, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$order->selfie);
+                }
+                if(!empty($userO->photoid)){
+                    Storage::copy('/images/photoid/'.$userO->photoid, '/images/downloads/'.$userO->hash."_".$this->current_time.'/'.$userO->photoid);
+                }
+
             }
         } else {
             $status = '';
@@ -551,4 +568,103 @@ class AdminController extends Controller
         }
     }
 
+    public function downloadOrder() {
+        $zipFileName = 'CTC_images.zip';
+        $public_dir = public_path() . '/downloads';
+        $filetopath = $public_dir.'/'.$zipFileName;
+
+        if(!file_exists($public_dir)) {
+            Storage::makeDirectory("downloads");
+        }
+
+        if(file_exists($public_dir."/".$zipFileName)) {
+            Storage::delete("/downloads/".$zipFileName);
+        }
+
+            $zip = new ZipArchive;
+            $zip->open($filetopath, ZipArchive::CREATE);
+
+            $orders = Order::where("status", '=', "completed")->with("user")->get();
+
+            foreach ($orders as $order) {
+                $i = 1;
+                $receiptIds = 1;
+                $selfieIds = 1;
+
+                $user = $order->user;
+
+                $completedDate = explode(" ", $order->completed_at);
+
+                if(!$zip->locateName($user->id ."_". $user->hash."/")){
+                    $zip->addEmptyDir($user->id . "_" . $user->hash);
+
+                    if(file_exists("photoid/".$user->photoid))
+                    {
+                        $zip->addFile("photoid/".$user->photoid, "photoid_");
+                    }
+
+                    $deletedPhotos = DeletedPhotos::where([
+                        ['user_hash', '=', $user->hash],
+                        ['type', '=', 'photoid'],
+                    ])->get();
+
+                    foreach($deletedPhotos as $deleted)
+                    {
+                        if(file_exists('photoid/deleted/'.$deleted->hash)) {
+                            $zip->addFile('photoid/deleted/' . $deleted->hash, $user->id ."_". $user->hash."/photoid_");
+                        }
+                    }
+                }
+
+                while($zip->locateName($user->id ."_". $user->hash."/".$completedDate[0]."_".$i."/")){
+                    $i++;
+                }
+
+                $zip->addEmptyDir($user->id ."_". $user->hash."/".$completedDate[0]."_".$i);
+
+                $deletedReceipts = DeletedPhotos::where([
+                                        ['order_id', '=', $order->id],
+                                        ['type', '=', 'receipt'],
+                                    ])->get();
+                $deletedSelfies = DeletedPhotos::where([
+                                        ['order_id', '=', $order->id],
+                                        ['type', '=', 'selfie'],
+                                    ])->get();
+
+                if(file_exists("receipts/".$order->receipt))
+                {
+                    $newDirectory = $user->id ."_". $user->hash."/".$completedDate[0]."_".$i."/"."receipt_";
+                    $zip->addFile("receipts/".$order->receipt, $newDirectory.$receiptIds);
+                }
+
+                foreach($deletedReceipts as $photo){
+                    $receiptIds++;
+                    $zip->addFile("receipts/deleted/".$photo->hash, $user->id ."_". $user->hash."/".$completedDate[0]."_".$i."/"."receipt_".$receiptIds);
+                }
+
+                if(file_exists("selfie/".$order->selfie))
+                {
+                    $newDirectory = $user->id ."_". $user->hash."/".$completedDate[0]."_".$i."/"."selfie_";
+                    $zip->addFile("selfie/".$order->selfie, $newDirectory.$selfieIds);
+                }
+
+                foreach($deletedSelfies as $photo){
+                    $selfieIds++;
+                    $zip->addFile("selfie/deleted/".$photo->hash, $user->id ."_". $user->hash."/".$completedDate[0]."_".$i."/"."selfie_".$selfieIds);
+                }
+
+            }
+
+            $zip->close();
+            $headers = array(
+                'Content-Type' => 'application/octet-stream',
+            );
+
+
+        $filetopath=$public_dir.'/'.$zipFileName;
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
+        return ['status'=>'file does not exist'];
+    }
 }

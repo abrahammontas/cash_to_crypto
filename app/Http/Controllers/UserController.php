@@ -49,7 +49,7 @@ class UserController extends Controller
         [
             'photoid.image' => 'Photo ID must be an image.',
             'photo.image' => 'Selfie must be an image.',
-        ]); 
+        ]);
 
         $updated = false;
         $user = Auth::user();
@@ -59,13 +59,13 @@ class UserController extends Controller
         {
             $hash = md5(microtime() . $request->file('photoid'));
 
-            if (Storage::put("/public/photoid/".$hash, file_get_contents($request->file('photoid'))))
+            if (Storage::put("/photoid/".$hash, file_get_contents($request->file('photoid'))))
             {
-                $oldImage = "/public/photoid/".$user->photoid;
+                $oldImage = "/photoid/".$user->photoid;
 
                 if ($user->photoid && Storage::exists($oldImage))
                 {
-                    Storage::move($oldImage, '/public/photoid/deleted/'.$user->photoid);
+                    Storage::move($oldImage, '/photoid/deleted/'.$user->photoid);
                     DeletedPhotos::create([
                         'hash' => $user->photoid,
                         'user_hash' => $user->hash,
